@@ -1,5 +1,4 @@
 export default async function handler(req, res) {
-    // Sirf GET request allow karein
     if (req.method !== 'GET') {
         return res.status(405).json({ error: 'Method Not Allowed' });
     }
@@ -10,25 +9,29 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'Query is required' });
     }
 
-    // Yahan RapidAPI ka URL dalna hai (Yeh ek example URL hai)
-    const url = `https://instagram-scraper-api2.p.rapidapi.com/v1/search_hashtag?hashtag=${query}`;
+    // Instagram Looter2 API ka URL
+    const url = `https://instagram-looter2.p.rapidapi.com/search?query=${query}`;
 
     const options = {
         method: 'GET',
         headers: {
-            // process.env Vercel ke environment variables se key uthayega
-            'X-RapidAPI-Key': 07e23ed9dbmsh948471f391f4f0fp10ef2bjsn55cdc8e01ce5, 
-            'X-RapidAPI-Host': 'instagram-looter2.p.rapidapi.co' // Jo host API provider de
+            'X-RapidAPI-Key': process.env.RAPIDAPI_KEY, 
+            'X-RapidAPI-Host': 'instagram-looter2.p.rapidapi.com'
         }
     };
 
     try {
         const response = await fetch(url, options);
-        const data = await response.json();
         
-        // Frontend ko data bhej do
+        if (!response.ok) {
+            const errorText = await response.text();
+            return res.status(response.status).json({ error: 'RapidAPI request failed', details: errorText });
+        }
+
+        const data = await response.json();
         res.status(200).json(data);
+        
     } catch (error) {
-        res.status(500).json({ error: 'Failed to fetch data from RapidAPI' });
+        res.status(500).json({ error: 'Server Crash', details: error.message });
     }
 }
