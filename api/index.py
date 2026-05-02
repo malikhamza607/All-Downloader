@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
-import requests
+import yt_dlp
+import os
 
 app = Flask(__name__)
 
@@ -10,47 +11,36 @@ def get_video_link():
     if not video_url:
         return jsonify({"success": False, "error": "Bhai, video ka URL to do!"})
 
-    # Cobalt API - Yeh third-party server hai jo bot protection aur timeouts handle karta hai
-    api_url = "https://api.cobalt.tools/api/json"
-    
-    # Servers ko dhoka dene ke liye original headers
-    headers = {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Origin": "https://cobalt.tools",
-        "Referer": "https://cobalt.tools/",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-    }
-    
-    # API ko payload bhejna (720p quality aur classic file name)
-    payload = {
-        "url": video_url,
-        "vQuality": "720", 
-        "filenamePattern": "classic"
+    # Cookies file ko api folder ke andar dhoondna
+    cookie_path = os.path.join(os.path.dirname(__file__), 'cookies.txt')
+
+    # yt-dlp ki nayi aur safe settings (Real Browser trick)
+    ydl_opts = {
+        'format': 'best',
+        'quiet': True,
+        'noplaylist': True,
+        'nocheckcertificate': True,
+        'cookiefile': cookie_path, # Cookies attach kar di
+        'http_headers': {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+        }
     }
 
     try:
-        # API ko request bhejna (is mein sirf 1-2 seconds lagte hain)
-        response = requests.post(api_url, headers=headers, json=payload)
-        data = response.json()
-
-        # Agar API ne successfully link nikal liya (redirect, stream, ya picker mode)
-        if data.get("status") in ["redirect", "stream", "success", "picker"]:
-            direct_link = data.get("url")
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            # Info nikalna
+            info_dict = ydl.extract_info(video_url, download=False)
             
-            # Agar API multiple links de (jaise alag se video/audio), to pehla utha lo
-            if data.get("status") == "picker":
-                direct_link = data["picker"][0]["url"]
+            direct_url = info_dict.get('url', None)
+            title = info_dict.get('title', 'Video')
+
+            if not direct_url:
+                return jsonify({"success": False, "error": "Direct link nahi mila. Shayad video private hai."})
 
             return jsonify({
                 "success": True,
-                "title": "Video Ready (Bot Bypassed!)", 
-                "download_url": direct_link
-            })
-        else:
-            return jsonify({
-                "success": False,
-                "error": data.get("text", "API video nikalne mein fail ho gayi. Shayad link private hai.")
+                "title": title,
+                "download_url": direct_url
             })
             
     except Exception as e:
