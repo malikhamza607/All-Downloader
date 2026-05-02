@@ -63,6 +63,7 @@
             border-radius: 6px;
             display: none;
             word-wrap: break-word;
+            font-size: 14px;
         }
         .success {
             background-color: #28a74522;
@@ -121,12 +122,10 @@
             return;
         }
 
-        // Smart Link Cleaner: Tracking parameters hatane ke liye
+        // Zabardast Link Cleaner: Ab yeh `?si=` aur `?igsh=` sab ko theek se udayega
         let cleanUrl = urlInput;
-        if (cleanUrl.includes('instagram.com') || cleanUrl.includes('tiktok.com')) {
+        if (cleanUrl.includes('?')) {
             cleanUrl = cleanUrl.split('?')[0];
-        } else if (cleanUrl.includes('youtu.be') || cleanUrl.includes('youtube.com')) {
-            cleanUrl = cleanUrl.split('&')[0];
         }
 
         // UI Reset
@@ -137,11 +136,14 @@
         try {
             const response = await fetch(`/api/download?url=${encodeURIComponent(cleanUrl)}`);
             
-            if (!response.ok) {
-                throw new Error(`Error ${response.status}: Vercel timeout ya network issue.`);
+            let data;
+            try {
+                // Ab yeh JSON zaroor read karega chahay error ho
+                data = await response.json();
+            } catch (e) {
+                throw new Error("Vercel Timeout: Video extract karne mein 10 second se zyada lag gaye.");
             }
 
-            const data = await response.json();
             loader.style.display = 'none';
 
             if (data.success) {
@@ -158,9 +160,7 @@
         } catch (error) {
             loader.style.display = 'none';
             resultBox.classList.add('error');
-            videoTitle.innerText = error.message.includes("Unexpected token") 
-                ? "Timeout: Server ne time zyada le liya, dobara try karein." 
-                : "Error: " + error.message;
+            videoTitle.innerText = error.message;
             downloadLink.style.display = 'none';
             resultBox.style.display = 'block';
         }
