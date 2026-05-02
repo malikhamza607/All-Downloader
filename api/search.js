@@ -17,8 +17,8 @@ export default async function handler(req, res) {
         method: 'GET',
         headers: {
             // process.env Vercel ke environment variables se key uthayega
-            'X-RapidAPI-Key': process.env.RAPIDAPI_KEY, 
-            'X-RapidAPI-Host': 'instagram-scraper-api2.p.rapidapi.com' // Jo host API provider de
+            'X-RapidAPI-Key': 07e23ed9dbmsh948471f391f4f0fp10ef2bjsn55cdc8e01ce5, 
+            'X-RapidAPI-Host': 'instagram-looter2.p.rapidapi.co' // Jo host API provider de
         }
     };
 
