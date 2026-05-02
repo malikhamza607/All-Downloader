@@ -19,6 +19,7 @@
   --text: #f0f0f0;
   --muted: #666;
   --card: #161616;
+  --green: #22c55e;
 }
 
 body {
@@ -29,7 +30,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Animated background grid */
 body::before {
   content: '';
   position: fixed;
@@ -47,63 +47,90 @@ body::before {
   z-index: 1;
   max-width: 760px;
   margin: 0 auto;
-  padding: 60px 20px 100px;
+  padding: 50px 20px 100px;
 }
 
-/* HEADER */
-header {
-  text-align: center;
-  margin-bottom: 56px;
-}
+header { text-align: center; margin-bottom: 48px; }
 
 .logo {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(64px, 12vw, 110px);
+  font-size: clamp(60px, 12vw, 100px);
   letter-spacing: 4px;
   line-height: 0.9;
   background: linear-gradient(135deg, #ff3c3c 0%, #ff8c00 60%, #ffcc00 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 12px;
-  animation: fadeSlideDown 0.7s cubic-bezier(.22,1,.36,1) both;
+  margin-bottom: 10px;
+  animation: fadeDown 0.7s cubic-bezier(.22,1,.36,1) both;
 }
 
 .tagline {
   color: var(--muted);
-  font-size: 14px;
+  font-size: 13px;
   letter-spacing: 3px;
   text-transform: uppercase;
   font-weight: 300;
-  animation: fadeSlideDown 0.7s 0.1s cubic-bezier(.22,1,.36,1) both;
+  animation: fadeDown 0.7s 0.1s cubic-bezier(.22,1,.36,1) both;
 }
 
-/* PLATFORM BADGES */
 .platforms {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: wrap;
-  margin-top: 20px;
-  animation: fadeSlideDown 0.7s 0.2s cubic-bezier(.22,1,.36,1) both;
+  margin-top: 18px;
+  animation: fadeDown 0.7s 0.2s cubic-bezier(.22,1,.36,1) both;
 }
 
 .badge {
-  padding: 4px 14px;
+  padding: 4px 13px;
   border-radius: 100px;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.5px;
   border: 1px solid;
 }
 
-.badge-yt  { color: #ff4444; border-color: #ff444444; background: #ff44440d; }
-.badge-ig  { color: #e1306c; border-color: #e1306c44; background: #e1306c0d; }
-.badge-tt  { color: #69c9d0; border-color: #69c9d044; background: #69c9d00d; }
-.badge-tw  { color: #1d9bf0; border-color: #1d9bf044; background: #1d9bf00d; }
-.badge-fb  { color: #4267b2; border-color: #4267b244; background: #4267b20d; }
+.badge-yt  { color: #ff4444; border-color: #ff444455; background: #ff44440d; }
+.badge-ig  { color: #e1306c; border-color: #e1306c55; background: #e1306c0d; }
+.badge-tt  { color: #69c9d0; border-color: #69c9d055; background: #69c9d00d; }
+.badge-tw  { color: #1d9bf0; border-color: #1d9bf055; background: #1d9bf00d; }
+.badge-fb  { color: #4267b2; border-color: #4267b255; background: #4267b20d; }
 
-/* SEARCH BOX */
+/* TABS */
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 4px;
+  animation: fadeDown 0.7s 0.25s cubic-bezier(.22,1,.36,1) both;
+}
+
+.tab {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tab.active {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+/* SEARCH */
 .search-wrap {
   display: flex;
   gap: 0;
@@ -112,7 +139,7 @@ header {
   overflow: hidden;
   background: var(--surface);
   transition: border-color 0.2s;
-  animation: fadeSlideDown 0.7s 0.25s cubic-bezier(.22,1,.36,1) both;
+  animation: fadeDown 0.7s 0.3s cubic-bezier(.22,1,.36,1) both;
 }
 
 .search-wrap:focus-within {
@@ -141,18 +168,17 @@ header {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 18px;
   letter-spacing: 2px;
-  padding: 0 30px;
+  padding: 0 28px;
   transition: opacity 0.2s, transform 0.1s;
   white-space: nowrap;
 }
 
-#fetchBtn:hover { opacity: 0.9; }
+#fetchBtn:hover { opacity: 0.88; }
 #fetchBtn:active { transform: scale(0.97); }
-#fetchBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+#fetchBtn:disabled { opacity: 0.45; cursor: not-allowed; }
 
-/* STATUS */
 #status {
-  margin-top: 18px;
+  margin-top: 16px;
   text-align: center;
   font-size: 14px;
   color: var(--muted);
@@ -161,10 +187,9 @@ header {
 
 .status-error { color: var(--accent) !important; }
 
-/* SPINNER */
 .spinner {
   display: inline-block;
-  width: 16px; height: 16px;
+  width: 15px; height: 15px;
   border: 2px solid var(--border);
   border-top-color: var(--accent);
   border-radius: 50%;
@@ -174,22 +199,20 @@ header {
 }
 
 @keyframes spin { to { transform: rotate(360deg); } }
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
-/* RESULT CARD */
+/* RESULT */
 #result {
-  margin-top: 36px;
+  margin-top: 32px;
   display: none;
   animation: fadeUp 0.45s cubic-bezier(.22,1,.36,1) both;
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeSlideDown {
-  from { opacity: 0; transform: translateY(-16px); }
-  to   { opacity: 1; transform: translateY(0); }
 }
 
 .video-card {
@@ -201,7 +224,7 @@ header {
 
 .video-top {
   display: flex;
-  gap: 18px;
+  gap: 16px;
   padding: 20px;
   align-items: flex-start;
 }
@@ -212,32 +235,28 @@ header {
   height: 82px;
   border-radius: 8px;
   overflow: hidden;
-  background: var(--border);
+  background: #1a1a1a;
   position: relative;
 }
 
-.thumb-wrap img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-}
+.thumb-wrap img { width: 100%; height: 100%; object-fit: cover; }
 
 .platform-pill {
   position: absolute;
-  top: 6px; left: 6px;
-  font-size: 10px;
-  font-weight: 600;
+  top: 5px; left: 5px;
+  font-size: 9px;
+  font-weight: 700;
   letter-spacing: 0.5px;
-  padding: 2px 8px;
+  padding: 2px 7px;
   border-radius: 100px;
-  background: rgba(0,0,0,0.75);
+  background: rgba(0,0,0,0.8);
   color: #fff;
-  backdrop-filter: blur(4px);
 }
 
 .video-meta { flex: 1; min-width: 0; }
 
 .video-title {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
   line-height: 1.4;
   margin-bottom: 6px;
@@ -251,11 +270,11 @@ header {
   font-size: 12px;
   color: var(--muted);
   display: flex;
-  gap: 12px;
+  gap: 10px;
   flex-wrap: wrap;
 }
 
-/* FORMAT LIST */
+/* FORMATS */
 .formats-wrap {
   border-top: 1px solid var(--border);
   padding: 16px 20px 20px;
@@ -271,7 +290,7 @@ header {
 
 .formats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 10px;
 }
 
@@ -293,7 +312,7 @@ header {
 .format-btn:hover {
   border-color: var(--accent);
   background: rgba(255,60,60,0.06);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 .format-btn:active { transform: scale(0.97); }
@@ -306,44 +325,34 @@ header {
   color: var(--accent);
 }
 
-.fmt-detail {
-  font-size: 11px;
-  color: var(--muted);
-}
+.fmt-detail { font-size: 11px; color: var(--muted); }
 
-.fmt-size {
-  font-size: 10px;
-  color: #444;
-  margin-top: 2px;
-}
-
-/* DIRECT DL FALLBACK */
-.direct-dl {
-  margin-top: 14px;
-  text-align: center;
-}
-
-.direct-dl a {
-  color: var(--accent2);
+/* INFO BOX */
+.info-box {
+  margin-top: 24px;
+  padding: 16px 18px;
+  border-radius: 10px;
+  border: 1px solid #1e3a1e;
+  background: #0d1f0d;
   font-size: 13px;
-  text-decoration: none;
-  border-bottom: 1px dashed var(--accent2);
-  padding-bottom: 1px;
+  color: #86efac;
+  line-height: 1.6;
+  animation: fadeUp 0.5s 0.1s cubic-bezier(.22,1,.36,1) both;
 }
 
-/* FOOTER */
+.info-box strong { color: var(--green); }
+
 footer {
   text-align: center;
-  margin-top: 80px;
+  margin-top: 70px;
   color: #2a2a2a;
   font-size: 12px;
 }
 
-/* MOBILE */
 @media (max-width: 480px) {
   .video-top { flex-direction: column; }
-  .thumb-wrap { width: 100%; height: 180px; }
-  #fetchBtn { padding: 0 20px; font-size: 16px; }
+  .thumb-wrap { width: 100%; height: 170px; }
+  #fetchBtn { padding: 0 18px; font-size: 16px; }
 }
 ```
 
@@ -364,154 +373,277 @@ footer {
     </div>
   </header>
 
+  <!-- PLATFORM TABS -->
+
+  <div class="tabs">
+    <button class="tab active" onclick="setTab('youtube')">▶ YouTube</button>
+    <button class="tab" onclick="setTab('instagram')">📸 Instagram</button>
+    <button class="tab" onclick="setTab('tiktok')">🎵 TikTok</button>
+    <button class="tab" onclick="setTab('other')">🌐 Other</button>
+  </div>
+
   <div class="search-wrap">
-    <input
-      id="urlInput"
-      type="url"
-      placeholder="Paste video URL here…"
-      autocomplete="off"
-      spellcheck="false"
-    />
+    <input id="urlInput" type="url" placeholder="Paste video URL here…" autocomplete="off" spellcheck="false" />
     <button id="fetchBtn">FETCH</button>
   </div>
 
   <div id="status"></div>
 
+  <!-- INFO BOX -->
+
+  <div class="info-box" id="infoBox">
+    <strong>💡 Yeh kaise kaam karta hai?</strong><br>
+    URL paste karo → <strong>FETCH</strong> dabao → Download links milenge.<br><br>
+    <strong>YouTube:</strong> Direct download links generate honge.<br>
+    <strong>Instagram / TikTok / Twitter:</strong> Best available download service use hogi.<br>
+    <strong>No API key needed</strong> — bilkul free!
+  </div>
+
   <div id="result">
     <div class="video-card">
       <div class="video-top">
         <div class="thumb-wrap">
-          <img id="thumb" src="" alt="thumbnail" />
+          <img id="thumb" src="" alt="thumbnail" onerror="this.parentElement.style.background='#1a1a1a'; this.style.display='none'" />
           <span class="platform-pill" id="platformPill"></span>
         </div>
         <div class="video-meta">
           <div class="video-title" id="vidTitle"></div>
           <div class="video-info">
-            <span id="vidUploader"></span>
-            <span id="vidDuration"></span>
+            <span id="vidInfo"></span>
           </div>
         </div>
       </div>
       <div class="formats-wrap">
-        <div class="formats-label">Choose Quality</div>
+        <div class="formats-label">Download Options</div>
         <div class="formats-grid" id="formatsGrid"></div>
-        <div class="direct-dl" id="directDl"></div>
       </div>
     </div>
   </div>
 
 </div>
 
-<footer>VidSnatch — for personal use only. Respect content creators.</footer>
+<footer>VidSnatch — Personal use only. Respect content creators.</footer>
 
 <script>
-  const btn = document.getElementById('fetchBtn');
-  const input = document.getElementById('urlInput');
-  const status = document.getElementById('status');
-  const result = document.getElementById('result');
+  let currentTab = 'youtube';
 
-  function formatDuration(secs) {
-    if (!secs) return '';
-    const h = Math.floor(secs / 3600);
-    const m = Math.floor((secs % 3600) / 60);
-    const s = secs % 60;
-    if (h > 0) return `${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-    return `${m}:${String(s).padStart(2,'0')}`;
-  }
+  function setTab(tab) {
+    currentTab = tab;
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    event.target.classList.add('active');
 
-  function formatSize(bytes) {
-    if (!bytes) return '';
-    if (bytes > 1_000_000) return `~${(bytes/1_000_000).toFixed(0)} MB`;
-    if (bytes > 1_000) return `~${(bytes/1_000).toFixed(0)} KB`;
-    return `${bytes} B`;
+    const placeholders = {
+      youtube: 'YouTube video URL paste karein…',
+      instagram: 'Instagram post/reel URL paste karein…',
+      tiktok: 'TikTok video URL paste karein…',
+      other: 'Koi bhi video URL paste karein…',
+    };
+    document.getElementById('urlInput').placeholder = placeholders[tab];
+    document.getElementById('result').style.display = 'none';
+    setStatus('');
   }
 
   function setStatus(msg, isError = false) {
-    status.innerHTML = msg;
-    status.className = isError ? 'status-error' : '';
+    const s = document.getElementById('status');
+    s.innerHTML = msg;
+    s.className = isError ? 'status-error' : '';
+  }
+
+  function detectPlatform(url) {
+    const u = url.toLowerCase();
+    if (u.includes('youtube.com') || u.includes('youtu.be')) return 'YouTube';
+    if (u.includes('instagram.com')) return 'Instagram';
+    if (u.includes('tiktok.com')) return 'TikTok';
+    if (u.includes('twitter.com') || u.includes('x.com')) return 'Twitter/X';
+    if (u.includes('facebook.com') || u.includes('fb.watch')) return 'Facebook';
+    return 'Video';
+  }
+
+  // ─── YouTube via yt1s / noembed ───────────────────────────────
+  async function fetchYouTube(url) {
+    // Get video ID
+    let videoId = null;
+    const patterns = [
+      /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/,
+      /youtube\.com\/shorts\/([^&\n?#]+)/
+    ];
+    for (const p of patterns) {
+      const m = url.match(p);
+      if (m) { videoId = m[1]; break; }
+    }
+
+    if (!videoId) throw new Error('Valid YouTube URL nahi hai.');
+
+    // Use noembed for metadata
+    let title = 'YouTube Video';
+    let thumbnail = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+    let author = '';
+
+    try {
+      const meta = await fetch(`https://noembed.com/embed?url=${encodeURIComponent(url)}`);
+      const mj = await meta.json();
+      if (mj.title) title = mj.title;
+      if (mj.author_name) author = mj.author_name;
+      if (mj.thumbnail_url) thumbnail = mj.thumbnail_url;
+    } catch(e) {}
+
+    // Build download links via y2mate-style services
+    const dlServices = [
+      {
+        label: 'HD 720p', ext: 'mp4',
+        url: `https://www.y2mate.com/youtube/${videoId}`
+      },
+      {
+        label: 'SD 360p', ext: 'mp4',
+        url: `https://ssyoutube.com/watch?v=${videoId}`
+      },
+      {
+        label: 'Audio MP3', ext: 'mp3',
+        url: `https://www.y2mate.com/youtube-mp3/${videoId}`
+      },
+    ];
+
+    // Also add cobalt.tools which is the best free service
+    const cobaltUrl = `https://cobalt.tools/?u=${encodeURIComponent(url)}`;
+
+    return {
+      title,
+      thumbnail,
+      uploader: author,
+      platform: 'YouTube',
+      formats: [
+        { label: 'COBALT', sublabel: 'Best Downloader', url: cobaltUrl, recommended: true },
+        { label: 'Y2MATE', sublabel: 'HD / SD / MP3', url: `https://www.y2mate.com/youtube/${videoId}` },
+        { label: 'SAVEFROM', sublabel: 'Multiple Formats', url: `https://en.savefrom.net/#url=${encodeURIComponent(url)}` },
+        { label: 'SSYOUTUBE', sublabel: 'Fast Download', url: `https://ssyoutube.com/watch?v=${videoId}` },
+      ]
+    };
+  }
+
+  // ─── Instagram ────────────────────────────────────────────────
+  async function fetchInstagram(url) {
+    const services = [
+      { label: 'SNAPINSTA', sublabel: 'Reels & Posts', url: `https://snapinsta.app/?url=${encodeURIComponent(url)}` },
+      { label: 'IGDOWNLOADER', sublabel: 'HD Quality', url: `https://igdownloader.app/?url=${encodeURIComponent(url)}` },
+      { label: 'INSTAFINSTA', sublabel: 'Videos & Images', url: `https://instafinsta.com/?url=${encodeURIComponent(url)}` },
+      { label: 'FASTDL', sublabel: 'Quick Download', url: `https://fastdl.app/instagram?url=${encodeURIComponent(url)}` },
+    ];
+
+    return {
+      title: 'Instagram Video',
+      thumbnail: '',
+      platform: 'Instagram',
+      formats: services
+    };
+  }
+
+  // ─── TikTok ───────────────────────────────────────────────────
+  async function fetchTikTok(url) {
+    // Try snaptik API (public, no key needed)
+    let title = 'TikTok Video';
+    let thumbnail = '';
+
+    const services = [
+      { label: 'SSSTIK', sublabel: 'No Watermark', url: `https://ssstik.io/en?url=${encodeURIComponent(url)}` },
+      { label: 'SNAPTIK', sublabel: 'HD Quality', url: `https://snaptik.app/?url=${encodeURIComponent(url)}` },
+      { label: 'TIKMATE', sublabel: 'Fast & Free', url: `https://tikmate.online/?url=${encodeURIComponent(url)}` },
+      { label: 'COBALT', sublabel: 'Best Service', url: `https://cobalt.tools/?u=${encodeURIComponent(url)}` },
+    ];
+
+    return {
+      title,
+      thumbnail,
+      platform: 'TikTok',
+      formats: services
+    };
+  }
+
+  // ─── Other (Twitter, Facebook, etc.) ─────────────────────────
+  async function fetchOther(url) {
+    const platform = detectPlatform(url);
+    const services = [
+      { label: 'COBALT', sublabel: 'Best Universal', url: `https://cobalt.tools/?u=${encodeURIComponent(url)}`, recommended: true },
+      { label: 'SAVEFROM', sublabel: 'Many Sites', url: `https://en.savefrom.net/#url=${encodeURIComponent(url)}` },
+      { label: 'GETFVID', sublabel: 'Facebook/Twitter', url: `https://www.getfvid.com/?url=${encodeURIComponent(url)}` },
+      { label: 'LOADER.TO', sublabel: 'Universal DL', url: `https://loader.to/en/tool/?url=${encodeURIComponent(url)}` },
+    ];
+
+    return {
+      title: `${platform} Video`,
+      thumbnail: '',
+      platform,
+      formats: services
+    };
   }
 
   async function fetchVideo() {
-    const url = input.value.trim();
-    if (!url) { setStatus('Please paste a video URL first.', true); return; }
+    const url = document.getElementById('urlInput').value.trim();
+    if (!url) { setStatus('Video URL paste karein!', true); return; }
+    if (!url.startsWith('http')) { setStatus('Valid URL hona chahiye (http:// se shuru ho).', true); return; }
 
-    btn.disabled = true;
-    result.style.display = 'none';
-    setStatus('<span class="spinner"></span>Fetching video info…');
+    document.getElementById('fetchBtn').disabled = true;
+    document.getElementById('result').style.display = 'none';
+    document.getElementById('infoBox').style.display = 'none';
+    setStatus('<span class="spinner"></span>Fetching…');
 
     try {
-      const apiUrl = `/api/download?url=${encodeURIComponent(url)}`;
-      const res = await fetch(apiUrl);
-      const json = await res.json();
+      const platform = detectPlatform(url);
+      let data;
 
-      if (!res.ok || json.error) {
-        setStatus(json.error || 'Something went wrong.', true);
-        return;
-      }
+      if (platform === 'YouTube') data = await fetchYouTube(url);
+      else if (platform === 'Instagram') data = await fetchInstagram(url);
+      else if (platform === 'TikTok') data = await fetchTikTok(url);
+      else data = await fetchOther(url);
 
-      const d = json.data;
+      // Render
+      document.getElementById('thumb').src = data.thumbnail || '';
+      document.getElementById('platformPill').textContent = data.platform;
+      document.getElementById('vidTitle').textContent = data.title || data.platform + ' Video';
+      document.getElementById('vidInfo').textContent = data.uploader ? `@${data.uploader}` : '';
 
-      // Fill card
-      document.getElementById('thumb').src = d.thumbnail || '';
-      document.getElementById('thumb').onerror = () => {
-        document.querySelector('.thumb-wrap').style.background = '#1a1a1a';
-      };
-      document.getElementById('platformPill').textContent = d.platform;
-      document.getElementById('vidTitle').textContent = d.title;
-      document.getElementById('vidUploader').textContent = d.uploader ? `@${d.uploader}` : '';
-      document.getElementById('vidDuration').textContent = formatDuration(d.duration);
-
-      // Formats
       const grid = document.getElementById('formatsGrid');
       grid.innerHTML = '';
 
-      if (d.formats && d.formats.length > 0) {
-        d.formats.forEach(f => {
-          const a = document.createElement('a');
-          a.className = 'format-btn';
-          a.href = f.url;
-          a.target = '_blank';
-          a.rel = 'noopener';
-          a.download = '';
-
-          const quality = f.quality || f.ext.toUpperCase();
-          const sizeStr = formatSize(f.filesize);
-
-          a.innerHTML = `
-            <span class="fmt-quality">${quality}</span>
-            <span class="fmt-detail">.${f.ext} · Download</span>
-            ${sizeStr ? `<span class="fmt-size">${sizeStr}</span>` : ''}
-          `;
-          grid.appendChild(a);
-        });
-      } else if (d.direct_url) {
-        // Fallback: single direct link
+      data.formats.forEach(f => {
         const a = document.createElement('a');
         a.className = 'format-btn';
-        a.href = d.direct_url;
+        a.href = f.url;
         a.target = '_blank';
-        a.rel = 'noopener';
-        a.innerHTML = `<span class="fmt-quality">BEST</span><span class="fmt-detail">Download</span>`;
+        a.rel = 'noopener noreferrer';
+        a.innerHTML = `
+          <span class="fmt-quality" style="${f.recommended ? 'color:var(--green)' : ''}">${f.label}</span>
+          <span class="fmt-detail">${f.sublabel}${f.recommended ? ' ⭐' : ''}</span>
+        `;
         grid.appendChild(a);
-      }
+      });
 
-      // Direct URL fallback notice
-      const directDl = document.getElementById('directDl');
-      directDl.innerHTML = d.direct_url
-        ? `<a href="${d.direct_url}" target="_blank" rel="noopener">↗ Open direct stream URL</a>`
-        : '';
-
-      result.style.display = 'block';
-      setStatus('');
+      document.getElementById('result').style.display = 'block';
+      setStatus('✅ Links mil gaye — click karke download karein!');
     } catch (err) {
-      setStatus('Network error. Make sure the API is deployed.', true);
+      setStatus('❌ ' + (err.message || 'Kuch galat hua. Dobara try karein.'), true);
     } finally {
-      btn.disabled = false;
+      document.getElementById('fetchBtn').disabled = false;
     }
   }
 
-  btn.addEventListener('click', fetchVideo);
-  input.addEventListener('keydown', e => { if (e.key === 'Enter') fetchVideo(); });
+  document.getElementById('fetchBtn').addEventListener('click', fetchVideo);
+  document.getElementById('urlInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') fetchVideo();
+  });
+
+  // Auto-detect tab from pasted URL
+  document.getElementById('urlInput').addEventListener('input', e => {
+    const url = e.target.value.toLowerCase();
+    if (url.includes('youtube') || url.includes('youtu.be')) setTabSilent('youtube', 0);
+    else if (url.includes('instagram')) setTabSilent('instagram', 1);
+    else if (url.includes('tiktok')) setTabSilent('tiktok', 2);
+    else if (url.includes('http')) setTabSilent('other', 3);
+  });
+
+  function setTabSilent(tab, idx) {
+    currentTab = tab;
+    document.querySelectorAll('.tab').forEach((t, i) => t.classList.toggle('active', i === idx));
+  }
 </script>
 
 </body>
