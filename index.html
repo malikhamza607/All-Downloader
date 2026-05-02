@@ -23,13 +23,14 @@
             width: 100%;
             max-width: 400px;
             text-align: center;
+            box-sizing: border-box;
         }
         h2 {
             margin-bottom: 20px;
             color: #4da6ff;
         }
         input[type="text"] {
-            width: 90%;
+            width: 100%;
             padding: 12px;
             margin-bottom: 15px;
             border: 1px solid #333;
@@ -37,6 +38,7 @@
             background-color: #2a2a2a;
             color: #fff;
             outline: none;
+            box-sizing: border-box;
         }
         input[type="text"]:focus {
             border-color: #4da6ff;
@@ -60,6 +62,7 @@
             padding: 15px;
             border-radius: 6px;
             display: none;
+            word-wrap: break-word;
         }
         .success {
             background-color: #28a74522;
@@ -71,13 +74,14 @@
         }
         a.download-btn {
             display: inline-block;
-            margin-top: 10px;
+            margin-top: 15px;
             padding: 10px 20px;
             background-color: #28a745;
             color: white;
             text-decoration: none;
             border-radius: 4px;
             font-size: 14px;
+            font-weight: bold;
         }
         .loader {
             display: none;
@@ -91,7 +95,7 @@
 
 <div class="container">
     <h2>Video Downloader</h2>
-    <p style="font-size: 13px; color: #888;">YouTube, TikTok, aur Instagram links support karta hai</p>
+    <p style="font-size: 13px; color: #888; margin-bottom: 20px;">YouTube, TikTok, aur Instagram links support karta hai</p>
     
     <input type="text" id="videoUrl" placeholder="Video ka link yahan paste karein...">
     <button onclick="fetchVideo()">Get Download Link</button>
@@ -117,16 +121,27 @@
             return;
         }
 
+        // Smart Link Cleaner: Tracking parameters hatane ke liye
+        let cleanUrl = urlInput;
+        if (cleanUrl.includes('instagram.com') || cleanUrl.includes('tiktok.com')) {
+            cleanUrl = cleanUrl.split('?')[0];
+        } else if (cleanUrl.includes('youtu.be') || cleanUrl.includes('youtube.com')) {
+            cleanUrl = cleanUrl.split('&')[0];
+        }
+
         // UI Reset
         resultBox.style.display = 'none';
         resultBox.className = 'result';
         loader.style.display = 'block';
 
         try {
-            // API ko call karna jo humne api/index.py mein banayi thi
-            const response = await fetch(`/api/download?url=${encodeURIComponent(urlInput)}`);
-            const data = await response.json();
+            const response = await fetch(`/api/download?url=${encodeURIComponent(cleanUrl)}`);
+            
+            if (!response.ok) {
+                throw new Error(`Error ${response.status}: Vercel timeout ya network issue.`);
+            }
 
+            const data = await response.json();
             loader.style.display = 'none';
 
             if (data.success) {
@@ -143,7 +158,9 @@
         } catch (error) {
             loader.style.display = 'none';
             resultBox.classList.add('error');
-            videoTitle.innerText = "Network Error! Connection check karein.";
+            videoTitle.innerText = error.message.includes("Unexpected token") 
+                ? "Timeout: Server ne time zyada le liya, dobara try karein." 
+                : "Error: " + error.message;
             downloadLink.style.display = 'none';
             resultBox.style.display = 'block';
         }
