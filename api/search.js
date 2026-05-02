@@ -9,13 +9,13 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'Query is required' });
     }
 
-    // Instagram Looter2 API ka URL
     const url = `https://instagram-looter2.p.rapidapi.com/search?query=${query}`;
 
     const options = {
         method: 'GET',
         headers: {
-            'X-RapidAPI-Key': process.env.RAPIDAPI_KEY, 
+            // Maine yahan direct aapki API key daal di hai
+            'X-RapidAPI-Key': '07e23ed9dbmsh948471f391f4f0fp10ef2bjsn55cdc8e01ce5', 
             'X-RapidAPI-Host': 'instagram-looter2.p.rapidapi.com'
         }
     };
