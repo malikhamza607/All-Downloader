@@ -3,56 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instagram Video Search</title>
+    <title>Latest Instagram Reels</title>
     <style>
-        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f9; }
-        .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        input { width: 70%; padding: 10px; margin-right: 10px; border: 1px solid #ccc; border-radius: 4px; }
-        button { padding: 10px 20px; background-color: #0095f6; color: white; border: none; border-radius: 4px; cursor: pointer; }
-        button:hover { background-color: #0077c5; }
-        .result-box { margin-top: 20px; padding: 10px; background: #eee; border-radius: 4px; font-family: monospace; white-space: pre-wrap; word-wrap: break-word; overflow-x: auto;}
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #121212; color: white; padding: 20px; }
+        .container { max-width: 1000px; margin: auto; }
+        
+        .header-box { background: #1e1e1e; padding: 25px; border-radius: 16px; text-align: center; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .header-box h2 { font-size: 24px; margin-bottom: 10px; background: -webkit-linear-gradient(#f09433, #e6683c, #dc2743, #cc2366, #bc1888); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        input { width: 60%; padding: 14px; margin-right: 10px; border: none; border-radius: 8px; font-size: 16px; background: #2a2a2a; color: white; outline: none; }
+        input::placeholder { color: #888; }
+        button { padding: 14px 28px; background-color: #0095f6; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; font-weight: bold; transition: 0.3s;}
+        button:hover { background-color: #1877f2; }
+        
+        #loading { display: none; margin-top: 20px; color: #aaa; font-size: 16px; }
+        
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .video-card { background: #1e1e1e; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; position: relative; border: 1px solid #333;}
+        
+        .thumbnail-container { position: relative; width: 100%; height: 350px; }
+        .thumbnail-container img { width: 100%; height: 100%; object-fit: cover; }
+        .play-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 40px; color: rgba(255,255,255,0.8); pointer-events: none;}
+        .time-badge { position: absolute; top: 10px; left: 10px; background: rgba(220, 39, 67, 0.9); padding: 5px 10px; border-radius: 6px; font-size: 12px; font-weight: bold; }
+        
+        .card-info { padding: 15px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
+        .caption { font-size: 14px; color: #ccc; margin-bottom: 15px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .link-btn { display: block; text-align: center; background: #0095f6; color: white; text-decoration: none; padding: 12px; border-radius: 6px; font-weight: bold; font-size: 14px; transition: 0.3s;}
+        .link-btn:hover { background: #007bb5; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h2>Instagram Video Search</h2>
-        <input type="text" id="searchInput" placeholder="Enter keyword (e.g. cooking)">
-        <button onclick="searchVideos()">Search</button>
-
-        <div id="loading" style="display: none; margin-top: 10px;">Data nikal raha hai, please wait...</div>
+        <div class="header-box">
+            <h2>🔥 Just Uploaded Reels/Videos</h2>
+            <p style="color: #888; font-size: 14px; margin-bottom: 15px;">Search keyword to get exactly 15 latest videos uploaded minutes ago</p>
+            <input type="text" id="searchInput" placeholder="Enter keyword (e.g. funny, usedcars)">
+            <button onclick="fetchLatestVideos()">Search Videos</button>
+            <div id="loading">⏳ Searching Instagram database for the newest videos...</div>
+        </div>
         
-        <div id="results" class="result-box" style="display: none;"></div>
+        <div id="results" class="video-grid"></div>
     </div>
 
     <script>
-        async function searchVideos() {
-            const query = document.getElementById('searchInput').value;
-            if(!query) return alert("Please enter a search term!");
+        async function fetchLatestVideos() {
+            let query = document.getElementById('searchInput').value.trim().replace('#', '');
+            if(!query) return alert("Please enter a keyword to search!");
 
             document.getElementById('loading').style.display = "block";
-            document.getElementById('results').style.display = "none";
+            document.getElementById('results').innerHTML = "";
 
             try {
-                // Vercel backend ko call kar rahe hain
                 const response = await fetch(`/api/search?query=${query}`);
                 
                 if (!response.ok) {
-                    const errText = await response.text();
-                    throw new Error(`Backend Error ${response.status}: ${errText}`);
+                    throw new Error("Failed to fetch data from backend");
                 }
 
                 const data = await response.json();
+                
+                // Instagram return data from different nodes depending on the endpoint
+                // We specifically look for "recent" media edges
+                let allItems = data.graphql?.hashtag?.edge_hashtag_to_media?.edges || data.data?.recent?.items || data.items || [];
+                
+                if(allItems.length === 0) {
+                    document.getElementById('loading').style.display = "none";
+                    document.getElementById('results').innerHTML = "<p style='color:#ff4d4d;'>Koi nayi video nahi mili. Keyword change kar ke try karein.</p>";
+                    return;
+                }
+
+                // Sirf VIDEOS filter out karna
+                let onlyVideos = allItems.filter(item => {
+                    let node = item.node || item;
+                    return node.is_video === true || node.media_type === 2 || node.video_url;
+                });
+
+                // Time ke hisab se sort karna (Sab se nayi video sab se upar)
+                onlyVideos.sort((a, b) => {
+                    let timeA = (b.node || b).taken_at_timestamp || 0;
+                    let timeB = (a.node || a).taken_at_timestamp || 0;
+                    return timeA - timeB; // Newest first
+                });
+
+                // Exactly 15 videos pick karna
+                let top15Videos = onlyVideos.slice(0, 15);
+
+                if(top15Videos.length === 0) {
+                    document.getElementById('loading').style.display = "none";
+                    document.getElementById('results').innerHTML = "<p style='color:#ff4d4d;'>Is keyword par abhi koi recent video upload nahi hui, sirf pictures hain.</p>";
+                    return;
+                }
+
+                let htmlContent = '';
+                const currentTime = Math.floor(Date.now() / 1000);
+
+                top15Videos.forEach(item => {
+                    let node = item.node || item;
+                    
+                    let shortcode = node.shortcode || node.code;
+                    let postLink = `https://www.instagram.com/reel/${shortcode}/`;
+                    
+                    let caption = node.edge_media_to_caption?.edges[0]?.node?.text || node.caption?.text || "No Caption provided";
+                    let thumbnail = node.display_url || node.thumbnail_src || node.image_versions2?.candidates[0]?.url || "https://via.placeholder.com/300x400?text=Video";
+                    
+                    // Upload time calculation
+                    let uploadedTime = node.taken_at_timestamp;
+                    let minutesAgo = "Just now";
+                    if(uploadedTime) {
+                        let diffMins = Math.floor((currentTime - uploadedTime) / 60);
+                        if (diffMins === 0) minutesAgo = "Just now";
+                        else if (diffMins < 60) minutesAgo = `${diffMins} mins ago`;
+                        else if (diffMins < 1440) minutesAgo = `${Math.floor(diffMins/60)} hrs ago`;
+                        else minutesAgo = "Recently";
+                    }
+
+                    htmlContent += `
+                        <div class="video-card">
+                            <div class="thumbnail-container">
+                                <span class="time-badge">🕒 ${minutesAgo}</span>
+                                <img src="${thumbnail}" alt="Reel Thumbnail">
+                                <div class="play-icon">▶️</div>
+                            </div>
+                            <div class="card-info">
+                                <p class="caption">${caption}</p>
+                                <a href="${postLink}" target="_blank" class="link-btn">Watch Video</a>
+                            </div>
+                        </div>
+                    `;
+                });
 
                 document.getElementById('loading').style.display = "none";
-                document.getElementById('results').style.display = "block";
-                
-                // Data ko format kar ke screen par show karna
-                document.getElementById('results').innerText = JSON.stringify(data, null, 2);
+                document.getElementById('results').innerHTML = htmlContent;
 
             } catch(error) {
                 document.getElementById('loading').style.display = "none";
-                alert("Error Detail: " + error.message);
+                alert("Error: Masla aa gaya data nikalne mein. API check karein.");
             }
         }
     </script>
