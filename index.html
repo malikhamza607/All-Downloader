@@ -52,10 +52,7 @@
             document.getElementById('results').innerHTML = "";
 
             try {
-                // Backend se data mangwana
                 const response = await fetch(`/api/search?query=${query}`);
-                
-                // Pehle as a raw text read karte hain taake agar JSON fail ho toh pata chale
                 const textData = await response.text(); 
 
                 if (!response.ok) {
@@ -69,20 +66,18 @@
                     throw new Error(`JSON Parse Error: API ne ajeeb data bheja hai:\n${textData}`);
                 }
                 
-                // --- BAAQI PURANA CODE ---
-                let allItems = data.graphql?.hashtag?.edge_hashtag_to_media?.edges 
-                            || data.data?.recent?.items 
-                            || data.data?.items 
+                // Instagram Cheapest API data structure
+                let allItems = data.data?.items 
                             || data.items 
-                            || data.edge_hashtag_to_media?.edges 
-                            || data.recent_media 
+                            || data.data 
+                            || data.graphql?.hashtag?.edge_hashtag_to_media?.edges
                             || [];
                 
-                if(allItems.length === 0) {
+                if(!Array.isArray(allItems) || allItems.length === 0) {
                     document.getElementById('loading').style.display = "none";
                     document.getElementById('results').innerHTML = `
                         <div style="grid-column: 1 / -1; width: 100%; text-align: left; background: #111; padding: 15px; border-radius: 8px;">
-                            <p style="color:#ffcc00; margin-bottom: 10px; font-weight: bold;">⚠️ UI ko videos nahi milin. Raw Data:</p>
+                            <p style="color:#ffcc00; margin-bottom: 10px; font-weight: bold;">⚠️ UI ko videos nahi milin. API ka Raw Data check karein:</p>
                             <pre style="background: #000; color: #0f0; padding: 15px; border-radius: 8px; overflow-x: auto; font-size: 12px; border: 1px solid #333; max-height: 400px;">${JSON.stringify(data, null, 2)}</pre>
                         </div>
                     `;
@@ -115,8 +110,12 @@
                     let node = item.node || item;
                     let shortcode = node.shortcode || node.code;
                     let postLink = `https://www.instagram.com/reel/${shortcode}/`;
-                    let caption = node.edge_media_to_caption?.edges[0]?.node?.text || node.caption?.text || "No Caption";
-                    let thumbnail = node.display_url || node.thumbnail_src || node.image_versions2?.candidates[0]?.url || "https://via.placeholder.com/300x400";
+                    
+                    let caption = "No Caption";
+                    if (node.caption?.text) caption = node.caption.text;
+                    else if (node.edge_media_to_caption?.edges?.[0]?.node?.text) caption = node.edge_media_to_caption.edges[0].node.text;
+
+                    let thumbnail = node.display_url || node.thumbnail_src || node.image_versions2?.candidates?.[0]?.url || "https://via.placeholder.com/300x400";
                     let uploadedTime = node.taken_at_timestamp;
                     let minutesAgo = "Just now";
                     
@@ -147,11 +146,10 @@
                 document.getElementById('results').innerHTML = htmlContent;
 
             } catch(error) {
-                // Yahan humne alert ki jagah exact error screen par dikhaya hai
                 document.getElementById('loading').style.display = "none";
                 document.getElementById('results').innerHTML = `
                     <div style="grid-column: 1 / -1; background: #222; padding: 15px; border-radius: 8px; border: 1px solid red; width: 100%;">
-                        <h3 style="color: red; margin-bottom: 10px;">❌ Asal Error Pakra Gaya:</h3>
+                        <h3 style="color: red; margin-bottom: 10px;">❌ Nayi API ka Error:</h3>
                         <p style="color: #ffcc00; font-family: monospace; white-space: pre-wrap; word-wrap: break-word;">${error.message}</p>
                     </div>
                 `;
