@@ -38,7 +38,7 @@
         <div class="header-box">
             <h2>🔥 Just Uploaded Reels/Videos</h2>
             <p style="color: #888; font-size: 14px; margin-bottom: 15px;">Search keyword to get exactly 15 latest videos uploaded minutes ago</p>
-            <input type="text" id="searchInput" placeholder="Enter keyword (e.g. funny, usedcars)">
+            <input type="text" id="searchInput" placeholder="Enter keyword (e.g. cooking)">
             <button onclick="fetchLatestVideos()">Search Videos</button>
             <div id="loading">⏳ Searching Instagram database for the newest videos...</div>
         </div>
@@ -63,35 +63,49 @@
 
                 const data = await response.json();
                 
-                // Instagram return data from different nodes depending on the endpoint
-                // We specifically look for "recent" media edges
-                let allItems = data.graphql?.hashtag?.edge_hashtag_to_media?.edges || data.data?.recent?.items || data.items || [];
+                // Zyada possible data structures check kar rahe hain
+                let allItems = data.graphql?.hashtag?.edge_hashtag_to_media?.edges 
+                            || data.data?.recent?.items 
+                            || data.data?.items 
+                            || data.items 
+                            || data.edge_hashtag_to_media?.edges 
+                            || data.recent_media 
+                            || [];
                 
+                // Agar data zero hai, toh raw JSON show karwa do taake hum error trace kar sakein
                 if(allItems.length === 0) {
                     document.getElementById('loading').style.display = "none";
-                    document.getElementById('results').innerHTML = "<p style='color:#ff4d4d;'>Koi nayi video nahi mili. Keyword change kar ke try karein.</p>";
+                    document.getElementById('results').style.display = "block";
+                    document.getElementById('results').innerHTML = `
+                        <div style="grid-column: 1 / -1; width: 100%; text-align: left; background: #111; padding: 15px; border-radius: 8px;">
+                            <p style="color:#ffcc00; margin-bottom: 10px; font-weight: bold;">⚠️ UI ko videos nahi milin. API ne yeh raw data bheja hai:</p>
+                            <p style="color:#aaa; font-size: 12px; margin-bottom: 10px;">(Neeche diye gaye data ki screenshot bhej dein taake hum code ko iske mutabiq theek kar lein)</p>
+                            <pre style="background: #000; color: #0f0; padding: 15px; border-radius: 8px; overflow-x: auto; font-size: 12px; border: 1px solid #333; max-height: 400px; overflow-y: auto;">${JSON.stringify(data, null, 2)}</pre>
+                        </div>
+                    `;
                     return;
                 }
 
-                // Sirf VIDEOS filter out karna
                 let onlyVideos = allItems.filter(item => {
                     let node = item.node || item;
                     return node.is_video === true || node.media_type === 2 || node.video_url;
                 });
 
-                // Time ke hisab se sort karna (Sab se nayi video sab se upar)
                 onlyVideos.sort((a, b) => {
                     let timeA = (b.node || b).taken_at_timestamp || 0;
                     let timeB = (a.node || a).taken_at_timestamp || 0;
-                    return timeA - timeB; // Newest first
+                    return timeA - timeB; 
                 });
 
-                // Exactly 15 videos pick karna
                 let top15Videos = onlyVideos.slice(0, 15);
 
                 if(top15Videos.length === 0) {
                     document.getElementById('loading').style.display = "none";
-                    document.getElementById('results').innerHTML = "<p style='color:#ff4d4d;'>Is keyword par abhi koi recent video upload nahi hui, sirf pictures hain.</p>";
+                    document.getElementById('results').innerHTML = `
+                        <div style="grid-column: 1 / -1; width: 100%;">
+                            <p style='color:#ff4d4d; text-align: center;'>Is keyword par data toh mila hai, par abhi koi recent video upload nahi hui (sirf pictures hain).</p>
+                        </div>
+                    `;
                     return;
                 }
 
@@ -107,7 +121,6 @@
                     let caption = node.edge_media_to_caption?.edges[0]?.node?.text || node.caption?.text || "No Caption provided";
                     let thumbnail = node.display_url || node.thumbnail_src || node.image_versions2?.candidates[0]?.url || "https://via.placeholder.com/300x400?text=Video";
                     
-                    // Upload time calculation
                     let uploadedTime = node.taken_at_timestamp;
                     let minutesAgo = "Just now";
                     if(uploadedTime) {
