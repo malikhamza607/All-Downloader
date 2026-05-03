@@ -17,15 +17,12 @@
         button:hover { background-color: #1877f2; }
         
         #loading { display: none; margin-top: 20px; color: #aaa; font-size: 16px; }
-        
         .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
         .video-card { background: #1e1e1e; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; position: relative; border: 1px solid #333;}
-        
         .thumbnail-container { position: relative; width: 100%; height: 350px; }
         .thumbnail-container img { width: 100%; height: 100%; object-fit: cover; }
         .play-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 40px; color: rgba(255,255,255,0.8); pointer-events: none;}
         .time-badge { position: absolute; top: 10px; left: 10px; background: rgba(220, 39, 67, 0.9); padding: 5px 10px; border-radius: 6px; font-size: 12px; font-weight: bold; }
-        
         .card-info { padding: 15px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
         .caption { font-size: 14px; color: #ccc; margin-bottom: 15px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
         .link-btn { display: block; text-align: center; background: #0095f6; color: white; text-decoration: none; padding: 12px; border-radius: 6px; font-weight: bold; font-size: 14px; transition: 0.3s;}
@@ -37,7 +34,7 @@
     <div class="container">
         <div class="header-box">
             <h2>🔥 Just Uploaded Reels/Videos</h2>
-            <p style="color: #888; font-size: 14px; margin-bottom: 15px;">Search keyword to get exactly 15 latest videos uploaded minutes ago</p>
+            <p style="color: #888; font-size: 14px; margin-bottom: 15px;">Search keyword to get exactly 15 latest videos</p>
             <input type="text" id="searchInput" placeholder="Enter keyword (e.g. cooking)">
             <button onclick="fetchLatestVideos()">Search Videos</button>
             <div id="loading">⏳ Searching Instagram database for the newest videos...</div>
@@ -55,15 +52,24 @@
             document.getElementById('results').innerHTML = "";
 
             try {
+                // Backend se data mangwana
                 const response = await fetch(`/api/search?query=${query}`);
                 
+                // Pehle as a raw text read karte hain taake agar JSON fail ho toh pata chale
+                const textData = await response.text(); 
+
                 if (!response.ok) {
-                    throw new Error("Failed to fetch data from backend");
+                    throw new Error(`API Status Code: ${response.status}\nDetails: ${textData}`);
                 }
 
-                const data = await response.json();
+                let data;
+                try {
+                    data = JSON.parse(textData);
+                } catch(e) {
+                    throw new Error(`JSON Parse Error: API ne ajeeb data bheja hai:\n${textData}`);
+                }
                 
-                // Zyada possible data structures check kar rahe hain
+                // --- BAAQI PURANA CODE ---
                 let allItems = data.graphql?.hashtag?.edge_hashtag_to_media?.edges 
                             || data.data?.recent?.items 
                             || data.data?.items 
@@ -72,15 +78,12 @@
                             || data.recent_media 
                             || [];
                 
-                // Agar data zero hai, toh raw JSON show karwa do taake hum error trace kar sakein
                 if(allItems.length === 0) {
                     document.getElementById('loading').style.display = "none";
-                    document.getElementById('results').style.display = "block";
                     document.getElementById('results').innerHTML = `
                         <div style="grid-column: 1 / -1; width: 100%; text-align: left; background: #111; padding: 15px; border-radius: 8px;">
-                            <p style="color:#ffcc00; margin-bottom: 10px; font-weight: bold;">⚠️ UI ko videos nahi milin. API ne yeh raw data bheja hai:</p>
-                            <p style="color:#aaa; font-size: 12px; margin-bottom: 10px;">(Neeche diye gaye data ki screenshot bhej dein taake hum code ko iske mutabiq theek kar lein)</p>
-                            <pre style="background: #000; color: #0f0; padding: 15px; border-radius: 8px; overflow-x: auto; font-size: 12px; border: 1px solid #333; max-height: 400px; overflow-y: auto;">${JSON.stringify(data, null, 2)}</pre>
+                            <p style="color:#ffcc00; margin-bottom: 10px; font-weight: bold;">⚠️ UI ko videos nahi milin. Raw Data:</p>
+                            <pre style="background: #000; color: #0f0; padding: 15px; border-radius: 8px; overflow-x: auto; font-size: 12px; border: 1px solid #333; max-height: 400px;">${JSON.stringify(data, null, 2)}</pre>
                         </div>
                     `;
                     return;
@@ -101,11 +104,7 @@
 
                 if(top15Videos.length === 0) {
                     document.getElementById('loading').style.display = "none";
-                    document.getElementById('results').innerHTML = `
-                        <div style="grid-column: 1 / -1; width: 100%;">
-                            <p style='color:#ff4d4d; text-align: center;'>Is keyword par data toh mila hai, par abhi koi recent video upload nahi hui (sirf pictures hain).</p>
-                        </div>
-                    `;
+                    document.getElementById('results').innerHTML = "<p style='color:#ff4d4d; grid-column: 1/-1; text-align: center;'>Koi nayi video nahi mili.</p>";
                     return;
                 }
 
@@ -114,15 +113,13 @@
 
                 top15Videos.forEach(item => {
                     let node = item.node || item;
-                    
                     let shortcode = node.shortcode || node.code;
                     let postLink = `https://www.instagram.com/reel/${shortcode}/`;
-                    
-                    let caption = node.edge_media_to_caption?.edges[0]?.node?.text || node.caption?.text || "No Caption provided";
-                    let thumbnail = node.display_url || node.thumbnail_src || node.image_versions2?.candidates[0]?.url || "https://via.placeholder.com/300x400?text=Video";
-                    
+                    let caption = node.edge_media_to_caption?.edges[0]?.node?.text || node.caption?.text || "No Caption";
+                    let thumbnail = node.display_url || node.thumbnail_src || node.image_versions2?.candidates[0]?.url || "https://via.placeholder.com/300x400";
                     let uploadedTime = node.taken_at_timestamp;
                     let minutesAgo = "Just now";
+                    
                     if(uploadedTime) {
                         let diffMins = Math.floor((currentTime - uploadedTime) / 60);
                         if (diffMins === 0) minutesAgo = "Just now";
@@ -135,7 +132,7 @@
                         <div class="video-card">
                             <div class="thumbnail-container">
                                 <span class="time-badge">🕒 ${minutesAgo}</span>
-                                <img src="${thumbnail}" alt="Reel Thumbnail">
+                                <img src="${thumbnail}" alt="Thumbnail">
                                 <div class="play-icon">▶️</div>
                             </div>
                             <div class="card-info">
@@ -150,8 +147,14 @@
                 document.getElementById('results').innerHTML = htmlContent;
 
             } catch(error) {
+                // Yahan humne alert ki jagah exact error screen par dikhaya hai
                 document.getElementById('loading').style.display = "none";
-                alert("Error: Masla aa gaya data nikalne mein. API check karein.");
+                document.getElementById('results').innerHTML = `
+                    <div style="grid-column: 1 / -1; background: #222; padding: 15px; border-radius: 8px; border: 1px solid red; width: 100%;">
+                        <h3 style="color: red; margin-bottom: 10px;">❌ Asal Error Pakra Gaya:</h3>
+                        <p style="color: #ffcc00; font-family: monospace; white-space: pre-wrap; word-wrap: break-word;">${error.message}</p>
+                    </div>
+                `;
             }
         }
     </script>
