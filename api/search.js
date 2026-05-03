@@ -9,12 +9,12 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'Query is required' });
     }
 
-    const url = `https://instagram-looter2.p.rapidapi.com/search?query=${query}`;
+    // YEH LINE MAIN HAI - Yahan pehle '/search?query=' tha, ab isko '/hashtag?hashtag=' kar diya hai taake videos aayein
+    const url = `https://instagram-looter2.p.rapidapi.com/hashtag?hashtag=${query}`;
 
     const options = {
         method: 'GET',
         headers: {
-            // Maine yahan direct aapki API key daal di hai
             'X-RapidAPI-Key': '07e23ed9dbmsh948471f391f4f0fp10ef2bjsn55cdc8e01ce5', 
             'X-RapidAPI-Host': 'instagram-looter2.p.rapidapi.com'
         }
