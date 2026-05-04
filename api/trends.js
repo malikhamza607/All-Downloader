@@ -1,27 +1,30 @@
 export default async function handler(req, res) {
+    // Tumhari details jo screenshot mein thin
     const options = {
         method: 'GET',
         headers: {
-            'Content-Type': 'application/json',
-            'x-rapidapi-host': 'tiktok-api23.p.rapidapi.com',
-            // Note: Screenshot mein tumhari API key show ho rahi thi, maine wahi yahan daal di hai
-            // Lekin hamesha koshish karo ke API key environment variables (process.env) mein rakho
-            'x-rapidapi-key': '07e23ed9dbmsh948471f391f4f0fp10ef2bjsn55cdc8e01ce5' 
+            'x-rapidapi-key': '07e23ed9dbmsh948471f391f4f0fp10ef2bjsn55cdc8e01ce5',
+            'x-rapidapi-host': 'tiktok-api23.p.rapidapi.com'
         }
     };
 
     try {
-        // Screenshot wala exact URL aur parameters
-        const url = 'https://tiktok-api23.p.rapidapi.com/api/user/oldest-posts?secUid=MS4wLjABAAAAqB08cUbXaDWqbD6MCga2RbGTuhfO2EsHayBYx08NDrN7IE3jqURDNNN6YwyfH6_6&count=30&cursor=0';
+        // Trending Feed endpoint for Pakistan (PK)
+        // Is se humein trending videos ka data milega jis se hum sounds nikalenge
+        const url = 'https://tiktok-api23.p.rapidapi.com/api/trending/feed?region=PK&count=20';
         
         const response = await fetch(url, options);
         const data = await response.json();
 
-        // Frontend ko successfully data bhej do
-        res.status(200).json(data);
+        // Agar API se data mil jata hai toh usay agay bhej do
+        if (data && (data.itemList || data.data)) {
+            res.status(200).json(data);
+        } else {
+            res.status(404).json({ error: 'Koi trending data nahi mila' });
+        }
         
     } catch (error) {
-        console.error("Error agaya:", error);
-        res.status(500).json({ error: 'TikTok API se data fetch karne mein masla aya' });
+        console.error("Backend Error:", error);
+        res.status(500).json({ error: 'TikTok API se connect karne mein masla aya' });
     }
 }
