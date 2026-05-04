@@ -12,7 +12,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            background-color: #0a0a0a; /* Deep dark background */
+            background-color: #0a0a0a;
             color: #ffffff;
             display: flex;
             flex-direction: column;
@@ -27,7 +27,6 @@
         }
         header h1 {
             font-size: 2.5rem;
-            /* Gold metallic text effect */
             background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
             -webkit-background-clip: text;
             background-clip: text;
@@ -48,13 +47,13 @@
             border-radius: 15px;
             padding: 25px;
             border: 1px solid #3a2e12;
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.15); /* Gold shadow */
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.15);
             margin-bottom: 20px;
         }
         .card h2 {
             font-size: 1.6rem;
             margin-bottom: 20px;
-            color: #d4af37; /* Metallic Gold */
+            color: #d4af37;
             border-bottom: 1px solid #3a2e12;
             padding-bottom: 10px;
             text-align: center;
@@ -64,7 +63,6 @@
             gap: 10px;
         }
         
-        /* Sound Items Styling */
         .sound-item {
             background: #111;
             margin-bottom: 15px;
@@ -171,9 +169,10 @@
         function formatNumber(num) {
             if (!num) return "Trending";
             const n = parseInt(num);
-            if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M Videos';
-            if (n >= 1000) return (n / 1000).toFixed(1) + 'K Videos';
-            return n + ' Videos';
+            if (isNaN(n)) return num; // Agar pehle se string ho
+            if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M Uses';
+            if (n >= 1000) return (n / 1000).toFixed(1) + 'K Uses';
+            return n + ' Uses';
         }
 
         async function fetchTrendingSounds() {
@@ -189,37 +188,35 @@
             try {
                 // Tumhare Vercel backend /api/trends ko call kar raha hai
                 const response = await fetch('/api/trends'); 
-                const data = await response.json();
+                const apiResponse = await response.json();
 
                 loading.style.display = 'none';
                 resultsCard.style.display = 'block';
                 soundList.innerHTML = '';
 
                 // API Error Handling
-                if (data.error) {
-                    soundList.innerHTML = `<p class="error-msg">${data.error}</p>`;
+                if (apiResponse.error) {
+                    soundList.innerHTML = `<p class="error-msg">${apiResponse.error}</p>`;
                     btn.style.display = 'block';
                     return;
                 }
 
-                // RapidAPI ke different structures ko handle karne ka logic
-                // API data list mein bhejtay hain, hum check kar rahay hain ke array kahan hai
-                const sounds = data.itemList || data.musicList || data.data || (Array.isArray(data) ? data : []);
+                // Tumhari API "data" naam ke array mein details bhejti hai
+                const sounds = apiResponse.data || [];
 
                 if (sounds.length === 0) {
-                    soundList.innerHTML = `<p style="text-align:center; color:#888;">Koi trending sound nahi mila ya API ka masla hai.</p>`;
+                    soundList.innerHTML = `<p style="text-align:center; color:#888;">Data nahi mila. Shayad backend mein region parameters set nahi hain.</p>`;
                     btn.style.display = 'block';
                     return;
                 }
 
-                // Top 15 sounds loop kar ke UI par show karna
+                // Sounds loop kar ke UI par show karna
                 sounds.slice(0, 15).forEach(item => {
-                    // API mein keys ke naam different ho sakte hain, is liye fallback add kiye hain
-                    const musicData = item.music || item; 
-                    const title = musicData.title || musicData.musicName || "Unknown Track";
-                    const author = musicData.authorName || musicData.artist || "Unknown Artist";
-                    const useCount = item.stats?.videoCount || musicData.playUrl?.useCount || item.videoCount || 0;
-                    const duration = musicData.duration ? musicData.duration + "s" : "";
+                    // API ke response ke hisaab se keys set ki hain
+                    const title = item.title || item.name || "Unknown Track";
+                    const author = item.author || item.artist || "Unknown Artist";
+                    const useCount = item.playCount || item.useCount || item.views || 0;
+                    const duration = item.duration ? item.duration + "s" : "";
 
                     const soundHTML = `
                         <div class="sound-item">
