@@ -4,7 +4,7 @@ export default async function handler(req, res) {
         method: 'GET',
         headers: {
             'x-rapidapi-key': '07e23ed9dbmsh948471f391f4f0fp10ef2bjsn55cdc8e01ce5',
-            'x-rapidapi-host': 'tiktok-api23.p.rapidapi.com'
+            'x-rapidapi-host': 'tiktok-trending1.p.rapidapi.com'
         }
     };
 
