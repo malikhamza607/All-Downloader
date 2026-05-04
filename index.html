@@ -35,11 +35,8 @@
             font-size: 1.1rem;
         }
         .container {
-            max-width: 900px;
+            max-width: 500px; /* Thora chota kiya hai takay single card acha lagay */
             width: 100%;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
         }
         .card {
             background: #1a1a1a;
@@ -59,6 +56,7 @@
             color: #fe0979;
             border-bottom: 2px solid #333;
             padding-bottom: 10px;
+            text-align: center;
         }
         ul {
             list-style: none;
@@ -105,21 +103,10 @@
 
     <header>
         <h1>Trend Analyzer PRO</h1>
-        <p>Discover Viral TikTok Hashtags & Sounds instantly</p>
+        <p>Discover Viral TikTok Sounds instantly</p>
     </header>
 
     <div class="container" id="results" style="opacity: 0.5; pointer-events: none;">
-        <!-- Trending Hashtags Section -->
-        <div class="card">
-            <h2>🔥 Top Hashtags</h2>
-            <ul id="hashtag-list">
-                <li>#Foryou <span class="trend-stats">Data hidden</span></li>
-                <li>#Viral <span class="trend-stats">Data hidden</span></li>
-                <li>#Trending <span class="trend-stats">Data hidden</span></li>
-                <li>#Tech <span class="trend-stats">Data hidden</span></li>
-            </ul>
-        </div>
-
         <!-- Trending Sounds Section -->
         <div class="card">
             <h2>🎵 Viral Sounds</h2>
@@ -136,25 +123,18 @@
     <button class="btn-analyze" onclick="analyzeTrends()">Scan Today's Trends</button>
 
     <script>
-        const hashtags = [
-            { name: "#Foryoupage", views: "14.2B Views" },
-            { name: "#GrowthHacks", views: "5.1M Views" },
-            { name: "#ViralVideo", views: "9.8B Views" },
-            { name: "#TechTips", views: "2.3M Views" }
-        ];
-
         const sounds = [
             { name: "Sigma Grindset (Remix)", uses: "850K Videos" },
             { name: "Chill Lofi Beats", uses: "1.2M Videos" },
             { name: "Funny Suspense Sound", uses: "500K Videos" },
-            { name: "Aesthetic Cinematic", uses: "2.1M Videos" }
+            { name: "Aesthetic Cinematic", uses: "2.1M Videos" },
+            { name: "Sped Up Pop Song", uses: "3.4M Videos" }
         ];
 
         function analyzeTrends() {
             const btn = document.querySelector('.btn-analyze');
             const loading = document.getElementById('loading');
             const results = document.getElementById('results');
-            const hashList = document.getElementById('hashtag-list');
             const soundList = document.getElementById('sound-list');
 
             btn.style.display = 'none';
@@ -165,12 +145,6 @@
                 loading.style.display = 'none';
                 results.style.opacity = '1';
                 results.style.pointerEvents = 'auto';
-
-                // Update Hashtags
-                hashList.innerHTML = '';
-                hashtags.forEach(tag => {
-                    hashList.innerHTML += `<li>${tag.name} <span class="trend-stats">${tag.views}</span></li>`;
-                });
 
                 // Update Sounds
                 soundList.innerHTML = '';
@@ -183,4 +157,3 @@
     </script>
 </body>
 </html>
-
