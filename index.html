@@ -3,83 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up Page</title>
+    <title>App Sign Up</title>
     <style>
-        /* Basic styling - Aap isay apni marzi se design kar sakte hain */
+        /* Dark Black & Gold Theme */
         body { 
             font-family: sans-serif; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
             height: 100vh; 
-            background-color: #f4f4f4; 
-            margin: 0;
+            background-color: #0a0a0a; 
+            margin: 0; 
+            color: #ffffff; 
         }
         .container { 
-            background: white; 
+            background: #1a1a1a; 
             padding: 30px; 
-            border-radius: 8px; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+            border-radius: 12px; 
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2); 
             text-align: center; 
-            width: 90%;
-            max-width: 350px;
+            width: 85%;
+            max-width: 350px; 
+            border: 1px solid #d4af37; 
+        }
+        h2 { 
+            color: #d4af37; /* Gold */
+            margin-bottom: 5px;
+        }
+        p {
+            font-size: 14px;
+            color: #aaaaaa;
+            margin-bottom: 20px;
+        }
+        input { 
+            width: 90%; 
+            padding: 12px; 
+            margin-top: 10px; 
+            border: 1px solid #333; 
+            border-radius: 6px; 
+            background: #2a2a2a; 
+            color: white; 
+            font-size: 15px;
+        }
+        input:focus {
+            outline: none;
+            border-color: #d4af37;
         }
         button { 
-            padding: 12px 20px; 
-            background: #000; /* Dark black theme jo aapko pasand hai */
-            color: #d4af37; /* Gold color ka text */
+            padding: 14px 20px; 
+            background: linear-gradient(135deg, #d4af37, #aa8529); 
+            color: #000; 
             border: none; 
-            border-radius: 5px; 
+            border-radius: 6px; 
             cursor: pointer; 
             font-size: 16px;
             font-weight: bold;
             width: 100%;
-            margin-top: 15px;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+        button:disabled { 
+            background: #555; 
+            cursor: not-allowed; 
+            color: #888;
         }
         #loading { 
             display: none; 
-            font-size: 18px;
-            font-weight: bold;
+            font-size: 20px;
+            font-weight: bold; 
+            color: #d4af37; 
         }
     </style>
 </head>
 <body>
 
-    <!-- Loading Text (Jab check ho raha ho aur direct link open ho) -->
     <div id="loading">Loading...</div>
 
-    <!-- Signup Form -->
     <div class="container" id="signup-box">
-        <h2>Welcome</h2>
-        <p>Aage barhne ke liye Sign Up karein.</p>
+        <h2>Sign Up</h2>
+        <p>App use karne ke liye details darj karein</p>
         
-        <!-- Aap yahan inputs bhi daal sakte hain agar zaroorat ho -->
-        <!-- <input type="text" placeholder="Name" /> -->
+        <input type="text" id="userName" placeholder="Aapka Naam" required />
+        <input type="email" id="userEmail" placeholder="Aapka Email" required />
         
-        <button onclick="handleSignup()">Sign Up</button>
+        <button id="submitBtn" onclick="handleSignup()">Continue</button>
     </div>
 
     <script>
-        // 1. YAHAN APNA LINK DAALEIN
+        // 1. YAHAN APNA EMAIL DAALEIN JAHAN DETAILS CHAHIYE
+        const adminEmail = "aapka.email@gmail.com"; 
+
+        // 2. YAHAN APNA TARGET LINK DAALEIN
         const targetLink = "https://aapka-link-yahan-dalen.com";
 
-        // 2. Jab page load ho, check karein ke user pehle aa chuka hai?
         window.onload = function() {
             if (localStorage.getItem("isSignedUp") === "true") {
-                // Agar true hai, to signup box chupayen aur direct link khol dein
                 document.getElementById("signup-box").style.display = "none";
                 document.getElementById("loading").style.display = "block";
                 window.location.href = targetLink;
             }
         };
 
-        // 3. Signup button click hone par kya hoga?
         function handleSignup() {
-            // LocalStorage mein yaad rakh len ke user ne signup kar liya hai
-            localStorage.setItem("isSignedUp", "true");
-            
-            // User ko us link par bhej dein
-            window.location.href = targetLink;
+            const name = document.getElementById("userName").value;
+            const email = document.getElementById("userEmail").value;
+            const btn = document.getElementById("submitBtn");
+
+            // Agar inputs khali hain to aage mat barhein
+            if(name === "" || email === "") {
+                alert("Baraye meharbani apna naam aur email likhein.");
+                return;
+            }
+
+            btn.innerText = "Processing...";
+            btn.disabled = true;
+
+            // FormSubmit ke zariye email par data bhejna (Bina page refresh kiye)
+            fetch(`https://formsubmit.co/ajax/${adminEmail}`, {
+                method: "POST",
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    Name: name,
+                    Email: email,
+                    Message: "Naya User Sign Up!"
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Email chali gayi, ab browser ko bata dein ke signup ho chuka hai
+                localStorage.setItem("isSignedUp", "true");
+                
+                // User ko asal link par bhej dein
+                window.location.href = targetLink;
+            })
+            .catch(error => {
+                alert("Koi masla aa gaya, apna internet connection check karein.");
+                btn.innerText = "Continue";
+                btn.disabled = false;
+            });
         }
     </script>
 </body>
