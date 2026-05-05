@@ -3,244 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Viral Sounds Tracker - PK</title>
+    <title>Sign Up Page</title>
     <style>
-        * {
+        /* Basic styling - Aap isay apni marzi se design kar sakte hain */
+        body { 
+            font-family: sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            background-color: #f4f4f4; 
             margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        body {
-            background-color: #0a0a0a;
-            color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-            min-height: 100vh;
+        .container { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+            text-align: center; 
+            width: 90%;
+            max-width: 350px;
         }
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-            margin-top: 20px;
-        }
-        header h1 {
-            font-size: 2.5rem;
-            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0px 2px 4px rgba(0,0,0,0.5);
-        }
-        header p {
-            color: #a0a0a0;
-            margin-top: 10px;
-            font-size: 1.1rem;
-        }
-        .container {
-            max-width: 650px;
+        button { 
+            padding: 12px 20px; 
+            background: #000; /* Dark black theme jo aapko pasand hai */
+            color: #d4af37; /* Gold color ka text */
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            font-size: 16px;
+            font-weight: bold;
             width: 100%;
+            margin-top: 15px;
         }
-        .card {
-            background: linear-gradient(145deg, #151515, #1a1a1a);
-            border-radius: 15px;
-            padding: 25px;
-            border: 1px solid #3a2e12;
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.15);
-            margin-bottom: 20px;
-        }
-        .card h2 {
-            font-size: 1.6rem;
-            margin-bottom: 20px;
-            color: #d4af37;
-            border-bottom: 1px solid #3a2e12;
-            padding-bottom: 10px;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        
-        .sound-item {
-            background: #111;
-            margin-bottom: 15px;
-            padding: 15px 20px;
-            border-radius: 10px;
-            border-left: 4px solid #d4af37;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            transition: transform 0.2s ease;
-        }
-        .sound-item:hover {
-            transform: translateX(5px);
-            background: #181818;
-        }
-        .sound-title {
-            font-size: 1.2rem;
+        #loading { 
+            display: none; 
+            font-size: 18px;
             font-weight: bold;
-            color: #fcf6ba;
-        }
-        .sound-author {
-            font-size: 0.9rem;
-            color: #888;
-        }
-        .sound-stats {
-            display: flex;
-            gap: 15px;
-            font-size: 0.85rem;
-            color: #ccc;
-            margin-top: 5px;
-        }
-        .stat-badge {
-            background: #222;
-            padding: 4px 10px;
-            border-radius: 5px;
-            color: #d4af37;
-            font-weight: bold;
-            border: 1px solid #332800;
-        }
-
-        .btn-fetch {
-            background: linear-gradient(45deg, #bf953f, #aa771c);
-            color: #000;
-            border: none;
-            padding: 15px 35px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 30px;
-            cursor: pointer;
-            display: block;
-            margin: 20px auto;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
-        }
-        .btn-fetch:hover {
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
-            transform: translateY(-2px);
-        }
-        #loading {
-            display: none;
-            text-align: center;
-            margin-top: 20px;
-            color: #d4af37;
-            font-weight: bold;
-            font-size: 1.1rem;
-            animation: pulse 1.5s infinite;
-        }
-        @keyframes pulse {
-            0% { opacity: 0.6; }
-            50% { opacity: 1; }
-            100% { opacity: 0.6; }
-        }
-        .error-msg {
-            color: #ff4d4d;
-            text-align: center;
-            margin-top: 10px;
-            background: rgba(255, 77, 77, 0.1);
-            padding: 10px;
-            border-radius: 8px;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Viral Sounds PK</h1>
-        <p>Top Trending Audio Tracks on TikTok Today</p>
-    </header>
+    <!-- Loading Text (Jab check ho raha ho aur direct link open ho) -->
+    <div id="loading">Loading...</div>
 
-    <div class="container">
-        <button class="btn-fetch" id="fetchBtn" onclick="fetchTrendingSounds()">Scan Trending Sounds</button>
-        <p id="loading">🎵 Fetching Live Audio Trends...</p>
-
-        <div class="card" id="resultsCard" style="display: none;">
-            <h2>🎵 Pakistan Top Sounds</h2>
-            <div id="sound-list">
-                <!-- Sounds data API se yahan insert hoga -->
-            </div>
-        </div>
+    <!-- Signup Form -->
+    <div class="container" id="signup-box">
+        <h2>Welcome</h2>
+        <p>Aage barhne ke liye Sign Up karein.</p>
+        
+        <!-- Aap yahan inputs bhi daal sakte hain agar zaroorat ho -->
+        <!-- <input type="text" placeholder="Name" /> -->
+        
+        <button onclick="handleSignup()">Sign Up</button>
     </div>
 
     <script>
-        // Number formatting (e.g., 1500000 -> 1.5M)
-        function formatNumber(num) {
-            if (!num) return "Trending";
-            const n = parseInt(num);
-            if (isNaN(n)) return num; // Agar pehle se string ho
-            if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M Uses';
-            if (n >= 1000) return (n / 1000).toFixed(1) + 'K Uses';
-            return n + ' Uses';
-        }
+        // 1. YAHAN APNA LINK DAALEIN
+        const targetLink = "https://aapka-link-yahan-dalen.com";
 
-        async function fetchTrendingSounds() {
-            const btn = document.getElementById('fetchBtn');
-            const loading = document.getElementById('loading');
-            const resultsCard = document.getElementById('resultsCard');
-            const soundList = document.getElementById('sound-list');
-
-            btn.style.display = 'none';
-            loading.style.display = 'block';
-            resultsCard.style.display = 'none';
-
-            try {
-                // Tumhare Vercel backend /api/trends ko call kar raha hai
-                const response = await fetch('/api/trends'); 
-                const apiResponse = await response.json();
-
-                loading.style.display = 'none';
-                resultsCard.style.display = 'block';
-                soundList.innerHTML = '';
-
-                // API Error Handling
-                if (apiResponse.error) {
-                    soundList.innerHTML = `<p class="error-msg">${apiResponse.error}</p>`;
-                    btn.style.display = 'block';
-                    return;
-                }
-
-                // Tumhari API "data" naam ke array mein details bhejti hai
-                const sounds = apiResponse.data || [];
-
-                if (sounds.length === 0) {
-                    soundList.innerHTML = `<p style="text-align:center; color:#888;">Data nahi mila. Shayad backend mein region parameters set nahi hain.</p>`;
-                    btn.style.display = 'block';
-                    return;
-                }
-
-                // Sounds loop kar ke UI par show karna
-                sounds.slice(0, 15).forEach(item => {
-                    // API ke response ke hisaab se keys set ki hain
-                    const title = item.title || item.name || "Unknown Track";
-                    const author = item.author || item.artist || "Unknown Artist";
-                    const useCount = item.playCount || item.useCount || item.views || 0;
-                    const duration = item.duration ? item.duration + "s" : "";
-
-                    const soundHTML = `
-                        <div class="sound-item">
-                            <div class="sound-title">${title}</div>
-                            <div class="sound-author">🎤 ${author}</div>
-                            <div class="sound-stats">
-                                ${useCount ? `<span>🔥 <span class="stat-badge">${formatNumber(useCount)}</span></span>` : ''}
-                                ${duration ? `<span>⏱️ <span class="stat-badge">${duration}</span></span>` : ''}
-                            </div>
-                        </div>
-                    `;
-                    soundList.innerHTML += soundHTML;
-                });
-
-                btn.style.display = 'block';
-                btn.innerText = 'Refresh Sound Trends';
-
-            } catch (error) {
-                loading.style.display = 'none';
-                resultsCard.style.display = 'block';
-                soundList.innerHTML = `<p class="error-msg">Backend se connect nahi ho saka. Vercel par api/trends.js check karo.</p>`;
-                btn.style.display = 'block';
-                console.error("Fetch error:", error);
+        // 2. Jab page load ho, check karein ke user pehle aa chuka hai?
+        window.onload = function() {
+            if (localStorage.getItem("isSignedUp") === "true") {
+                // Agar true hai, to signup box chupayen aur direct link khol dein
+                document.getElementById("signup-box").style.display = "none";
+                document.getElementById("loading").style.display = "block";
+                window.location.href = targetLink;
             }
+        };
+
+        // 3. Signup button click hone par kya hoga?
+        function handleSignup() {
+            // LocalStorage mein yaad rakh len ke user ne signup kar liya hai
+            localStorage.setItem("isSignedUp", "true");
+            
+            // User ko us link par bhej dein
+            window.location.href = targetLink;
         }
     </script>
 </body>
