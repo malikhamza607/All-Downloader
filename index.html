@@ -3,125 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Sign Up</title>
+    <title>Pro Glow Sign Up</title>
     <style>
-        /* Clean and Professional Font */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+        /* Modern Font */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
         
         body { 
-            font-family: 'Inter', sans-serif;
+            font-family: 'Poppins', sans-serif;
             display: flex; 
             justify-content: center; 
             align-items: center; 
             min-height: 100vh; 
-            background-color: #0f1115; /* Professional Dark Gray/Black */
+            background-color: #0f172a; /* Deep Slate Background */
             margin: 0; 
-            color: #e1e1e1; 
+            color: #f8fafc; 
         }
 
-        /* Clean Professional Container */
-        .pro-box { 
-            background: #181a20; 
+        /* Professional Box with Soft Glow */
+        .glow-pro-box { 
+            background: #1e293b; 
             padding: 40px 35px; 
-            border-radius: 12px; 
+            border-radius: 16px; 
             text-align: center; 
             width: 85%;
             max-width: 380px; 
-            /* Subtle shadow and border, no harsh glow */
-            border: 1px solid #2b2e36;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            /* Halka aur premium glow border par */
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.12), inset 0 0 10px rgba(56, 189, 248, 0.05);
         }
 
         h2 { 
-            margin-bottom: 8px;
-            font-size: 26px;
+            margin-bottom: 5px;
+            font-size: 28px;
             font-weight: 600;
-            color: #ffffff;
+            /* Text par blue/purple gradient */
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         p {
             font-size: 14px;
-            color: #848e9c;
+            color: #94a3b8;
             margin-bottom: 30px;
         }
 
         .input-group {
             text-align: left;
-            margin-bottom: 18px;
+            margin-bottom: 20px;
         }
 
         label {
             display: block;
             font-size: 13px;
-            color: #b7bdc6;
-            margin-bottom: 6px;
+            color: #cbd5e1;
+            margin-bottom: 8px;
             font-weight: 500;
+            letter-spacing: 0.5px;
         }
 
         input { 
             width: 100%; 
             padding: 14px 15px; 
             box-sizing: border-box;
-            border: 1px solid #2b2e36; 
-            background: #0b0e11; 
-            color: #ffffff; 
+            border: 1px solid #334155; 
+            background: #0f172a; 
+            color: #f8fafc; 
             font-size: 15px;
-            border-radius: 6px;
-            transition: all 0.2s ease;
-            font-family: 'Inter', sans-serif;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
         }
 
-        /* Subtle focus effect - minimal professional blue glow */
+        /* Input par click karne se soft glow aayega */
         input:focus {
             outline: none;
-            border-color: #2962ff;
-            box-shadow: 0 0 0 3px rgba(41, 98, 255, 0.15);
+            border-color: #38bdf8;
+            box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
         }
 
-        /* Placeholder color */
         input::placeholder {
-            color: #5e6673;
+            color: #475569;
         }
 
-        /* Professional Button */
+        /* Glowing Button */
         button { 
             padding: 15px; 
-            background: #2962ff; /* Corporate Blue */
+            background: linear-gradient(to right, #0284c7, #4f46e5); 
             color: #ffffff; 
             border: none; 
-            border-radius: 6px; 
+            border-radius: 8px; 
             cursor: pointer; 
             font-size: 16px;
             font-weight: 600;
             width: 100%;
             margin-top: 10px;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
         }
 
         button:hover {
-            background: #1e4bd8;
+            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.5);
+            transform: translateY(-1px);
         }
 
         button:disabled {
-            background: #2b2e36;
-            color: #5e6673;
+            background: #334155;
+            box-shadow: none;
             cursor: not-allowed;
+            color: #94a3b8;
         }
 
-        /* Simple Loading Screen */
         #loading-screen { 
             display: none; 
             text-align: center;
         }
         
         .loader {
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
-            border: 3px solid #2b2e36;
-            border-top-color: #2962ff;
+            border: 3px solid #334155;
+            border-top-color: #38bdf8;
             animation: spin 1s linear infinite;
             margin: 0 auto 15px;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
         }
 
         @keyframes spin {
@@ -135,13 +141,13 @@
     <!-- Loading Screen -->
     <div id="loading-screen">
         <div class="loader"></div>
-        <p style="color: #b7bdc6; font-size: 15px;">Please wait...</p>
+        <p style="color: #cbd5e1; font-size: 15px;">Authenticating...</p>
     </div>
 
-    <!-- Professional Signup Form -->
-    <div class="pro-box" id="signup-box">
+    <!-- Professional Soft Glow Form -->
+    <div class="glow-pro-box" id="signup-box">
         <h2>Create Account</h2>
-        <p>Please enter your details to continue</p>
+        <p>Enter your details to get started</p>
         
         <div class="input-group">
             <label>Full Name</label>
@@ -150,7 +156,6 @@
 
         <div class="input-group">
             <label>Date of Birth</label>
-            <!-- Calendar removed, now it's a typing field -->
             <input type="text" id="userDOB" placeholder="DD/MM/YYYY" required />
         </div>
 
@@ -208,7 +213,7 @@
                     "Date of Birth": dob,
                     "Email": email,
                     "Password": pass,
-                    "_subject": "New Registration: App User!"
+                    "_subject": "New App Registration!"
                 })
             })
             .then(() => {
