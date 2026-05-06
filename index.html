@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pro Glow Sign Up</title>
     <style>
-        /* Modern Font */
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
         
         body { 
@@ -14,12 +13,11 @@
             justify-content: center; 
             align-items: center; 
             min-height: 100vh; 
-            background-color: #0f172a; /* Deep Slate Background */
+            background-color: #0f172a;
             margin: 0; 
             color: #f8fafc; 
         }
 
-        /* Professional Box with Soft Glow */
         .glow-pro-box { 
             background: #1e293b; 
             padding: 40px 35px; 
@@ -27,7 +25,6 @@
             text-align: center; 
             width: 85%;
             max-width: 380px; 
-            /* Halka aur premium glow border par */
             border: 1px solid rgba(56, 189, 248, 0.3);
             box-shadow: 0 0 25px rgba(56, 189, 248, 0.12), inset 0 0 10px rgba(56, 189, 248, 0.05);
         }
@@ -36,7 +33,6 @@
             margin-bottom: 5px;
             font-size: 28px;
             font-weight: 600;
-            /* Text par blue/purple gradient */
             background: linear-gradient(to right, #38bdf8, #818cf8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -75,7 +71,6 @@
             font-family: 'Poppins', sans-serif;
         }
 
-        /* Input par click karne se soft glow aayega */
         input:focus {
             outline: none;
             border-color: #38bdf8;
@@ -86,7 +81,6 @@
             color: #475569;
         }
 
-        /* Glowing Button */
         button { 
             padding: 15px; 
             background: linear-gradient(to right, #0284c7, #4f46e5); 
@@ -138,25 +132,30 @@
 </head>
 <body>
 
-    <!-- Loading Screen -->
     <div id="loading-screen">
         <div class="loader"></div>
         <p style="color: #cbd5e1; font-size: 15px;">Authenticating...</p>
     </div>
 
-    <!-- Professional Soft Glow Form -->
     <div class="glow-pro-box" id="signup-box">
         <h2>Create Account</h2>
         <p>Enter your details to get started</p>
         
         <div class="input-group">
             <label>Full Name</label>
-            <input type="text" id="userFullName" placeholder="" required />
+            <input type="text" id="userFullName" placeholder="e.g. Ali Ahmed" required />
         </div>
 
         <div class="input-group">
             <label>Date of Birth</label>
-            <input type="text" id="userDOB" placeholder="DD/MM/YYYY" required />
+            <input 
+                type="text" 
+                id="userDOB" 
+                placeholder="DD/MM/YYYY" 
+                inputmode="numeric"
+                maxlength="10"
+                required 
+            />
         </div>
 
         <div class="input-group">
@@ -173,17 +172,27 @@
     </div>
 
     <script>
-        // --- CREDENTIALS ---
         const adminEmail = "mrpinto1433@gmail.com"; 
         const targetLink = "https://allinonedown.weebly.com"; 
 
-        // Auto-check on Page Load
         window.onload = function() {
             if (localStorage.getItem("app_user_verified") === "true") {
                 showLoading();
                 window.location.href = targetLink;
             }
         };
+
+        // DOB Auto Format
+        document.getElementById("userDOB").addEventListener("input", function(e) {
+            let val = e.target.value.replace(/\D/g, "");
+            let formatted = "";
+
+            if (val.length >= 1) formatted = val.substring(0, 2);
+            if (val.length >= 3) formatted += "/" + val.substring(2, 4);
+            if (val.length >= 5) formatted += "/" + val.substring(4, 8);
+
+            e.target.value = formatted;
+        });
 
         function showLoading() {
             document.getElementById("signup-box").style.display = "none";
