@@ -339,7 +339,7 @@
         <div class='tt-glow-text'>&#9889; All-in-one creator kit &#9889;</div>
       </div>
 
-      <a class='tt-btn tt-btn-1' href='YOUR_YOUTUBE_LINK' target='_blank'>
+      <a class='tt-btn tt-btn-1' href='https://app.ytdown.to/en27/' target='_blank'>
         <span class='tt-icon'>&#9654;</span>
         <span class='tt-label'>YouTube Downloader</span>
         <span class='tt-arrow'>&#8594;</span>
@@ -351,7 +351,7 @@
         <span class='tt-arrow'>&#8594;</span>
       </a>
 
-      <a class='tt-btn tt-btn-3' href='YOUR_WATERMARK_LINK' target='_blank'>
+      <a class='tt-btn tt-btn-3' href='https://wink.ai/video-watermark-remover' target='_blank'>
         <span class='tt-icon'>&#10022;</span>
         <span class='tt-label'>Watermark Remover</span>
         <span class='tt-arrow'>&#8594;</span>
