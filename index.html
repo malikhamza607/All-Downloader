@@ -124,7 +124,7 @@
             background: rgba(15, 23, 42, 0.4);
             padding: 18px;
             border-radius: 14px;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
@@ -148,37 +148,29 @@
             font-size: 14px;
         }
 
-        /* Primary Action Button */
-        .btn-update {
-            display: block;
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #38bdf8 0%, #6366f1 100%);
-            color: #ffffff;
+        /* Simple Text Link (No Button Style) */
+        .link-update {
+            display: inline-block;
+            color: #38bdf8;
             text-decoration: none;
             font-size: 16px;
             font-weight: 600;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
-            transition: all 0.3s ease;
-            border: none;
+            transition: color 0.3s ease;
             cursor: pointer;
+            padding: 5px 0;
+            border-bottom: 1px dashed rgba(56, 189, 248, 0.4);
         }
 
-        .btn-update:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4);
-        }
-
-        .btn-update:active {
-            transform: translateY(1px);
+        .link-update:hover {
+            color: #818cf8;
+            border-bottom-color: #818cf8;
         }
 
         /* Secondary Info text */
         .footer-note {
             font-size: 11px;
             color: #64748b;
-            margin-top: 15px;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -197,12 +189,12 @@
         <p>A brand new version of the app is ready. Please update now to continue enjoying uninterrupted access and explore the latest features.</p>
         
         <div class="features-list">
-            <div class="feature-item">Supercharged performance & speed</div>
-            <div class="feature-item">Brand new UI enhancements</div>
-            <div class="feature-item">Critical security updates & bug fixes</div>
+            <div class="feature-item">Performance improvements and optimizations</div>
+            <div class="feature-item">Minor bug fixes and stability enhancements</div>
+            <div class="feature-item">User interface updates for a better experience</div>
         </div>
 
-        <a href="#" class="btn-update">Update App Now</a>
+       
         
         <div class="footer-note">It only takes a few moments to get the best experience.</div>
     </div>
