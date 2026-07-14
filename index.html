@@ -7,40 +7,48 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
         
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Poppins', sans-serif; 
+        }
         
         body { 
             background-color: #0b0713; /* Deep Dark Violet/Black */
             color: #fff; 
             display: flex; 
             justify-content: center; 
-            align-items: center; 
+            align-items: flex-start; /* Aligns content to top for natural scrolling */
             min-height: 100vh; 
-            padding: 20px; 
+            padding: 20px 15px; 
             position: relative;
             overflow-x: hidden;
+            overflow-y: auto; /* Ensures smooth vertical scrolling */
+            -webkit-overflow-scrolling: touch; /* Smooth scroll for iOS devices */
         }
 
         /* Center Glowing Aura Effect */
         body::before {
             content: '';
             position: absolute;
-            width: 350px;
-            height: 350px;
+            width: 300px;
+            height: 300px;
             background: linear-gradient(45deg, #f72585, #7209b7, #3a0ca3, #4361ee, #4cc9f0);
-            filter: blur(120px);
+            filter: blur(100px);
             border-radius: 50%;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 0;
-            opacity: 0.45;
+            opacity: 0.35;
             animation: pulseGlow 8s ease-in-out infinite alternate;
+            pointer-events: none;
         }
 
         @keyframes pulseGlow {
-            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; }
-            100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.55; }
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+            100% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.45; }
         }
 
         /* Floating Particles Background Animation */
@@ -56,42 +64,43 @@
 
         .particle {
             position: absolute;
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             border-radius: 2px;
-            opacity: 0.7;
+            opacity: 0.6;
             animation: floatParticle 10s linear infinite;
         }
 
         @keyframes floatParticle {
             0% { transform: translateY(105vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.7; }
-            90% { opacity: 0.7; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
             100% { transform: translateY(-5vh) rotate(360deg); opacity: 0; }
         }
 
-        /* Main Wrapper */
+        /* Main Wrapper - 100% mobile width optimized */
         .main-wrapper {
             width: 100%;
-            max-width: 440px;
+            max-width: 400px; /* Perfect for modern mobile devices */
             z-index: 2;
             display: flex;
             flex-direction: column;
             gap: 16px;
+            padding-bottom: 20px; /* Space at bottom for scrolling */
         }
 
         /* Header Card Style */
         .header-box {
             background: #171226;
             border-radius: 20px;
-            padding: 25px 20px;
+            padding: 20px 15px;
             text-align: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
         }
 
         .header-box h2 {
             font-weight: 800;
-            font-size: 26px;
+            font-size: 24px;
             letter-spacing: -0.5px;
             background: linear-gradient(to right, #00f5d4, #00bbf9, #9b5de5, #f15bb5);
             -webkit-background-clip: text;
@@ -99,7 +108,7 @@
         }
 
         .header-box p {
-            font-size: 11px;
+            font-size: 10px;
             color: #7b7495;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -119,7 +128,7 @@
         .glass-card {
             background: #171226;
             border-radius: 19px;
-            padding: 30px 22px;
+            padding: 22px 18px;
             text-align: left;
         }
 
@@ -128,8 +137,8 @@
             background: rgba(0, 245, 212, 0.08);
             border: 1px dashed #00f5d4;
             border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 25px;
+            padding: 14px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -137,19 +146,43 @@
         }
 
         .highlight-box .icon {
-            font-size: 24px;
+            font-size: 22px;
         }
 
         .highlight-text {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             color: #00f5d4;
             line-height: 1.4;
         }
 
+        /* Security/Alert Box Style */
+        .alert-box {
+            background: rgba(247, 37, 133, 0.08);
+            border: 1px dashed #f72585;
+            border-radius: 12px;
+            padding: 14px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 0 15px rgba(247, 37, 133, 0.1);
+        }
+
+        .alert-box .icon {
+            font-size: 22px;
+        }
+
+        .alert-text {
+            font-size: 13px;
+            font-weight: 600;
+            color: #f72585;
+            line-height: 1.4;
+        }
+
         /* Important Note Title */
         .note-title {
-            font-size: 12px;
+            font-size: 11px;
             color: #f72585;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -174,14 +207,14 @@
         .content-list {
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 15px;
         }
 
         .info-step {
             background: #0f0b1b;
             border: 1px solid #2d2547;
             border-radius: 12px;
-            padding: 16px;
+            padding: 14px;
             display: flex;
             gap: 12px;
             align-items: flex-start;
@@ -190,54 +223,24 @@
         .info-step .num {
             background: #2d2547;
             color: #4cc9f0;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 700;
-            padding: 4px 10px;
+            padding: 3px 8px;
             border-radius: 20px;
             border: 1px solid #3d335c;
         }
 
         .info-step p {
-            font-size: 13px;
+            font-size: 12px;
             color: #cbd5e1;
             line-height: 1.5;
             flex: 1;
         }
 
-        /* Button Style */
-        .action-btn {
-            width: 100%; 
-            padding: 16px; 
-            margin-top: 25px; 
-            border: none; 
-            border-radius: 12px;
-            background: linear-gradient(to right, #7209b7, #f72585);
-            color: white; 
-            font-size: 16px; 
-            font-weight: 600; 
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(247, 37, 133, 0.3); 
-            transition: all 0.3s ease;
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .action-btn:hover {
-            box-shadow: 0 6px 20px rgba(247, 37, 133, 0.5);
-            transform: translateY(-1px);
-        }
-
-        .action-btn:active {
-            transform: translateY(1px);
-        }
-
         /* Footer */
         .footer-text {
             text-align: center;
-            font-size: 10px;
+            font-size: 9px;
             color: #4f476f;
             text-transform: uppercase;
             letter-spacing: 3px;
@@ -292,19 +295,15 @@
                 </div>
             </div>
 
-
-
- </div>
+            <!-- HIGHLIGHTED LINE (Safety/Temporary Message Info) -->
+            <div class="alert-box">
+                <span class="icon">🛡️</span>
+                <div class="alert-text">
+                    This was created to keep everyone safe. This important notification will disappear soon, and the app will go back to normal!
+                </div>
             </div>
 
-          
-          <!-- HIGHLIGHTED LINE (Bugs Fixed Info) -->
-            <div class="highlight-box">
-                <span class="icon">⚡</span>
-                <div class="highlight-text">
-                    This was created to keep everyone safe. This important notification will disappear soon, and the app will go back to normal.!
-                </div>
-       </div>
+        </div>
     </div>
 
     <!-- Bottom Small Brand Footer -->
