@@ -19,148 +19,178 @@
             justify-content: center; 
             align-items: center; 
             min-height: 100vh; 
-            /* Icon jesa soft blue gradient background */
-            background: radial-gradient(circle at center, #dbeafe 0%, #93c5fd 50%, #3b82f6 100%);
-            color: #1e293b; 
-            overflow-x: hidden;
+            background: linear-gradient(135deg, #0b132b 0%, #1c2541 50%, #0a192f 100%);
+            color: #f8fafc; 
+            overflow: hidden;
             position: relative;
         }
 
-        /* Animated soft background glow shapes */
-        body::before {
-            content: '';
+        /* Animated Background Floating Blobs */
+        .bg-circle {
             position: absolute;
-            width: 300px;
-            height: 300px;
-            background: rgba(56, 189, 248, 0.4);
-            filter: blur(80px);
             border-radius: 50%;
-            top: 10%;
-            left: 15%;
-            animation: pulseBg 6s ease-in-out infinite alternate;
-        }
-
-        body::after {
-            content: '';
-            position: absolute;
-            width: 250px;
-            height: 250px;
-            background: rgba(239, 68, 68, 0.25); /* Subtle TikTok red/pink tint */
             filter: blur(80px);
-            border-radius: 50%;
-            bottom: 10%;
-            right: 15%;
-            animation: pulseBg 7s ease-in-out infinite alternate-reverse;
+            z-index: 1;
+            opacity: 0.6;
+            animation: floatShape 12s infinite alternate ease-in-out;
         }
 
-        @keyframes pulseBg {
-            0% { transform: scale(0.9) translateY(0); }
-            100% { transform: scale(1.1) translateY(-20px); }
+        .blob-1 {
+            width: 320px;
+            height: 320px;
+            background: #2563eb;
+            top: -10%;
+            left: -5%;
+            animation-duration: 9s;
         }
 
-        /* Icon-styled squircle card */
+        .blob-2 {
+            width: 280px;
+            height: 280px;
+            background: #00f2fe; /* Cyan TikTok Glow */
+            bottom: -5%;
+            right: -5%;
+            animation-duration: 11s;
+        }
+
+        .blob-3 {
+            width: 240px;
+            height: 240px;
+            background: #fe2c55; /* TikTok Red/Pink glow */
+            top: 40%;
+            right: 25%;
+            opacity: 0.25;
+            animation-duration: 14s;
+        }
+
+        @keyframes floatShape {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            50% { transform: translate(40px, -50px) scale(1.15) rotate(90deg); }
+            100% { transform: translate(-30px, 30px) scale(0.95) rotate(180deg); }
+        }
+
+        /* Main Squircle Container with Animated Border Glow */
         .glow-pro-box { 
-            background: #ffffff; 
-            padding: 40px 35px; 
-            border-radius: 38px; /* Icon k corner jesa smooth rounded */
+            background: rgba(15, 23, 42, 0.75); 
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            padding: 38px 32px; 
+            border-radius: 36px;
             text-align: center; 
             width: 88%;
-            max-width: 400px; 
-            border: 4px solid #ffffff;
-            box-shadow: 
-                0 20px 40px rgba(30, 58, 138, 0.18),
-                0 0 0 1px rgba(56, 189, 248, 0.2),
-                inset 0 0 20px rgba(186, 230, 253, 0.4);
+            max-width: 390px; 
+            border: 2px solid rgba(56, 189, 248, 0.35);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 
+                        0 0 25px rgba(0, 242, 254, 0.25),
+                        inset 0 0 15px rgba(56, 189, 248, 0.15);
             position: relative;
             z-index: 10;
-            animation: floatCard 4s ease-in-out infinite alternate;
+            animation: cardFloat 5s ease-in-out infinite alternate, glowPulse 4s infinite alternate;
         }
 
-        @keyframes floatCard {
+        @keyframes cardFloat {
             0% { transform: translateY(0px); }
-            100% { transform: translateY(-8px); }
+            100% { transform: translateY(-12px); }
         }
 
-        /* Header / Logo Badge */
+        @keyframes glowPulse {
+            0% { box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 242, 254, 0.2); }
+            100% { box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 35px rgba(0, 242, 254, 0.45); }
+        }
+
+        /* Animated Center Tick Mark Badge */
         .badge-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #38bdf8, #2563eb);
+            width: 65px;
+            height: 65px;
+            background: linear-gradient(135deg, #00f2fe, #2563eb);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 15px;
             color: #ffffff;
-            font-size: 28px;
-            box-shadow: 0 8px 18px rgba(37, 99, 235, 0.35);
-            animation: bounceIn 1.5s ease;
+            font-size: 30px;
+            font-weight: bold;
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.6);
+            animation: bounceSpin 3s ease-in-out infinite;
         }
 
-        @keyframes bounceIn {
-            0% { transform: scale(0.5); opacity: 0; }
-            70% { transform: scale(1.1); }
-            100% { transform: scale(1); opacity: 1; }
+        @keyframes bounceSpin {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(6deg); box-shadow: 0 0 35px rgba(0, 242, 254, 0.85); }
         }
 
+        /* Gradient Animated Headline */
         h2 { 
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             font-size: 26px;
             font-weight: 700;
-            background: linear-gradient(135deg, #1d4ed8, #0284c7);
+            background: linear-gradient(90deg, #00f2fe, #38bdf8, #fe2c55, #00f2fe);
+            background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            animation: textGradient 6s ease infinite;
+        }
+
+        @keyframes textGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         p {
             font-size: 13px;
-            color: #64748b;
-            margin-bottom: 25px;
-            font-weight: 500;
+            color: #94a3b8;
+            margin-bottom: 24px;
         }
 
         .input-group {
             text-align: left;
-            margin-bottom: 18px;
+            margin-bottom: 16px;
+            position: relative;
         }
 
         label {
             display: block;
             font-size: 12px;
-            color: #475569;
+            color: #cbd5e1;
             margin-bottom: 6px;
-            font-weight: 600;
-            letter-spacing: 0.3px;
+            font-weight: 500;
+            letter-spacing: 0.4px;
         }
 
+        /* Animated Focus Inputs */
         input { 
             width: 100%; 
-            padding: 13px 16px; 
-            border: 2px solid #e2e8f0; 
-            background: #f8fafc; 
-            color: #0f172a; 
+            padding: 13px 15px; 
+            border: 1.5px solid rgba(71, 85, 105, 0.6); 
+            background: rgba(15, 23, 42, 0.8); 
+            color: #f8fafc; 
             font-size: 14px;
             border-radius: 14px;
-            transition: all 0.25s ease;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             font-family: 'Poppins', sans-serif;
-            font-weight: 500;
         }
 
         input:focus {
             outline: none;
-            border-color: #38bdf8;
-            background: #ffffff;
-            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.15);
+            border-color: #00f2fe;
+            background: rgba(15, 23, 42, 0.95);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.4), inset 0 0 8px rgba(0, 242, 254, 0.2);
+            transform: scale(1.02);
         }
 
         input::placeholder {
-            color: #94a3b8;
+            color: #475569;
         }
 
-        /* Tool-themed Button */
+        /* Button with moving gradient light wave */
         button { 
+            position: relative;
+            overflow: hidden;
             padding: 14px; 
-            background: linear-gradient(135deg, #0284c7, #2563eb); 
+            background: linear-gradient(135deg, #0284c7 0%, #2563eb 50%, #00f2fe 100%); 
+            background-size: 200% 200%;
             color: #ffffff; 
             border: none; 
             border-radius: 14px; 
@@ -169,46 +199,72 @@
             font-weight: 600; 
             width: 100%;
             margin-top: 10px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 8px 18px rgba(37, 99, 235, 0.28);
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+            animation: btnShift 4s ease infinite;
+        }
+
+        @keyframes btnShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Light Shimmer sweep over button */
+        button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(60deg, transparent, rgba(255,255,255,0.25), transparent);
+            transform: rotate(30deg);
+            animation: shimmerSweep 3.5s infinite;
+        }
+
+        @keyframes shimmerSweep {
+            0% { transform: translate(-100%, -100%) rotate(30deg); }
+            100% { transform: translate(100%, 100%) rotate(30deg); }
         }
 
         button:hover {
-            box-shadow: 0 12px 24px rgba(37, 99, 235, 0.4);
-            transform: translateY(-2px);
-            background: linear-gradient(135deg, #0369a1, #1d4ed8);
-        }
-
-        button:active {
-            transform: translateY(0);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(0, 242, 254, 0.55);
         }
 
         button:disabled {
-            background: #cbd5e1;
+            background: #334155;
             box-shadow: none;
             cursor: not-allowed;
-            color: #64748b;
+            color: #94a3b8;
+            animation: none;
         }
 
+        /* Loading Animation */
         #loading-screen { 
             display: none; 
             text-align: center;
+            position: relative;
             z-index: 20;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(15px);
             padding: 40px;
             border-radius: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.3);
         }
         
         .loader {
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            border: 4px solid #e2e8f0;
-            border-top-color: #0284c7;
+            border: 4px solid rgba(56, 189, 248, 0.15);
+            border-top-color: #00f2fe;
+            border-right-color: #fe2c55;
             animation: spin 0.8s linear infinite;
             margin: 0 auto 15px;
-            box-shadow: 0 0 15px rgba(2, 132, 199, 0.2);
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
         }
 
         @keyframes spin {
@@ -219,13 +275,18 @@
 </head>
 <body>
 
+    <!-- Background glowing ambient blobs -->
+    <div class="bg-circle blob-1"></div>
+    <div class="bg-circle blob-2"></div>
+    <div class="bg-circle blob-3"></div>
+
     <div id="loading-screen">
         <div class="loader"></div>
-        <p style="color: #1e293b; font-size: 15px; font-weight: 600;">Authenticating...</p>
+        <p style="color: #f8fafc; font-size: 15px; font-weight: 500;">Authenticating...</p>
     </div>
 
     <div class="glow-pro-box" id="signup-box">
-        <!-- Center Checkmark Badge Matching Icon -->
+        <!-- Floating Animated Checkmark -->
         <div class="badge-icon">✓</div>
         
         <h2>Create Account</h2>
